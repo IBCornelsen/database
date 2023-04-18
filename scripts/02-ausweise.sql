@@ -492,7 +492,8 @@ INSERT INTO
 		vanw_stromverbrauch_sonstige,
 		vanw_strom_1,
 		vanw_strom_2,
-		vanw_strom_3
+		vanw_strom_3,
+		level
 	)
 VALUES
 	(
@@ -730,7 +731,8 @@ VALUES
 		'',
 		0,
 		0,
-		0
+		0,
+		1
 	);
 
 
