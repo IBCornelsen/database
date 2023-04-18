@@ -252,6 +252,7 @@ CREATE TABLE IF NOT EXISTS public.ausweise (
 	vanw_strom_1 integer DEFAULT NULL,
 	vanw_strom_2 integer DEFAULT NULL,
 	vanw_strom_3 integer DEFAULT NULL,
+	level integer DEFAULT 4,
 	CONSTRAINT "PK_AUSWEISE" PRIMARY KEY (id),
 	UNIQUE(public_id)
 );
