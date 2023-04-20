@@ -70,7 +70,7 @@
 					"name": "VersandAdressen_id",
 					"datatype": "integer",
 					"pk": false,
-					"nn": true,
+					"nn": false,
 					"comment": "",
 					"defaultvalue": "",
 					"data": "",
@@ -89,7 +89,7 @@
 					"name": "GebaeudeAdressen_id",
 					"datatype": "integer",
 					"pk": false,
-					"nn": true,
+					"nn": false,
 					"comment": "",
 					"defaultvalue": "",
 					"data": "",
@@ -108,7 +108,7 @@
 					"name": "RechnungsAdressen_id",
 					"datatype": "integer",
 					"pk": false,
-					"nn": true,
+					"nn": false,
 					"comment": "",
 					"defaultvalue": "",
 					"data": "",
@@ -1799,7 +1799,7 @@
 		"replaceSpace": "_",
 		"color": "transparent",
 		"sideSelections": true,
-		"isDirty": true,
+		"isDirty": false,
 		"storedin": {
 			"major": 6,
 			"minor": 2,
@@ -1836,7 +1836,7 @@
 			"indexes": true,
 			"relations": true
 		},
-		"lastSaved": "Wed Apr 19 2023 14:41:37 GMT+0400 (Georgia Standard Time)",
+		"lastSaved": "Wed Apr 19 2023 15:33:01 GMT+0400 (Georgia Standard Time)",
 		"customDataTypes": []
 	},
 	"otherObjects": {},
@@ -1965,7 +1965,7 @@
 				},
 				"f385968c-7520-4f1f-b7c0-fa49796e9d05": {
 					"referencedItemId": "f385968c-7520-4f1f-b7c0-fa49796e9d05",
-					"x": 167,
+					"x": 170,
 					"y": 666,
 					"gHeight": 45,
 					"gWidth": 150,

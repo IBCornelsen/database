@@ -10,6 +10,6 @@ CREATE TABLE IF NOT EXISTS public.users
 );
 
 INSERT INTO users (email, password, uid) VALUES
-('user@ib-cornelsen.de', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', '2a330cb8-3975-4112-9a62-80c4cc0d3b2e');
+('user@ib-cornelsen.de', '4de9def1a42a1086859e4de1647a5915262d19f129ddd05252d0dcf37da51a0cef0fdc5331e64eb0e060ee92159f88c1', '2a330cb8-3975-4112-9a62-80c4cc0d3b2e');
 
 END;
