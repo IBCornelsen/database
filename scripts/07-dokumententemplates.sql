@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS public.documenttemplates (
 -- ('gutachten', 'Gutachten', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, s', 1, 't', 3, '123e4567-e89b-12d3-a456-426614174000', '2023-04-13 09:57:11','2023-04-13 09:57:11');
 
 ALTER TABLE documenttemplates
-  ADD CONSTRAINT USERS_FK FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT BENUTZER_FK FOREIGN KEY (user_id) REFERENCES benutzer (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE documenttemplates
   ADD CONSTRAINT DOCUMENTTYPES_FK FOREIGN KEY (documenttype) REFERENCES documenttypes (id) ON DELETE CASCADE ON UPDATE CASCADE;  
