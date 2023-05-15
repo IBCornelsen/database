@@ -33,11 +33,14 @@ CREATE TABLE benutzer(
   uid uuid DEFAULT gen_random_uuid(),
   email varchar(255) NOT NULL,
   passwort varchar(255) NOT NULL,
+  adressen_id integer,
   CONSTRAINT benutzer_pkey PRIMARY KEY(id)
 );
 
   CREATE UNIQUE INDEX benutzer_email_idx ON benutzer(email);
   
+COMMENT ON COLUMN benutzer.adressen_id IS 'Primäre Adresse des Benutzers';
+
 CREATE TABLE energieausweise(
   id serial NOT NULL,
   uid uuid NOT NULL DEFAULT gen_random_uuid(),
@@ -49,7 +52,7 @@ CREATE TABLE energieausweise(
   ausstellgrund varchar,
   registriernummer varchar,
   erledigt bool,
-  baujahr_anlage integer,
+  baujahr_anlage integer[],
   CONSTRAINT energieausweise_pkey PRIMARY KEY(id)
 );
 
@@ -84,7 +87,7 @@ CREATE TABLE gebaeude(
   strasse varchar,
   gebaeudeteil varchar,
   saniert bool,
-  baujahr integer,
+  baujahr integer[],
   einheiten integer,
   wohnflaeche integer,
   keller_beheizt bool,
@@ -243,5 +246,9 @@ ALTER TABLE anteilshaber
 ALTER TABLE anteilshaber
   ADD CONSTRAINT anteilshaber_gebaeude_id_fkey
     FOREIGN KEY (gebaeude_id) REFERENCES gebaeude (id);
+
+ALTER TABLE benutzer
+  ADD CONSTRAINT benutzer_adressen_id_fkey
+    FOREIGN KEY (adressen_id) REFERENCES adressen (id);
 
 END;

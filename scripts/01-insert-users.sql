@@ -1,3 +1,4 @@
+-- Dummy Benutzer
 INSERT INTO
 	benutzer (email, passwort, name, vorname)
 VALUES

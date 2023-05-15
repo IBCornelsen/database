@@ -203,7 +203,7 @@
 					"defaultvalue": "",
 					"data": "",
 					"collation": null,
-					"list": false,
+					"list": true,
 					"after": "",
 					"pg": {
 						"generatedIdentity": "no"
@@ -1523,13 +1523,34 @@
 					},
 					"estimatedSize": "",
 					"binary": false
+				},
+				{
+					"id": "39ff0cc7-0d63-451c-b16e-f752250ca786",
+					"name": "adressen_id",
+					"datatype": "integer",
+					"pk": false,
+					"nn": false,
+					"comment": "Primäre Adresse des Benutzers",
+					"defaultvalue": "",
+					"data": "",
+					"collation": null,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no"
+					},
+					"param": "",
+					"list": false,
+					"estimatedSize": "",
+					"fk": true,
+					"ref": "adressen"
 				}
 			],
 			"relations": [
 				"78070414-b491-4db2-b440-51d326612d61",
 				"df271ba6-dc20-432a-bd7e-885c1c509e32",
 				"f8c8ba87-bdb8-4746-bd09-26cc1233e60e",
-				"0c4a0a58-448c-443a-89a1-564945cf1b5c"
+				"0c4a0a58-448c-443a-89a1-564945cf1b5c",
+				"d51a4395-bf08-47b7-ac78-e8834277717f"
 			],
 			"lines": [],
 			"keys": [
@@ -1784,7 +1805,7 @@
 					"defaultvalue": "",
 					"data": "",
 					"collation": null,
-					"list": false,
+					"list": true,
 					"after": "",
 					"pg": {
 						"generatedIdentity": "no"
@@ -2748,7 +2769,8 @@
 			],
 			"relations": [
 				"df271ba6-dc20-432a-bd7e-885c1c509e32",
-				"000d8a53-0a9b-400c-9d15-bd76e8ad7ccc"
+				"000d8a53-0a9b-400c-9d15-bd76e8ad7ccc",
+				"d51a4395-bf08-47b7-ac78-e8834277717f"
 			],
 			"lines": [],
 			"keys": [
@@ -3398,6 +3420,31 @@
 			],
 			"generate": true,
 			"generateCustomCode": true
+		},
+		"d51a4395-bf08-47b7-ac78-e8834277717f": {
+			"id": "d51a4395-bf08-47b7-ac78-e8834277717f",
+			"visible": true,
+			"name": "benutzer_adressen_id_fkey",
+			"desc": "",
+			"type": "identifying",
+			"parent_key": "09fb35f6-4524-4eaf-8c4a-49402789c1b4",
+			"parent": "58cd46ee-2e24-4ad3-8784-ce11498bd532",
+			"child": "6550a2ac-7521-4c67-8de7-727a96da9434",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_p": "one",
+			"c_ch": "many",
+			"c_cp": "",
+			"c_cch": "",
+			"cols": [
+				{
+					"id": "6d04040b-d7c3-4db2-ac46-311f7a6856d0",
+					"parentcol": "2455aeb0-e947-4185-a05a-b43d8661a2c0",
+					"childcol": "39ff0cc7-0d63-451c-b16e-f752250ca786"
+				}
+			],
+			"generate": true,
+			"generateCustomCode": true
 		}
 	},
 	"notes": {
@@ -3437,7 +3484,7 @@
 		"replaceSpace": "_",
 		"color": "transparent",
 		"sideSelections": true,
-		"isDirty": true,
+		"isDirty": false,
 		"storedin": {
 			"major": 6,
 			"minor": 2,
@@ -3474,7 +3521,7 @@
 			"indexes": true,
 			"relations": true
 		},
-		"lastSaved": "Thu May 11 2023 19:54:52 GMT+0400 (Georgia Standard Time)"
+		"lastSaved": "Mon May 15 2023 15:19:23 GMT+0400 (Georgia Standard Time)"
 	},
 	"otherObjects": {},
 	"diagrams": {
@@ -3505,7 +3552,7 @@
 					"referencedItemId": "6550a2ac-7521-4c67-8de7-727a96da9434",
 					"x": 263,
 					"y": 375,
-					"gHeight": 135,
+					"gHeight": 153,
 					"gWidth": 217,
 					"color": "#ffffff",
 					"background": "#4caf50",
@@ -3702,7 +3749,8 @@
 		"000d8a53-0a9b-400c-9d15-bd76e8ad7ccc",
 		"f8c8ba87-bdb8-4746-bd09-26cc1233e60e",
 		"0c4a0a58-448c-443a-89a1-564945cf1b5c",
-		"c5735140-8b4f-4aa6-8928-16253e2b25a1"
+		"c5735140-8b4f-4aa6-8928-16253e2b25a1",
+		"d51a4395-bf08-47b7-ac78-e8834277717f"
 	],
 	"collapsedTreeItems": [],
 	"reverseStats": {}
