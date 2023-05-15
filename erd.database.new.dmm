@@ -1525,11 +1525,11 @@
 					"binary": false
 				},
 				{
-					"id": "39ff0cc7-0d63-451c-b16e-f752250ca786",
+					"id": "84e64947-c8e4-4217-ba7b-2a949b1b0325",
 					"name": "adressen_id",
 					"datatype": "integer",
 					"pk": false,
-					"nn": false,
+					"nn": true,
 					"comment": "Primäre Adresse des Benutzers",
 					"defaultvalue": "",
 					"data": "",
@@ -1550,7 +1550,7 @@
 				"df271ba6-dc20-432a-bd7e-885c1c509e32",
 				"f8c8ba87-bdb8-4746-bd09-26cc1233e60e",
 				"0c4a0a58-448c-443a-89a1-564945cf1b5c",
-				"d51a4395-bf08-47b7-ac78-e8834277717f"
+				"10359743-f699-4f50-8252-4fe0ef9e48d4"
 			],
 			"lines": [],
 			"keys": [
@@ -2770,7 +2770,7 @@
 			"relations": [
 				"df271ba6-dc20-432a-bd7e-885c1c509e32",
 				"000d8a53-0a9b-400c-9d15-bd76e8ad7ccc",
-				"d51a4395-bf08-47b7-ac78-e8834277717f"
+				"10359743-f699-4f50-8252-4fe0ef9e48d4"
 			],
 			"lines": [],
 			"keys": [
@@ -3421,8 +3421,8 @@
 			"generate": true,
 			"generateCustomCode": true
 		},
-		"d51a4395-bf08-47b7-ac78-e8834277717f": {
-			"id": "d51a4395-bf08-47b7-ac78-e8834277717f",
+		"10359743-f699-4f50-8252-4fe0ef9e48d4": {
+			"id": "10359743-f699-4f50-8252-4fe0ef9e48d4",
 			"visible": true,
 			"name": "benutzer_adressen_id_fkey",
 			"desc": "",
@@ -3438,9 +3438,9 @@
 			"c_cch": "",
 			"cols": [
 				{
-					"id": "6d04040b-d7c3-4db2-ac46-311f7a6856d0",
+					"id": "630e9755-3ed0-4f6a-ab23-d8c98714ba3c",
 					"parentcol": "2455aeb0-e947-4185-a05a-b43d8661a2c0",
-					"childcol": "39ff0cc7-0d63-451c-b16e-f752250ca786"
+					"childcol": "84e64947-c8e4-4217-ba7b-2a949b1b0325"
 				}
 			],
 			"generate": true,
@@ -3484,7 +3484,7 @@
 		"replaceSpace": "_",
 		"color": "transparent",
 		"sideSelections": true,
-		"isDirty": false,
+		"isDirty": true,
 		"storedin": {
 			"major": 6,
 			"minor": 2,
@@ -3521,7 +3521,7 @@
 			"indexes": true,
 			"relations": true
 		},
-		"lastSaved": "Mon May 15 2023 15:19:23 GMT+0400 (Georgia Standard Time)"
+		"lastSaved": "Mon May 15 2023 15:58:24 GMT+0400 (Georgia Standard Time)"
 	},
 	"otherObjects": {},
 	"diagrams": {
@@ -3550,7 +3550,7 @@
 				},
 				"6550a2ac-7521-4c67-8de7-727a96da9434": {
 					"referencedItemId": "6550a2ac-7521-4c67-8de7-727a96da9434",
-					"x": 263,
+					"x": 262,
 					"y": 375,
 					"gHeight": 153,
 					"gWidth": 217,
@@ -3750,7 +3750,7 @@
 		"f8c8ba87-bdb8-4746-bd09-26cc1233e60e",
 		"0c4a0a58-448c-443a-89a1-564945cf1b5c",
 		"c5735140-8b4f-4aa6-8928-16253e2b25a1",
-		"d51a4395-bf08-47b7-ac78-e8834277717f"
+		"10359743-f699-4f50-8252-4fe0ef9e48d4"
 	],
 	"collapsedTreeItems": [],
 	"reverseStats": {}
