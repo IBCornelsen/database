@@ -1,6 +1,6 @@
 BEGIN;
 
-CREATE TABLE IF NOT EXISTS public.climate_factors (
+CREATE TABLE IF NOT EXISTS public.klimafaktoren (
   zip character varying(5) COLLATE pg_catalog."default" DEFAULT NULL,
   d_02_2008 character varying(4) COLLATE pg_catalog."default" NOT NULL DEFAULT 1,
   d_03_2008 character varying(4) COLLATE pg_catalog."default" NOT NULL DEFAULT 1,

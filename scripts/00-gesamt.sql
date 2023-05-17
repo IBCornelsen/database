@@ -173,9 +173,6 @@ id serial NOT NULL, gebaeude_id integer NOT NULL,
   CONSTRAINT gebaeude_plaene_pkey PRIMARY KEY(id)
 );
 
-CREATE TABLE "Klimafaktoren"
-  (id integer NOT NULL, CONSTRAINT "Klimafaktoren_pkey" PRIMARY KEY(id));
-
 CREATE TABLE "Postleitzahlen"
   (id integer NOT NULL, CONSTRAINT "Postleitzahlen_pkey" PRIMARY KEY(id));
 
