@@ -1,0 +1,25 @@
+name: Node.js CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy using ssh
+      uses: appleboy/ssh-action@master
+      with:
+        host: "212.227.155.91"
+        username: "root"
+        password: "!2Zc727cI1"
+        port: 22
+        script: |
+          cd ~/database
+          git reset --hard HEAD
+          git clean -f -d
+          git pull origin main
+          git status
+          bash build.sh
