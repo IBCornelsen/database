@@ -19,7 +19,7 @@ git_pull_force;
 
 # Danach machen wir ein Backup der Datenbank, falls bei der Migration etwas schiefgehen sollte.
 BACKUP_FILENAME="${HOME}/backups/$(date +"%Y-%m-%d_%H-%M-%S").sql.gz"
-docker exec -t $DB_CONTAINER_NAME pg_dump --data-only -U $DB_USER main | gzip > $BACKUP_FILENAME
+docker exec -t $DB_CONTAINER_NAME pg_dump --clean --create -U $DB_USER main | gzip > $BACKUP_FILENAME
 
 # Wir stoppen die Datenbank und rebuilden das Backup
 docker stop $DB_CONTAINER_NAME
