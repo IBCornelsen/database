@@ -20,7 +20,7 @@ git_pull_force;
 # Danach machen wir ein Backup der Datenbank, falls bei der Migration etwas schiefgehen sollte.
 cd ~/backups/
 BACKUP_FILENAME="$(date +"%Y-%m-%d_%H-%M-%S").sql.gz"
-docker exec -t $DB_CONTAINER_NAME pg_dumpall -c -U $DB_USER | gzip > $BACKUP_FILENAME
+docker exec -t $DB_CONTAINER_NAME pg_dumpall --clean -U $DB_USER | gzip > $BACKUP_FILENAME
 
 # Wir stoppen die Datenbank und rebuilden das Backup
 docker stop $DB_CONTAINER_NAME
@@ -35,7 +35,13 @@ docker volume create $DB_VOLUME
 # Und starten einen neuen "database" container.
 cd ~/$DB_CONTAINER_NAME
 docker build -t $DB_CONTAINER_NAME .
-docker run -d --name $DB_CONTAINER_NAME -e POSTGRES_USER=$DB_USER -e POSTGRES_PASSWORD=$DB_PASSWORD -p $DB_PORT:5432 -v $DB_VOLUME:/var/lib/postgresql/data $DB_CONTAINER_NAME
+docker run -d --name $DB_CONTAINER_NAME \
+	-e POSTGRES_USER=$DB_USER \
+	-e POSTGRES_PASSWORD=$DB_PASSWORD \
+	-p $DB_PORT:5432 \
+	-v $DB_VOLUME:/var/lib/postgresql/data \
+	-v "${PERSISTENT_DIR}:/persistent" \
+	$DB_CONTAINER_NAME
 
 # Wir müssen warten bis die Datenbank wieder läuft.
 while ! docker exec $DB_CONTAINER_NAME pg_isready -U $DB_USER -h localhost -p $DB_PORT > /dev/null 2>&1; do
@@ -43,4 +49,4 @@ while ! docker exec $DB_CONTAINER_NAME pg_isready -U $DB_USER -h localhost -p $D
 done
 
 # Und wenden das Backup an.
-gunzip -c $BACKUP_FILENAME | docker exec -i $DB_CONTAINER_NAME psql -U $DB_USER
+gunzip -c $BACKUP_FILENAME | docker exec -i $DB_CONTAINER_NAME psql -U $DB_USER -d $DB_NAME
