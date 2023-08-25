@@ -49,3 +49,11 @@ done
 
 # Und wenden das Backup an.
 gunzip -c $BACKUP_FILENAME | docker exec -i $DB_CONTAINER_NAME psql -U $DB_USER -d postgres
+
+# Wir gehen durch alle "modifications" durch und führen die Skripte nacheinander aus
+cd ~/$DB_CONTAINER_NAME/modifications
+for f in *.sql
+do
+		echo "Processing $f file..."
+		docker exec -i $DB_CONTAINER_NAME psql -U $DB_USER -d $DB_NAME < $f
+done
