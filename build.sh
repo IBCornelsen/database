@@ -48,4 +48,4 @@ while ! docker exec $DB_CONTAINER_NAME pg_isready -U $DB_USER -h localhost -p $D
 done
 
 # Und wenden das Backup an.
-gunzip -c $BACKUP_FILENAME | docker exec -i $DB_CONTAINER_NAME psql -U $DB_USER
+gunzip -c $BACKUP_FILENAME | docker exec -i $DB_CONTAINER_NAME psql -U $DB_USER -d postgres
