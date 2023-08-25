@@ -1,4 +1,4 @@
-DELETE FROM public.benutzer WHERE email = "user@ib-cornelsen.de";
+DELETE FROM public.benutzer WHERE email = 'user@ib-cornelsen.de';
 
 -- Dummy Benutzer
 INSERT INTO
