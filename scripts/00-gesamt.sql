@@ -28,7 +28,7 @@ CREATE TABLE bedarfsausweis_wohnen(
 	uid uuid NOT NULL DEFAULT gen_random_uuid(),
 	gebaeude_stammdaten_id integer NOT NULL,
 	benutzer_id integer NOT NULL,
-	rechnungen_id integer NOT NULL,
+	rechnungen_id integer,
 	ausweisart varchar NOT NULL,
 	erstellungsdatum timestamp,
 	ausstellgrund varchar NOT NULL,
@@ -106,9 +106,9 @@ CREATE TABLE benutzer(
 	email varchar(255) NOT NULL,
 	passwort varchar(255) NOT NULL,
 	profilbild varchar,
-	benutzer_adresse_id integer NOT NULL,
-	rechnung_adresse_id integer NOT NULL,
-	versand_adresse_id integer NOT NULL,
+	benutzer_adresse_id integer,
+	rechnung_adresse_id integer,
+	versand_adresse_id integer,
 	uid uuid DEFAULT gen_random_uuid(),
 	CONSTRAINT benutzer_pkey PRIMARY KEY(id)
 );
@@ -135,7 +135,7 @@ CREATE TABLE gebaeude_plaene(
 CREATE TABLE gebaeude_stammdaten(
 	id serial NOT NULL,
 	benutzer_id integer,
-	gebaeude_adresse_id integer NOT NULL,
+	gebaeude_adresse_id integer,
 	gebaeudetyp varchar,
 	gebaeudeteil varchar,
 	baujahr_gebaeude integer [],
@@ -182,7 +182,7 @@ CREATE TABLE verbrauchsausweis_gewerbe(
 	id integer NOT NULL,
 	uid uuid NOT NULL,
 	gebaeude_stammdaten_id integer NOT NULL,
-	rechnungen_id integer NOT NULL,
+	rechnungen_id integer,
 	benutzer_id integer NOT NULL,
 	CONSTRAINT verbrauchsausweis_gewerbe_pkey PRIMARY KEY(id)
 );
@@ -192,7 +192,7 @@ CREATE TABLE verbrauchsausweis_wohnen(
 	uid uuid NOT NULL DEFAULT gen_random_uuid(),
 	gebaeude_stammdaten_id integer NOT NULL,
 	benutzer_id integer NOT NULL,
-	rechnungen_id integer NOT NULL,
+	rechnungen_id integer,
 	erstellungsdatum timestamp,
 	ausstellgrund varchar,
 	registriernummer varchar,
