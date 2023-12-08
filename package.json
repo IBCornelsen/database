@@ -1,0 +1,23 @@
+{
+  "name": "@ibcornelsen/database",
+  "module": "./src/index.ts",
+	"types": "./src/index.ts",
+  "type": "module",
+	"scripts": {
+		"postinstall": "tsc && cp src/index.d.ts dist/index.d.ts && npx prisma@2.18.0 generate",
+		"db:introspect": "dotenv -- prisma introspect",
+    "db:generate": "dotenv -- prisma generate"
+	},
+  "devDependencies": {
+    "bun-types": "latest",
+    "prisma": "^5.7.0",
+		"prisma-generator-fake-data": "latest",
+		"prisma-typegraphql-types-generator": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@prisma/client": "5.7.0"
+  }
+}

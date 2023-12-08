@@ -1,6 +1,6 @@
 FROM postgres:latest
-ENV POSTGRES_USER main
-ENV POSTGRES_PASSWORD hHMP8cd^N3SnzGRR
-ENV POSTGRES_DB main
+ENV POSTGRES_USER ${POSTGRES_DATABASE_USER}
+ENV POSTGRES_PASSWORD ${POSTGRES_DATABASE_PASSWORD}
+ENV POSTGRES_DB ${POSTGRES_DATABASE_NAME}
 
-COPY scripts /docker-entrypoint-initdb.d/
+COPY ./prisma/migrations/**/*.sql /docker-entrypoint-initdb.d/

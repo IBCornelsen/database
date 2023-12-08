@@ -1,0 +1,449 @@
+import {  } from '/home/letsmoe/Documents/IBCornelsen/IBCornelsen/database/node_modules/@prisma/client';
+import { faker } from '@faker-js/faker';
+
+
+
+export function fakePostleitzahlenComplete() {
+  return {
+    id: faker.number.int(),
+  };
+}
+export function fakeAdressen() {
+  return {
+    empfaenger_zeile_1: faker.lorem.words(5),
+    empfaenger_zeile_2: undefined,
+    strasse: faker.lorem.words(5),
+    plz: faker.lorem.words(5),
+    ort: faker.lorem.words(5),
+    geolocation: undefined,
+  };
+}
+export function fakeAdressenComplete() {
+  return {
+    id: faker.number.int(),
+    benutzer_id: faker.number.int(),
+    empfaenger_zeile_1: faker.lorem.words(5),
+    empfaenger_zeile_2: undefined,
+    strasse: faker.lorem.words(5),
+    plz: faker.lorem.words(5),
+    ort: faker.lorem.words(5),
+    geolocation: undefined,
+    uid: '[object Object]',
+  };
+}
+export function fakeAnteilshaber() {
+  return {
+    rolle: undefined,
+    privilegien: undefined,
+    uid: undefined,
+  };
+}
+export function fakeAnteilshaberComplete() {
+  return {
+    id: faker.number.int(),
+    benutzer_id: faker.number.int(),
+    gebaeude_id: faker.number.int(),
+    rolle: undefined,
+    privilegien: undefined,
+    uid: undefined,
+  };
+}
+export function fakeBedarfsausweisWohnen() {
+  return {
+    ausweisart: faker.lorem.words(5),
+    erstellungsdatum: undefined,
+    ausstellgrund: faker.lorem.words(5),
+    registriernummer: undefined,
+    erledigt: undefined,
+    saniert: undefined,
+    baujahr: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
+    einheiten: undefined,
+    wohnflaeche: undefined,
+    keller_beheizt: undefined,
+    dachgeschoss_beheizt: undefined,
+    lueftungskonzept: undefined,
+    leerstand: undefined,
+    versorgungssysteme: undefined,
+    fenster_dach: undefined,
+    energiequelle_2_nutzung: undefined,
+    daemmung: undefined,
+    anzahl_vollgeschosse: undefined,
+    geschosshoehe: undefined,
+    anzahl_gauben: undefined,
+    breite_gauben: undefined,
+    masse_a: undefined,
+    masse_b: undefined,
+    masse_c: undefined,
+    masse_d: undefined,
+    masse_e: undefined,
+    masse_f: undefined,
+    fensterflaeche_so_sw: undefined,
+    fensterflaeche_nw_no: undefined,
+    aussenwandflaeche_unbeheizt: undefined,
+    dachflaeche: undefined,
+    deckenflaeche: undefined,
+    dach_u_wert: undefined,
+    decke_u_wert: undefined,
+    aussenwand_flaeche: undefined,
+    aussenwand_u_wert: undefined,
+    fussboden_flaeche: undefined,
+    fussboden_u_wert: undefined,
+    volumen: undefined,
+    dicht: undefined,
+    fenster_flaeche_1: undefined,
+    fenster_art_1: undefined,
+    fenster_flaeche_2: undefined,
+    fenster_art_2: undefined,
+    dachfenster_flaeche: undefined,
+    dachfenster_art: undefined,
+    haustuer_flaeche: undefined,
+    haustuer_art: undefined,
+    dach_bauart: undefined,
+    decke_bauart: undefined,
+    dach_daemmung: undefined,
+    decke_daemmung: undefined,
+    aussenwand_daemmung: undefined,
+    boden_daemmung: undefined,
+    aussenwand_bauart: undefined,
+    boden_bauart: undefined,
+    warmwasser_verteilung: undefined,
+    warmwasser_speicherung: undefined,
+    warmwasser_erzeugung: undefined,
+    heizung_zentral: undefined,
+    heizung_verteilung: undefined,
+    heizung_speicherung: undefined,
+    waerme_erzeugung_heizung: undefined,
+    anteil_zusatzheizung: undefined,
+    kollektor_flaeche: undefined,
+    vanw_stromverbrauch_enthalten: undefined,
+    wird_gekuehlt: undefined,
+  };
+}
+export function fakeBedarfsausweisWohnenComplete() {
+  return {
+    id: faker.number.int(),
+    uid: '[object Object]',
+    gebaeude_stammdaten_id: faker.number.int(),
+    benutzer_id: faker.number.int(),
+    rechnungen_id: undefined,
+    ausweisart: faker.lorem.words(5),
+    erstellungsdatum: undefined,
+    ausstellgrund: faker.lorem.words(5),
+    registriernummer: undefined,
+    erledigt: undefined,
+    saniert: undefined,
+    baujahr: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
+    einheiten: undefined,
+    wohnflaeche: undefined,
+    keller_beheizt: undefined,
+    dachgeschoss_beheizt: undefined,
+    lueftungskonzept: undefined,
+    leerstand: undefined,
+    versorgungssysteme: undefined,
+    fenster_dach: undefined,
+    energiequelle_2_nutzung: undefined,
+    daemmung: undefined,
+    anzahl_vollgeschosse: undefined,
+    geschosshoehe: undefined,
+    anzahl_gauben: undefined,
+    breite_gauben: undefined,
+    masse_a: undefined,
+    masse_b: undefined,
+    masse_c: undefined,
+    masse_d: undefined,
+    masse_e: undefined,
+    masse_f: undefined,
+    fensterflaeche_so_sw: undefined,
+    fensterflaeche_nw_no: undefined,
+    aussenwandflaeche_unbeheizt: undefined,
+    dachflaeche: undefined,
+    deckenflaeche: undefined,
+    dach_u_wert: undefined,
+    decke_u_wert: undefined,
+    aussenwand_flaeche: undefined,
+    aussenwand_u_wert: undefined,
+    fussboden_flaeche: undefined,
+    fussboden_u_wert: undefined,
+    volumen: undefined,
+    dicht: undefined,
+    fenster_flaeche_1: undefined,
+    fenster_art_1: undefined,
+    fenster_flaeche_2: undefined,
+    fenster_art_2: undefined,
+    dachfenster_flaeche: undefined,
+    dachfenster_art: undefined,
+    haustuer_flaeche: undefined,
+    haustuer_art: undefined,
+    dach_bauart: undefined,
+    decke_bauart: undefined,
+    dach_daemmung: undefined,
+    decke_daemmung: undefined,
+    aussenwand_daemmung: undefined,
+    boden_daemmung: undefined,
+    aussenwand_bauart: undefined,
+    boden_bauart: undefined,
+    warmwasser_verteilung: undefined,
+    warmwasser_speicherung: undefined,
+    warmwasser_erzeugung: undefined,
+    heizung_zentral: undefined,
+    heizung_verteilung: undefined,
+    heizung_speicherung: undefined,
+    waerme_erzeugung_heizung: undefined,
+    anteil_zusatzheizung: undefined,
+    kollektor_flaeche: undefined,
+    vanw_stromverbrauch_enthalten: undefined,
+    wird_gekuehlt: undefined,
+  };
+}
+export function fakeBenutzer() {
+  return {
+    name: undefined,
+    vorname: undefined,
+    email: faker.internet.email(),
+    passwort: faker.lorem.words(5),
+    profilbild: undefined,
+    uid: undefined,
+  };
+}
+export function fakeBenutzerComplete() {
+  return {
+    id: faker.number.int(),
+    name: undefined,
+    vorname: undefined,
+    email: faker.internet.email(),
+    passwort: faker.lorem.words(5),
+    profilbild: undefined,
+    benutzer_adresse_id: undefined,
+    rechnung_adresse_id: undefined,
+    versand_adresse_id: undefined,
+    uid: undefined,
+  };
+}
+export function fakedocumenttemplates() {
+  return {
+    name: faker.person.fullName(),
+    shortdescription: faker.lorem.words(5),
+    longdescription: faker.lorem.words(5),
+    filename: faker.lorem.words(5),
+  };
+}
+export function fakedocumenttemplatesComplete() {
+  return {
+    id: faker.number.int(),
+    name: faker.person.fullName(),
+    shortdescription: faker.lorem.words(5),
+    longdescription: faker.lorem.words(5),
+    user_id: faker.number.int(),
+    is_private: true,
+    documenttype: faker.number.int(),
+    filename: faker.lorem.words(5),
+    created_at: new Date(),
+    updated_at: new Date(),
+  };
+}
+export function fakedocumenttypes() {
+  return {
+    name: faker.person.fullName(),
+    shortdescription: faker.lorem.words(5),
+    longdescription: faker.lorem.words(5),
+  };
+}
+export function fakedocumenttypesComplete() {
+  return {
+    id: faker.number.int(),
+    name: faker.person.fullName(),
+    shortdescription: faker.lorem.words(5),
+    longdescription: faker.lorem.words(5),
+  };
+}
+export function fakeGebaeudeBilder() {
+  return {
+    kategorie: faker.lorem.words(5),
+  };
+}
+export function fakeGebaeudeBilderComplete() {
+  return {
+    id: faker.number.int(),
+    gebaeude_stammdaten_id: faker.number.int(),
+    kategorie: faker.lorem.words(5),
+    uid: '[object Object]',
+  };
+}
+export function fakeGebaeudePlaene() {
+  return {
+    uid: faker.lorem.words(5),
+  };
+}
+export function fakeGebaeudePlaeneComplete() {
+  return {
+    id: faker.number.int(),
+    gebaeude_stammdaten_id: faker.number.int(),
+    uid: faker.lorem.words(5),
+  };
+}
+export function fakeGebaeudeStammdaten() {
+  return {
+    gebaeudetyp: undefined,
+    gebaeudeteil: undefined,
+    baujahr_gebaeude: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
+    baujahr_heizung: undefined,
+    baujahr_klima: undefined,
+    einheiten: undefined,
+    flaeche: undefined,
+    saniert: undefined,
+    keller: undefined,
+    dachgeschoss: undefined,
+    lueftung: undefined,
+    kuehlung: undefined,
+    leerstand: undefined,
+  };
+}
+export function fakeGebaeudeStammdatenComplete() {
+  return {
+    id: faker.number.int(),
+    uid: '[object Object]',
+    benutzer_id: undefined,
+    gebaeude_adresse_id: undefined,
+    gebaeudetyp: undefined,
+    gebaeudeteil: undefined,
+    baujahr_gebaeude: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
+    baujahr_heizung: undefined,
+    baujahr_klima: undefined,
+    einheiten: undefined,
+    flaeche: undefined,
+    saniert: undefined,
+    keller: undefined,
+    dachgeschoss: undefined,
+    lueftung: undefined,
+    kuehlung: undefined,
+    leerstand: undefined,
+  };
+}
+export function fakeRechnungen() {
+  return {
+    empfaenger_zeile_1: undefined,
+    empfaenger_zeile_2: undefined,
+    strasse: faker.lorem.words(5),
+    plz: undefined,
+    ort: undefined,
+    uid: faker.lorem.words(5),
+  };
+}
+export function fakeRechnungenComplete() {
+  return {
+    id: faker.number.int(),
+    benutzer_id: faker.number.int(),
+    empfaenger_zeile_1: undefined,
+    empfaenger_zeile_2: undefined,
+    strasse: faker.lorem.words(5),
+    plz: undefined,
+    ort: undefined,
+    uid: faker.lorem.words(5),
+  };
+}
+export function fakeTokenUsage() {
+  return {
+    resource_hash: faker.lorem.words(5),
+    payload_length: faker.number.int(),
+    response_length: faker.number.int(),
+    response_success: faker.datatype.boolean(),
+    response_code: faker.number.int(),
+  };
+}
+export function fakeTokenUsageComplete() {
+  return {
+    id: faker.number.int(),
+    token_id: faker.number.int(),
+    date: new Date(),
+    resource_hash: faker.lorem.words(5),
+    payload_length: faker.number.int(),
+    response_length: faker.number.int(),
+    response_success: faker.datatype.boolean(),
+    response_code: faker.number.int(),
+  };
+}
+export function faketokens() {
+  return {
+    token: faker.lorem.words(5),
+  };
+}
+export function faketokensComplete() {
+  return {
+    id: faker.number.int(),
+    token: faker.lorem.words(5),
+    user_id: faker.number.int(),
+    date_created: new Date(),
+    last_used: new Date(),
+    times_used: 0,
+    permissions: 0,
+  };
+}
+export function fakeVerbrauchsausweisGewerbe() {
+  return {
+    uid: faker.lorem.words(5),
+  };
+}
+export function fakeVerbrauchsausweisGewerbeComplete() {
+  return {
+    id: faker.number.int(),
+    uid: faker.lorem.words(5),
+    gebaeude_stammdaten_id: faker.number.int(),
+    rechnungen_id: undefined,
+    benutzer_id: faker.number.int(),
+  };
+}
+export function fakeVerbrauchsausweisWohnen() {
+  return {
+    erstellungsdatum: undefined,
+    ausstellgrund: undefined,
+    registriernummer: undefined,
+    erledigt: undefined,
+    baujahr_heizung: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
+    zusaetzliche_heizquelle: undefined,
+    brennstoff_1: undefined,
+    einheit_1: undefined,
+    brennstoff_2: undefined,
+    einheit_2: undefined,
+    startdatum: undefined,
+    enddatum: undefined,
+    verbrauch_1: undefined,
+    verbrauch_2: undefined,
+    verbrauch_3: undefined,
+    verbrauch_4: undefined,
+    verbrauch_5: undefined,
+    verbrauch_6: undefined,
+    warmwasser_enthalten: undefined,
+    anteil_warmwasser_1: undefined,
+    anteil_warmwasser_2: undefined,
+  };
+}
+export function fakeVerbrauchsausweisWohnenComplete() {
+  return {
+    id: faker.number.int(),
+    uid: '[object Object]',
+    gebaeude_stammdaten_id: faker.number.int(),
+    benutzer_id: faker.number.int(),
+    rechnungen_id: undefined,
+    erstellungsdatum: undefined,
+    ausstellgrund: undefined,
+    registriernummer: undefined,
+    erledigt: undefined,
+    baujahr_heizung: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
+    zusaetzliche_heizquelle: undefined,
+    brennstoff_1: undefined,
+    einheit_1: undefined,
+    brennstoff_2: undefined,
+    einheit_2: undefined,
+    startdatum: undefined,
+    enddatum: undefined,
+    verbrauch_1: undefined,
+    verbrauch_2: undefined,
+    verbrauch_3: undefined,
+    verbrauch_4: undefined,
+    verbrauch_5: undefined,
+    verbrauch_6: undefined,
+    warmwasser_enthalten: undefined,
+    anteil_warmwasser_1: undefined,
+    anteil_warmwasser_2: undefined,
+  };
+}

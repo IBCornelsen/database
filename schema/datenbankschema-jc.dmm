@@ -1144,12 +1144,34 @@
 						"generated": ""
 					},
 					"estimatedSize": ""
+				},
+				{
+					"id": "d5ffc322-e060-4d00-af0a-6084908c3ad5",
+					"name": "original_ausweis_id",
+					"datatype": "integer",
+					"pk": false,
+					"nn": false,
+					"comment": "Speichert ab, ob diese Version des Ausweises von einem bereits bestehenden abgewandelt wurde, um eine Alternative anzubieten.",
+					"defaultvalue": "",
+					"data": "",
+					"collation": null,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"generated": ""
+					},
+					"param": "",
+					"list": false,
+					"estimatedSize": "",
+					"fk": true
 				}
 			],
 			"relations": [
 				"41000933-0e87-4757-a2b2-3372e905e630",
 				"7567cd92-5fed-49f1-bbb7-34addf06841d",
-				"f0d2e0d8-7345-4cf6-ac51-f8d0789c4e72"
+				"f0d2e0d8-7345-4cf6-ac51-f8d0789c4e72",
+				"7e790e47-d625-4759-a335-1ea862cab0d8",
+				"62eab504-4204-44ab-981c-15e3b1cdc057"
 			],
 			"lines": [],
 			"keys": [
@@ -3451,7 +3473,8 @@
 			"relations": [
 				"49ebc21a-b961-4358-8654-04b2e3ddbd3e",
 				"f93dca7f-ae02-4c4e-baed-a747ee400c03",
-				"f5921b7d-a11e-4402-827f-8d0663893fe2"
+				"f5921b7d-a11e-4402-827f-8d0663893fe2",
+				"4783efae-f499-4d72-ab5b-ecf52d81c8c6"
 			],
 			"lines": [],
 			"keys": [
@@ -3592,7 +3615,8 @@
 			"relations": [
 				"271e49c6-c954-477f-bd50-da41c2eb913a",
 				"6fa060d2-fdff-43c8-bc4d-f0d1174169a6",
-				"fceb3af2-a30c-410f-bc80-1a61456603d5"
+				"fceb3af2-a30c-410f-bc80-1a61456603d5",
+				"ed1c5a17-04f3-4540-a06f-df991354b430"
 			],
 			"lines": [],
 			"keys": [
@@ -3604,6 +3628,271 @@
 						{
 							"id": "2cbebcba-8268-4396-8b5c-1a5c0ee62177",
 							"colid": "a516fac8-3f29-4866-9e54-1d414ef1e116"
+						}
+					]
+				}
+			],
+			"indexes": [],
+			"embeddable": false,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"beforeScript": "",
+			"afterScript": "",
+			"objectType": "table",
+			"pg": {
+				"rowsecurity": false,
+				"schema": "",
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"partitionNames": []
+			}
+		},
+		"77044773-ed31-4bd8-a8f5-d03441b26a34": {
+			"id": "77044773-ed31-4bd8-a8f5-d03441b26a34",
+			"visible": true,
+			"name": "berechnungen_verbrauchsausweis",
+			"desc": "",
+			"estimatedSize": "",
+			"cols": [
+				{
+					"id": "09618d30-6a1d-4024-9bde-18fd134d22fb",
+					"name": "id",
+					"datatype": "integer",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"list": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"after": "",
+					"collation": null,
+					"pg": {
+						"generatedIdentity": "no",
+						"generated": ""
+					},
+					"estimatedSize": ""
+				},
+				{
+					"id": "71ed9cef-5844-4cf5-9da4-aa7b39512315",
+					"name": "verbrauchsausweis_wohnen_id",
+					"datatype": "integer",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"collation": null,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"generated": ""
+					},
+					"param": "",
+					"list": false,
+					"estimatedSize": "",
+					"fk": true
+				},
+				{
+					"id": "0493d598-18bb-4605-b1f8-1966e093ce02",
+					"name": "versionsnummer",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": false,
+					"list": false,
+					"comment": "Die Version der Berechnung, welche dieses Ergebnis erzeugt hat.",
+					"defaultvalue": "",
+					"data": "",
+					"after": "",
+					"collation": null,
+					"pg": {
+						"generatedIdentity": "no",
+						"generated": ""
+					},
+					"estimatedSize": ""
+				}
+			],
+			"relations": [
+				"7e790e47-d625-4759-a335-1ea862cab0d8"
+			],
+			"lines": [],
+			"keys": [
+				{
+					"id": "1edf59cf-f52c-480f-988e-9cfe8f9c3f6f",
+					"name": "berechnungen_verbrauchsausweis_pkey",
+					"isPk": true,
+					"cols": [
+						{
+							"id": "7c67fb81-1da5-4207-a497-0752437dbd37",
+							"colid": "09618d30-6a1d-4024-9bde-18fd134d22fb"
+						}
+					]
+				}
+			],
+			"indexes": [],
+			"embeddable": false,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"beforeScript": "",
+			"afterScript": "",
+			"objectType": "table",
+			"pg": {
+				"rowsecurity": false,
+				"schema": "",
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"partitionNames": []
+			}
+		},
+		"3f8ba4ea-23c1-4d9c-ad01-23fbde37374a": {
+			"id": "3f8ba4ea-23c1-4d9c-ad01-23fbde37374a",
+			"visible": true,
+			"name": "berechnungen_verbrauchsausweis_gewerbe",
+			"desc": "",
+			"estimatedSize": "",
+			"cols": [
+				{
+					"id": "ae6b8a2c-b1f0-4ddf-978e-21ad74034abd",
+					"name": "id",
+					"datatype": "integer",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"list": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"after": "",
+					"collation": null,
+					"pg": {
+						"generatedIdentity": "no",
+						"generated": ""
+					},
+					"estimatedSize": ""
+				},
+				{
+					"id": "1f1355c0-4d6f-4ad6-bfae-1088ad3c9e14",
+					"name": "verbrauchsausweis_gewerbe_id",
+					"datatype": "integer",
+					"param": "",
+					"pk": false,
+					"nn": true,
+					"list": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"after": "",
+					"collation": null,
+					"pg": {
+						"generatedIdentity": "no",
+						"generated": ""
+					},
+					"estimatedSize": "",
+					"fk": true
+				}
+			],
+			"relations": [
+				"ed1c5a17-04f3-4540-a06f-df991354b430"
+			],
+			"lines": [],
+			"keys": [
+				{
+					"id": "eb13eec0-9d43-410a-973d-17433a4f349e",
+					"name": "berechnungen_verbrauchsausweis_gewerbe_pkey",
+					"isPk": true,
+					"cols": [
+						{
+							"id": "6a729ae2-eb09-4552-8975-1eb0de05da50",
+							"colid": "ae6b8a2c-b1f0-4ddf-978e-21ad74034abd"
+						}
+					]
+				}
+			],
+			"indexes": [],
+			"embeddable": false,
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": "",
+			"beforeScript": "",
+			"afterScript": "",
+			"objectType": "table",
+			"pg": {
+				"rowsecurity": false,
+				"schema": "",
+				"tablespace": "",
+				"inherits": "",
+				"storageParameters": "",
+				"partition": "",
+				"partitionNames": []
+			}
+		},
+		"7459ce20-6823-42a6-b4b8-c0ab80cdde6a": {
+			"id": "7459ce20-6823-42a6-b4b8-c0ab80cdde6a",
+			"visible": true,
+			"name": "berechnungen_bedarfsausweis_wohnen",
+			"desc": "",
+			"estimatedSize": "",
+			"cols": [
+				{
+					"id": "132cd0f1-227d-4cd3-9e3f-256451c650f9",
+					"name": "id",
+					"datatype": "integer",
+					"param": "",
+					"pk": true,
+					"nn": true,
+					"list": false,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"after": "",
+					"collation": null,
+					"pg": {
+						"generatedIdentity": "no",
+						"generated": ""
+					},
+					"estimatedSize": ""
+				},
+				{
+					"id": "afac20a9-2dc2-4199-b8a6-23135249e719",
+					"name": "bedarfsausweis_wohnen_id",
+					"datatype": "integer",
+					"pk": false,
+					"nn": true,
+					"comment": "",
+					"defaultvalue": "",
+					"data": "",
+					"collation": null,
+					"after": "",
+					"pg": {
+						"generatedIdentity": "no",
+						"generated": ""
+					},
+					"param": "",
+					"list": false,
+					"estimatedSize": "",
+					"fk": true
+				}
+			],
+			"relations": [
+				"4783efae-f499-4d72-ab5b-ecf52d81c8c6"
+			],
+			"lines": [],
+			"keys": [
+				{
+					"id": "8d68ff4d-604b-4c10-aba6-9324533720a3",
+					"name": "berechnungen_bedarfsausweis_wohnen_pkey",
+					"isPk": true,
+					"cols": [
+						{
+							"id": "39715226-8ab3-40fe-afa0-5c3b309ecd76",
+							"colid": "132cd0f1-227d-4cd3-9e3f-256451c650f9"
 						}
 					]
 				}
@@ -4147,6 +4436,110 @@
 			"generate": true,
 			"generateCustomCode": true,
 			"customCode": ""
+		},
+		"7e790e47-d625-4759-a335-1ea862cab0d8": {
+			"id": "7e790e47-d625-4759-a335-1ea862cab0d8",
+			"visible": true,
+			"name": "berechnungen_verbrauchsausweis_verbrauchsausweis_wohnen_id_fkey",
+			"desc": "",
+			"type": "identifying",
+			"parent_key": "0dfdf13d-f29b-4b3d-84d5-222d4119ef67",
+			"parent": "3565b999-9e2a-4b31-a454-d7dfa1518e09",
+			"child": "77044773-ed31-4bd8-a8f5-d03441b26a34",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_p": "one",
+			"c_ch": "many",
+			"c_cp": "",
+			"c_cch": "",
+			"cols": [
+				{
+					"id": "79eb81e0-9228-4278-b0e3-af0f502e0edc",
+					"parentcol": "ae43908b-cd3b-4d4f-a24c-418b1eb3044c",
+					"childcol": "71ed9cef-5844-4cf5-9da4-aa7b39512315"
+				}
+			],
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"ed1c5a17-04f3-4540-a06f-df991354b430": {
+			"id": "ed1c5a17-04f3-4540-a06f-df991354b430",
+			"visible": true,
+			"name": "berechnungen_verbrauchsauswei_verbrauchsausweis_gewerbe_id_fkey",
+			"desc": "",
+			"type": "identifying",
+			"parent_key": "d6fb6ccf-f293-45a7-8feb-4f44968d9ce5",
+			"parent": "82350da8-8df4-4747-8a66-df7ecd3e69c8",
+			"child": "3f8ba4ea-23c1-4d9c-ad01-23fbde37374a",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_p": "one",
+			"c_ch": "many",
+			"c_cp": "",
+			"c_cch": "",
+			"cols": [
+				{
+					"id": "3e933fc6-3856-4a1c-81c6-1219e72913ec",
+					"parentcol": "a516fac8-3f29-4866-9e54-1d414ef1e116",
+					"childcol": "1f1355c0-4d6f-4ad6-bfae-1088ad3c9e14"
+				}
+			],
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"4783efae-f499-4d72-ab5b-ecf52d81c8c6": {
+			"id": "4783efae-f499-4d72-ab5b-ecf52d81c8c6",
+			"visible": true,
+			"name": "berechnungen_bedarfsausweis_wohne_bedarfsausweis_wohnen_id_fkey",
+			"desc": "",
+			"type": "identifying",
+			"parent_key": "57755147-ffca-4177-992b-f6e4a841600a",
+			"parent": "7fcef9af-402e-47f2-bd55-baf827d260a5",
+			"child": "7459ce20-6823-42a6-b4b8-c0ab80cdde6a",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_p": "one",
+			"c_ch": "many",
+			"c_cp": "",
+			"c_cch": "",
+			"cols": [
+				{
+					"id": "24b1e807-1613-4316-9c56-64f9c534d5be",
+					"parentcol": "0d06b697-d719-41f9-9c7c-0e9818603cd4",
+					"childcol": "afac20a9-2dc2-4199-b8a6-23135249e719"
+				}
+			],
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
+		},
+		"62eab504-4204-44ab-981c-15e3b1cdc057": {
+			"id": "62eab504-4204-44ab-981c-15e3b1cdc057",
+			"visible": true,
+			"name": "verbrauchsausweis_wohnen_fkey",
+			"desc": "",
+			"type": "identifying",
+			"parent_key": "0dfdf13d-f29b-4b3d-84d5-222d4119ef67",
+			"parent": "3565b999-9e2a-4b31-a454-d7dfa1518e09",
+			"child": "3565b999-9e2a-4b31-a454-d7dfa1518e09",
+			"c_mp": "true",
+			"c_mch": "true",
+			"c_p": "one",
+			"c_ch": "many",
+			"c_cp": "",
+			"c_cch": "",
+			"cols": [
+				{
+					"id": "f9b734db-db98-451a-8620-c51776251c70",
+					"parentcol": "ae43908b-cd3b-4d4f-a24c-418b1eb3044c",
+					"childcol": "d5ffc322-e060-4d00-af0a-6084908c3ad5"
+				}
+			],
+			"generate": true,
+			"generateCustomCode": true,
+			"customCode": ""
 		}
 	},
 	"notes": {
@@ -4179,7 +4572,7 @@
 		"replaceSpace": "_",
 		"color": "transparent",
 		"sideSelections": true,
-		"isDirty": true,
+		"isDirty": false,
 		"storedin": {
 			"major": 6,
 			"minor": 2,
@@ -4211,10 +4604,15 @@
 			"indexes": true,
 			"relations": true
 		},
-		"lastSaved": "8/26/2023",
+		"lastSaved": "Tue Sep 26 2023 19:44:56 GMT+0600 (East Kazakhstan Time)",
 		"authorName": "",
 		"companyDetails": "",
-		"companyUrl": ""
+		"companyUrl": "",
+		"laststoredin": {
+			"major": 7,
+			"minor": 3,
+			"extra": 0
+		}
 	},
 	"otherObjects": {},
 	"diagrams": {
@@ -4224,7 +4622,7 @@
 			"id": "2c125b2a-8b7a-49f0-9da4-793dd36b5d43",
 			"keysgraphics": true,
 			"linegraphics": "detailed",
-			"zoom": 0.7,
+			"zoom": 1.6,
 			"background": "transparent",
 			"lineColor": "transparent",
 			"isOpen": true,
@@ -4257,9 +4655,9 @@
 				"3565b999-9e2a-4b31-a454-d7dfa1518e09": {
 					"referencedItemId": "3565b999-9e2a-4b31-a454-d7dfa1518e09",
 					"x": 1825,
-					"y": 154,
-					"gHeight": 496,
-					"gWidth": 292,
+					"y": 152,
+					"gHeight": 514,
+					"gWidth": 318,
 					"color": "#ffffff",
 					"background": "#ff5722",
 					"resized": true,
@@ -4385,6 +4783,42 @@
 					"resized": false,
 					"autoExpand": true,
 					"backgroundOpacity": "10"
+				},
+				"77044773-ed31-4bd8-a8f5-d03441b26a34": {
+					"referencedItemId": "77044773-ed31-4bd8-a8f5-d03441b26a34",
+					"x": 2279,
+					"y": 134,
+					"gHeight": 81,
+					"gWidth": 312,
+					"color": "#ffffff",
+					"background": "#03a9f4",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"3f8ba4ea-23c1-4d9c-ad01-23fbde37374a": {
+					"referencedItemId": "3f8ba4ea-23c1-4d9c-ad01-23fbde37374a",
+					"x": 2278,
+					"y": 32,
+					"gHeight": 63,
+					"gWidth": 351,
+					"color": "#ffffff",
+					"background": "#03a9f4",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
+				},
+				"7459ce20-6823-42a6-b4b8-c0ab80cdde6a": {
+					"referencedItemId": "7459ce20-6823-42a6-b4b8-c0ab80cdde6a",
+					"x": 2112,
+					"y": 770,
+					"gHeight": 63,
+					"gWidth": 321,
+					"color": "#ffffff",
+					"background": "#03a9f4",
+					"resized": false,
+					"autoExpand": true,
+					"backgroundOpacity": "10"
 				}
 			},
 			"scroll": {
@@ -4418,6 +4852,9 @@
 		"cd7640bd-171d-441c-b94c-cabbf61d0ae9",
 		"7fcef9af-402e-47f2-bd55-baf827d260a5",
 		"6550a2ac-7521-4c67-8de7-727a96da9434",
+		"7459ce20-6823-42a6-b4b8-c0ab80cdde6a",
+		"77044773-ed31-4bd8-a8f5-d03441b26a34",
+		"3f8ba4ea-23c1-4d9c-ad01-23fbde37374a",
 		"385fdcdd-d66d-4734-a6ba-1b23492e32e8",
 		"3ac34389-c29c-4d3f-94d0-79d892c4e66f",
 		"1cd9e7e2-1f95-42d5-a69b-b254ada81467",
@@ -4444,7 +4881,11 @@
 		"f0d2e0d8-7345-4cf6-ac51-f8d0789c4e72",
 		"271e49c6-c954-477f-bd50-da41c2eb913a",
 		"6fa060d2-fdff-43c8-bc4d-f0d1174169a6",
-		"fceb3af2-a30c-410f-bc80-1a61456603d5"
+		"fceb3af2-a30c-410f-bc80-1a61456603d5",
+		"7e790e47-d625-4759-a335-1ea862cab0d8",
+		"ed1c5a17-04f3-4540-a06f-df991354b430",
+		"4783efae-f499-4d72-ab5b-ecf52d81c8c6",
+		"62eab504-4204-44ab-981c-15e3b1cdc057"
 	],
 	"collapsedTreeItems": [],
 	"reverseStats": {}

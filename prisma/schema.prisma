@@ -1,0 +1,503 @@
+generator client {
+  provider = "prisma-client-js"
+	binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+generator faker {
+	provider = "prisma-generator-fake-data"
+	output   = "../src/types/fake-data.ts"
+}
+
+generator PrismaTypeGraphQLTypesGenerator {
+  provider     = "bunx prisma-typegraphql-types-generator"
+  modelsOutput = "./src/models" // Optional defaults to "./src/generated/models"
+  enumsOutput  = "./src/types/enums" // Optional defaults to "./src/generated/enums"
+  useYarn      = true // Optional if you want `graphql-scalars` installation to be done via yarn defaults to "npm"
+  exportedNameSuffix = "GQL" // Optional if you want to add a suffix to the end of your exported class names and enums
+  exportedNamePrefix = "TYPE" // Optional if you want to prefix your exported class names and enums
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_DATABASE_URL")
+}
+
+model Postleitzahlen {
+  id Int @id
+}
+
+model Adressen {
+  id                                              Int                   @id @default(autoincrement())
+  benutzer_id                                     Int
+  empfaenger_zeile_1                              String                @db.VarChar
+  empfaenger_zeile_2                              String?               @db.VarChar
+  strasse                                         String                @db.VarChar(100)
+  plz                                             String                @db.VarChar(5)
+  ort                                             String                @db.VarChar(50)
+  geolocation                                     String?               @db.VarChar
+  uid                                             String?               @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  benutzer_adressen_benutzer_idTobenutzer         Benutzer              @relation("adressen_benutzer_idTobenutzer", fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  benutzer_benutzer_rechnung_adresse_idToadressen Benutzer[]            @relation("benutzer_rechnung_adresse_idToadressen")
+  benutzer_benutzer_benutzer_adresse_idToadressen Benutzer[]            @relation("benutzer_benutzer_adresse_idToadressen")
+  benutzer_benutzer_versand_adresse_idToadressen  Benutzer[]            @relation("benutzer_versand_adresse_idToadressen")
+  gebaeude_stammdaten                             GebaeudeStammdaten[]
+	@@map("adressen")
+}
+
+
+model Anteilshaber {
+	id									Int                 @id @default(autoincrement())
+  benutzer_id         Int
+  gebaeude_id         Int
+  rolle               String?             @db.VarChar
+  privilegien         BigInt?
+  uid                 String?             @db.Uuid
+  benutzer            Benutzer            @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  gebaeude_stammdaten GebaeudeStammdaten @relation(fields: [gebaeude_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+	@@map("anteilshaber")
+}
+
+model BedarfsausweisWohnen {
+  id                            Int                 @id @default(autoincrement())
+  uid                           String              @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  gebaeude_stammdaten_id        Int
+  benutzer_id                   Int
+  rechnungen_id                 Int?
+  ausweisart                    String              @db.VarChar
+  erstellungsdatum              DateTime?           @db.Timestamp(6)
+  ausstellgrund                 String              @db.VarChar
+  registriernummer              String?             @db.VarChar
+  erledigt                      Boolean?
+  saniert                       Boolean?
+  baujahr                       Int[]
+  einheiten                     Int?
+  wohnflaeche                   Int?
+  keller_beheizt                Boolean?
+  dachgeschoss_beheizt          Int?
+  lueftungskonzept              String?             @db.VarChar
+  leerstand                     Float?              @db.Real
+  versorgungssysteme            Int?
+  fenster_dach                  Int?
+  energiequelle_2_nutzung       Int?
+  daemmung                      Int?
+  anzahl_vollgeschosse          Int?
+  geschosshoehe                 Float?
+  anzahl_gauben                 Int?
+  breite_gauben                 Float?
+  masse_a                       Float?
+  masse_b                       Float?
+  masse_c                       Float?
+  masse_d                       Float?
+  masse_e                       Float?
+  masse_f                       Float?
+  fensterflaeche_so_sw          Float?
+  fensterflaeche_nw_no          Float?
+  aussenwandflaeche_unbeheizt   Float?
+  dachflaeche                   Float?
+  deckenflaeche                 Float?
+  dach_u_wert                   Float?
+  decke_u_wert                  Float?
+  aussenwand_flaeche            Float?
+  aussenwand_u_wert             Float?
+  fussboden_flaeche             Float?
+  fussboden_u_wert              Float?
+  volumen                       Float?
+  dicht                         Boolean?
+  fenster_flaeche_1             Float?
+  fenster_art_1                 Float?
+  fenster_flaeche_2             Float?
+  fenster_art_2                 Float?
+  dachfenster_flaeche           Float?
+  dachfenster_art               Float?
+  haustuer_flaeche              Float?
+  haustuer_art                  Float?
+  dach_bauart                   String?             @db.VarChar
+  decke_bauart                  String?             @db.VarChar
+  dach_daemmung                 Float?
+  decke_daemmung                Float?
+  aussenwand_daemmung           Float?
+  boden_daemmung                Float?
+  aussenwand_bauart             String?             @db.VarChar
+  boden_bauart                  String?             @db.VarChar
+  warmwasser_verteilung         String?             @db.VarChar
+  warmwasser_speicherung        String?             @db.VarChar
+  warmwasser_erzeugung          String?             @db.VarChar
+  heizung_zentral               Boolean?
+  heizung_verteilung            String?             @db.VarChar
+  heizung_speicherung           String?             @db.VarChar
+  waerme_erzeugung_heizung      String?             @db.VarChar
+  anteil_zusatzheizung          Float?
+  kollektor_flaeche             Float?
+  vanw_stromverbrauch_enthalten Float?
+  wird_gekuehlt                 Boolean?
+  benutzer                      Benutzer            @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  gebaeude_stammdaten           GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  rechnungen                    Rechnungen?         @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+	@@map("bedarfsausweis_wohnen")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Benutzer {
+  id                                              Int                         @id @default(autoincrement())
+  name                                            String?                     @db.VarChar(50)
+  vorname                                         String?                     @db.VarChar(50)
+  email                                           String                      @unique(map: "benutzer_email_idx") @db.VarChar(255)
+  passwort                                        String                      @db.VarChar(255)
+  profilbild                                      String?                     @db.VarChar
+  benutzer_adresse_id                             Int?
+  rechnung_adresse_id                             Int?
+  versand_adresse_id                              Int?
+  uid                                             String?                     @unique @db.Uuid
+  adressen_adressen_benutzer_idTobenutzer         Adressen[]                  @relation("adressen_benutzer_idTobenutzer")
+  anteilshaber                                    Anteilshaber[]              @ignore
+  bedarfsausweis_wohnen                           BedarfsausweisWohnen[]
+  adressen_benutzer_rechnung_adresse_idToadressen Adressen?                   @relation("benutzer_rechnung_adresse_idToadressen", fields: [rechnung_adresse_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  adressen_benutzer_benutzer_adresse_idToadressen Adressen?                   @relation("benutzer_benutzer_adresse_idToadressen", fields: [benutzer_adresse_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "besteller_adressen_id_fkey1")
+  adressen_benutzer_versand_adresse_idToadressen  Adressen?                   @relation("benutzer_versand_adresse_idToadressen", fields: [versand_adresse_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "besteller_adressen_id_fkey2")
+  documenttemplates                               documenttemplates[]
+  gebaeude_stammdaten                             GebaeudeStammdaten[]
+  rechnungen                                      Rechnungen[]
+  tokens                                          tokens[]
+  VerbrauchsausweisGewerbe                       VerbrauchsausweisGewerbe[]
+  VerbrauchsausweisWohnen                        VerbrauchsausweisWohnen[]
+	@@map("benutzer")
+}
+
+model documenttemplates {
+  id               Int           @id(map: "PK_DOCUMENTTEMPLATES") @default(autoincrement())
+  name             String        @db.VarChar(100)
+  shortdescription String        @db.VarChar(100)
+  longdescription  String        @db.VarChar(5000)
+  user_id          Int
+  is_private       Boolean       @default(true)
+  documenttype     Int
+  filename         String        @db.VarChar(100)
+  created_at       DateTime      @default(now()) @db.Timestamp(0)
+  updated_at       DateTime      @default(now()) @db.Timestamp(0)
+  benutzer         Benutzer      @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "benutzer_fk")
+  documenttypes    documenttypes @relation(fields: [documenttype], references: [id], onDelete: Cascade, map: "documenttypes_fk")
+}
+
+model documenttypes {
+  id                Int                 @id(map: "PK_DOCUMENTTYPES") @default(autoincrement())
+  name              String              @db.VarChar(100)
+  shortdescription  String              @db.VarChar(100)
+  longdescription   String              @db.VarChar(5000)
+  documenttemplates documenttemplates[]
+}
+
+model GebaeudeBilder {
+  id                     Int                 @id @default(autoincrement())
+  gebaeude_stammdaten_id Int
+  kategorie              String              @db.VarChar
+  uid                    String              @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  gebaeude_stammdaten    GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+	@@map("gebaeude_bilder")
+}
+
+model GebaeudePlaene {
+  id                     Int                 @id @default(autoincrement())
+  gebaeude_stammdaten_id Int
+  uid                    String              @db.Uuid
+  gebaeude_stammdaten    GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+	@@map("gebaeude_plaene")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model GebaeudeStammdaten {
+  id                        Int                         @id @default(autoincrement())
+	uid                       String                      @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  benutzer_id               Int?
+  gebaeude_adresse_id       Int?
+  gebaeudetyp               String?                     @db.VarChar
+  gebaeudeteil              String?                     @db.VarChar
+  baujahr_gebaeude          Int[]
+  baujahr_heizung           String?                     @db.VarChar
+  baujahr_klima             String?                     @db.VarChar
+  einheiten                 Int?
+  flaeche                   Int?
+  saniert                   Boolean?
+  keller                    Int?
+  dachgeschoss              Int?
+  lueftung                  String?                     @db.VarChar(50)
+  kuehlung                  String?                     @db.VarChar(50)
+  leerstand                 Int?
+  anteilshaber              Anteilshaber[]              @ignore
+  bedarfsausweis_wohnen     BedarfsausweisWohnen[]
+  gebaeude_bilder           GebaeudeBilder[]
+  gebaeude_plaene           GebaeudePlaene[]
+  benutzer                  Benutzer?                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  adressen                  Adressen?                   @relation(fields: [gebaeude_adresse_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
+  VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
+	@@map("gebaeude_stammdaten")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model klimafaktoren {
+  zip       String? @db.VarChar(5)
+  d_02_2008 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2008 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2008 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2008 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2008 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2008 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2008 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2008 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2008 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2008 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2008 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2009 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2009 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2009 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2009 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2009 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2009 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2009 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2009 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2009 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2009 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2009 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2009 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2010 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2010 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2010 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2010 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2010 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2010 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2010 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2010 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2010 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2010 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2010 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2010 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2011 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2011 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2011 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2011 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2011 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2011 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2011 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2011 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2011 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2011 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2011 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2011 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2012 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2012 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2012 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2012 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2012 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2012 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2012 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2012 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2012 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2012 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2012 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2012 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2013 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2013 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2013 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2013 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2013 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2013 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2013 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2013 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2013 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2013 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2013 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2013 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2014 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2014 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2014 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2014 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2014 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2014 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2014 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2014 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2014 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2014 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2014 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2014 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2015 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2015 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2015 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2015 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2015 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2015 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2015 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2015 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2015 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2015 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2015 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2015 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2016 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2016 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2016 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2016 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2016 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2016 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2016 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2016 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2016 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2016 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2016 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2016 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2017 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2017 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2017 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2017 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2017 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2017 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2017 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2017 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2017 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2017 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2017 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2017 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2018 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2018 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2018 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2018 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2018 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2018 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2018 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2018 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2018 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2018 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2018 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2018 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2019 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2019 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2019 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2019 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2019 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2019 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2019 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2019 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2019 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2019 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2019 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2019 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2020 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2020 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2020 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2020 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2020 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2020 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2020 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2020 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2020 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2020 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2020 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2020 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2021 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_02_2021 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_03_2021 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_04_2021 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_05_2021 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_06_2021 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_07_2021 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_08_2021 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_09_2021 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_10_2021 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_11_2021 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_12_2021 String  @default(dbgenerated("1")) @db.VarChar(4)
+  d_01_2022 String  @default(dbgenerated("1")) @db.VarChar(4)
+
+  @@ignore
+}
+
+model Rechnungen {
+  id                        Int                         @id @default(autoincrement())
+  benutzer_id               Int
+  empfaenger_zeile_1        String?                     @db.VarChar
+  empfaenger_zeile_2        String?                     @db.VarChar
+  strasse                   String                      @db.VarChar(100)
+  plz                       String?                     @db.VarChar
+  ort                       String?                     @db.VarChar
+  uid                       String                      @db.Uuid
+  bedarfsausweis_wohnen     BedarfsausweisWohnen[]
+  benutzer                  Benutzer                    @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
+  VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
+	@@map("rechnungen")
+}
+
+model TokenUsage {
+  id               Int      @id(map: "PK_TOKEN_USAGE") @default(autoincrement())
+  token_id         Int
+  date             DateTime @default(now()) @db.Timestamp(6)
+  resource_hash    String   @db.VarChar(6)
+  payload_length   Int
+  response_length  Int
+  response_success Boolean
+  response_code    Int
+  tokens           tokens   @relation(fields: [token_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_tokens_token_usage_token_id")
+}
+
+model tokens {
+  id           Int           @id(map: "PK_TOKENS") @default(autoincrement())
+  token        String        @db.VarChar(36)
+  user_id      Int
+  date_created DateTime      @default(now()) @db.Timestamp(6)
+  last_used    DateTime      @default(now()) @db.Timestamp(6)
+  times_used   Int           @default(0)
+  permissions  Int           @default(0)
+  token_usage  TokenUsage[]
+  benutzer     Benutzer      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_benutzer_tokens_user_id")
+}
+
+model VerbrauchsausweisGewerbe {
+  id                     Int                 @id
+  uid                    String              @db.Uuid
+  gebaeude_stammdaten_id Int
+  rechnungen_id          Int?
+  benutzer_id            Int
+  benutzer               Benutzer            @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  gebaeude_stammdaten    GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  rechnungen             Rechnungen?         @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model VerbrauchsausweisWohnen {
+  id                      Int                 @id @default(autoincrement())
+  uid                     String              @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  gebaeude_stammdaten_id  Int
+  benutzer_id             Int
+  rechnungen_id           Int?
+  erstellungsdatum        DateTime?           @db.Timestamp(6)
+  ausstellgrund           String?             @db.VarChar
+  registriernummer        String?             @db.VarChar
+  erledigt                Boolean?
+  baujahr_heizung         Int[]
+  zusaetzliche_heizquelle Boolean?
+  brennstoff_1            String?             @db.VarChar(50)
+  einheit_1               String?             @db.VarChar(10)
+  brennstoff_2            String?             @db.VarChar(50)
+  einheit_2               String?             @db.VarChar(10)
+  startdatum              DateTime?           @db.Timestamp(6)
+  enddatum                DateTime?           @db.Timestamp(6)
+  verbrauch_1             Int?
+  verbrauch_2             Int?
+  verbrauch_3             Int?
+  verbrauch_4             Int?
+  verbrauch_5             Int?
+  verbrauch_6             Int?
+  warmwasser_enthalten    Boolean?
+  anteil_warmwasser_1     Float?
+  anteil_warmwasser_2     Float?
+  benutzer                Benutzer            @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  gebaeude_stammdaten     GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  rechnungen              Rechnungen?         @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model zip_codes {
+  id    Int    @default(autoincrement())
+  zip   String @db.VarChar(5)
+  city  String @db.VarChar(100)
+  state String @db.VarChar(100)
+
+  @@ignore
+}
