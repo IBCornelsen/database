@@ -1,8 +1,9 @@
 version: '3'
 services:
   database:
+    container_name: database
     build: ./
+    env_file:
+      - .env
     ports:
       - "5436:5432"
-    volumes:
-      - ./data:/var/lib/postgresql/data

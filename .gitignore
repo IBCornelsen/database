@@ -168,3 +168,5 @@ dist
 .DS_Store
 
 bun.lockb
+
+src/generated
