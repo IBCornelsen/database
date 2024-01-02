@@ -13,9 +13,7 @@
   "devDependencies": {
     "bun-types": "latest",
     "prisma": "^5.7.0",
-		"prisma-generator-fake-data": "latest",
-		"prisma-typegraphql-types-generator": "latest",
-		"typegraphql-prisma": "latest"
+		"prisma-generator-fake-data": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
