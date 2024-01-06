@@ -1,69 +1,70 @@
 generator client {
-  provider = "prisma-client-js"
-	binaryTargets = ["native", "debian-openssl-1.1.x"]
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
 generator faker {
-	provider = "prisma-generator-fake-data"
-	output   = "../src/types/fake-data.ts"
+  provider = "prisma-generator-fake-data"
+  output   = "../src/types/fake-data.ts"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_DATABASE_URL")
 }
-model Klimafaktoren {
-  id        Int      @id @default(autoincrement())
-  plz       String	@db.VarChar(5)
-  month     Int
-  year      Int
-  klimafaktor    Float    @default(1)
 
-	// Mithilfe eines composite keys können wir einfach den Monat und das Jahr mit der Postleitzahl verknüpfen
-	// somit müssen wir nicht mehr eine Zeile für jeden Monat anlegen.
+model Klimafaktoren {
+  id          Int    @id @default(autoincrement())
+  plz         String @db.VarChar(5)
+  month       Int
+  year        Int
+  klimafaktor Float  @default(1)
+
+  // Mithilfe eines composite keys können wir einfach den Monat und das Jahr mit der Postleitzahl verknüpfen
+  // somit müssen wir nicht mehr eine Zeile für jeden Monat anlegen.
   @@unique([plz, month, year])
 }
 
 model Adressen {
-  id                                              Int                   @id @default(autoincrement())
-  benutzer_id                                     Int										
-  empfaenger_zeile_1                              String                @db.VarChar
-  empfaenger_zeile_2                              String?               @db.VarChar
-  strasse                                         String                @db.VarChar(100)
-  plz                                             String                @db.VarChar(5)
-  ort                                             String                @db.VarChar(50)
-  geolocation                                     String?               @db.VarChar
-  uid                                             String?               @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  benutzer_adressen_benutzer_idTobenutzer         Benutzer              @relation("adressen_benutzer_idTobenutzer", fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  benutzer_benutzer_rechnung_adresse_idToadressen Benutzer[]            @relation("benutzer_rechnung_adresse_idToadressen")
-  benutzer_benutzer_benutzer_adresse_idToadressen Benutzer[]            @relation("benutzer_benutzer_adresse_idToadressen")
-  benutzer_benutzer_versand_adresse_idToadressen  Benutzer[]            @relation("benutzer_versand_adresse_idToadressen")
+  id                                              Int                  @id @default(autoincrement())
+  benutzer_id                                     Int
+  empfaenger_zeile_1                              String               @db.VarChar
+  empfaenger_zeile_2                              String?              @db.VarChar
+  strasse                                         String               @db.VarChar(100)
+  plz                                             String               @db.VarChar(5)
+  ort                                             String               @db.VarChar(50)
+  geolocation                                     String?              @db.VarChar
+  uid                                             String               @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  benutzer_adressen_benutzer_idTobenutzer         Benutzer             @relation("adressen_benutzer_idTobenutzer", fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  benutzer_benutzer_rechnung_adresse_idToadressen Benutzer[]           @relation("benutzer_rechnung_adresse_idToadressen")
+  benutzer_benutzer_benutzer_adresse_idToadressen Benutzer[]           @relation("benutzer_benutzer_adresse_idToadressen")
+  benutzer_benutzer_versand_adresse_idToadressen  Benutzer[]           @relation("benutzer_versand_adresse_idToadressen")
   gebaeude_stammdaten                             GebaeudeStammdaten[]
-	@@map("adressen")
+
+  @@map("adressen")
 }
 
-
 model Anteilshaber {
-	id									Int                 @id @default(autoincrement())
+  id                  Int                @id @default(autoincrement())
   benutzer_id         Int
   gebaeude_id         Int
-  rolle               String?             @db.VarChar
+  rolle               String?            @db.VarChar
   privilegien         BigInt?
-  uid                 String?             @db.Uuid
-  benutzer            Benutzer            @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  uid                 String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  benutzer            Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_stammdaten GebaeudeStammdaten @relation(fields: [gebaeude_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model BedarfsausweisWohnen {
-  id                            Int                 @id @default(autoincrement())
-  uid                           String              @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id                            Int                @id @default(autoincrement())
+  uid                           String             @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   gebaeude_stammdaten_id        Int
   benutzer_id                   Int
   rechnungen_id                 Int?
-  ausweisart                    String              @db.VarChar
-  erstellungsdatum              DateTime?           @db.Timestamp(6)
-  ausstellgrund                 String              @db.VarChar
-  registriernummer              String?             @db.VarChar
+  ausweisart                    String             @db.VarChar
+  erstellungsdatum              DateTime?          @db.Timestamp(6)
+  ausstellgrund                 String             @db.VarChar
+  registriernummer              String?            @db.VarChar
   erledigt                      Boolean?
   saniert                       Boolean?
   baujahr                       Int[]
@@ -71,8 +72,8 @@ model BedarfsausweisWohnen {
   wohnflaeche                   Int?
   keller_beheizt                Boolean?
   dachgeschoss_beheizt          Int?
-  lueftungskonzept              String?             @db.VarChar
-  leerstand                     Float?              @db.Real
+  lueftungskonzept              String?            @db.VarChar
+  leerstand                     Float?             @db.Real
   versorgungssysteme            Int?
   fenster_dach                  Int?
   energiequelle_2_nutzung       Int?
@@ -108,56 +109,58 @@ model BedarfsausweisWohnen {
   dachfenster_art               Float?
   haustuer_flaeche              Float?
   haustuer_art                  Float?
-  dach_bauart                   String?             @db.VarChar
-  decke_bauart                  String?             @db.VarChar
+  dach_bauart                   String?            @db.VarChar
+  decke_bauart                  String?            @db.VarChar
   dach_daemmung                 Float?
   decke_daemmung                Float?
   aussenwand_daemmung           Float?
   boden_daemmung                Float?
-  aussenwand_bauart             String?             @db.VarChar
-  boden_bauart                  String?             @db.VarChar
-  warmwasser_verteilung         String?             @db.VarChar
-  warmwasser_speicherung        String?             @db.VarChar
-  warmwasser_erzeugung          String?             @db.VarChar
+  aussenwand_bauart             String?            @db.VarChar
+  boden_bauart                  String?            @db.VarChar
+  warmwasser_verteilung         String?            @db.VarChar
+  warmwasser_speicherung        String?            @db.VarChar
+  warmwasser_erzeugung          String?            @db.VarChar
   heizung_zentral               Boolean?
-  heizung_verteilung            String?             @db.VarChar
-  heizung_speicherung           String?             @db.VarChar
-  waerme_erzeugung_heizung      String?             @db.VarChar
+  heizung_verteilung            String?            @db.VarChar
+  heizung_speicherung           String?            @db.VarChar
+  waerme_erzeugung_heizung      String?            @db.VarChar
   anteil_zusatzheizung          Float?
   kollektor_flaeche             Float?
   vanw_stromverbrauch_enthalten Float?
   wird_gekuehlt                 Boolean?
-  benutzer                      Benutzer            @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  benutzer                      Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_stammdaten           GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  rechnungen                    Rechnungen?         @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-	@@map("bedarfsausweis_wohnen")
+  rechnungen                    Rechnungen?        @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("bedarfsausweis_wohnen")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Benutzer {
-  id                                              Int                         @id @default(autoincrement())
-  name                                            String?                     @db.VarChar(50)
-  vorname                                         String?                     @db.VarChar(50)
-  email                                           String                      @unique(map: "benutzer_email_idx") @db.VarChar(255)
-  passwort                                        String                      @db.VarChar(255)
-  profilbild                                      String?                     @db.VarChar
+  id                                              Int                        @id @default(autoincrement())
+  name                                            String?                    @db.VarChar(50)
+  vorname                                         String?                    @db.VarChar(50)
+  email                                           String                     @unique(map: "benutzer_email_idx") @db.VarChar(255)
+  passwort                                        String                     @db.VarChar(255)
+  profilbild                                      String?                    @db.VarChar
   benutzer_adresse_id                             Int?
   rechnung_adresse_id                             Int?
   versand_adresse_id                              Int?
-  uid                                             String?                     @unique @db.Uuid
-  adressen_adressen_benutzer_idTobenutzer         Adressen[]                  @relation("adressen_benutzer_idTobenutzer")
-  anteilshaber                                    Anteilshaber[]              @ignore
+  uid                                             String                     @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  adressen_adressen_benutzer_idTobenutzer         Adressen[]                 @relation("adressen_benutzer_idTobenutzer")
+  anteilshaber                                    Anteilshaber[]             @ignore
   bedarfsausweis_wohnen                           BedarfsausweisWohnen[]
-  adressen_benutzer_rechnung_adresse_idToadressen Adressen?                   @relation("benutzer_rechnung_adresse_idToadressen", fields: [rechnung_adresse_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  adressen_benutzer_benutzer_adresse_idToadressen Adressen?                   @relation("benutzer_benutzer_adresse_idToadressen", fields: [benutzer_adresse_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "besteller_adressen_id_fkey1")
-  adressen_benutzer_versand_adresse_idToadressen  Adressen?                   @relation("benutzer_versand_adresse_idToadressen", fields: [versand_adresse_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "besteller_adressen_id_fkey2")
+  adressen_benutzer_rechnung_adresse_idToadressen Adressen?                  @relation("benutzer_rechnung_adresse_idToadressen", fields: [rechnung_adresse_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  adressen_benutzer_benutzer_adresse_idToadressen Adressen?                  @relation("benutzer_benutzer_adresse_idToadressen", fields: [benutzer_adresse_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "besteller_adressen_id_fkey1")
+  adressen_benutzer_versand_adresse_idToadressen  Adressen?                  @relation("benutzer_versand_adresse_idToadressen", fields: [versand_adresse_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "besteller_adressen_id_fkey2")
   documenttemplates                               documenttemplates[]
   gebaeude_stammdaten                             GebaeudeStammdaten[]
   rechnungen                                      Rechnungen[]
   tokens                                          tokens[]
-  VerbrauchsausweisGewerbe                       VerbrauchsausweisGewerbe[]
-  VerbrauchsausweisWohnen                        VerbrauchsausweisWohnen[]
-	@@map("benutzer")
+  VerbrauchsausweisGewerbe                        VerbrauchsausweisGewerbe[]
+  VerbrauchsausweisWohnen                         VerbrauchsausweisWohnen[]
+
+  @@map("benutzer")
 }
 
 model documenttemplates {
@@ -184,67 +187,105 @@ model documenttypes {
 }
 
 model GebaeudeBilder {
-  id                     Int                 @id @default(autoincrement())
+  id                     Int                @id @default(autoincrement())
   gebaeude_stammdaten_id Int
-  kategorie              String              @db.VarChar
-  uid                    String              @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  kategorie              String             @db.VarChar
+  uid                    String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   gebaeude_stammdaten    GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-	@@map("gebaeude_bilder")
+
+  @@map("gebaeude_bilder")
 }
 
 model GebaeudePlaene {
-  id                     Int                 @id @default(autoincrement())
+  id                     Int                @id @default(autoincrement())
   gebaeude_stammdaten_id Int
-  uid                    String              @db.Uuid
+  uid                    String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   gebaeude_stammdaten    GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-	@@map("gebaeude_plaene")
+
+  @@map("gebaeude_plaene")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model GebaeudeStammdaten {
-  id                        Int                         @id @default(autoincrement())
-	uid                       String                      @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  benutzer_id               Int?
-  gebaeude_adresse_id       Int?
-  gebaeudetyp               String?                     @db.VarChar
-  gebaeudeteil              String?                     @db.VarChar
-  baujahr_gebaeude          Int[]
-  baujahr_heizung           String?                     @db.VarChar
-  baujahr_klima             String?                     @db.VarChar
-  einheiten                 Int?
-  flaeche                   Int?
-  saniert                   Boolean?
-  keller                    Int?
-  dachgeschoss              Int?
-  lueftung                  String?                     @db.VarChar(50)
-  kuehlung                  String?                     @db.VarChar(50)
-  leerstand                 Int?
-  anteilshaber              Anteilshaber[]              @ignore
-  bedarfsausweis_wohnen     BedarfsausweisWohnen[]
-  gebaeude_bilder           GebaeudeBilder[]
-  gebaeude_plaene           GebaeudePlaene[]
-  benutzer                  Benutzer?                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  adressen                  Adressen?                   @relation(fields: [gebaeude_adresse_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                       Int                        @id @default(autoincrement())
+  uid                      String                     @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  benutzer_id              Int?
+  gebaeude_adresse_id      Int?
+  gebaeudetyp              String?                    @db.VarChar
+  gebaeudeteil             String?                    @db.VarChar
+  baujahr_gebaeude         Int[]
+  baujahr_heizung          Int[]
+  baujahr_klima            Int[]
+  einheiten                Int?
+  flaeche                  Int?
+  saniert                  Boolean?
+  keller                   Int?
+  dachgeschoss             Int?
+  lueftung                 String?                    @db.VarChar(50)
+  kuehlung                 String?                    @db.VarChar(50)
+  leerstand                Int?
+  plz                      String?                    @db.VarChar(5)
+  ort                      String?                    @db.VarChar(50)
+  adresse                  String?                    @db.VarChar(100)
+
+	zentralheizung                          Boolean?
+  solarsystem_warmwasser                  Boolean?
+  warmwasser_rohre_gedaemmt               Boolean?
+  niedertemperatur_kessel                 Boolean?
+  brennwert_kessel                        Boolean?
+  heizungsrohre_gedaemmt                  Boolean?
+  standard_kessel                         Boolean?
+  waermepumpe                             Boolean?
+  raum_temperatur_regler                  Boolean?
+  photovoltaik                            Boolean?
+  durchlauf_erhitzer                      Boolean?
+  einzelofen                              Boolean?
+  zirkulation                             Boolean?
+  einfach_verglasung                      Boolean?
+  dreifach_verglasung                     Boolean?
+  fenster_teilweise_undicht               Boolean?
+  doppel_verglasung                       Boolean?
+  fenster_dicht                           Boolean?
+  rolllaeden_kaesten_gedaemmt             Boolean?
+  isolier_verglasung                      Boolean?
+  tueren_undicht                          Boolean?
+  tueren_dicht                            Boolean?
+  dachgeschoss_gedaemmt                   Boolean?
+  keller_decke_gedaemmt                   Boolean?
+  keller_wand_gedaemmt                    Boolean?
+  aussenwand_gedaemmt                     Boolean?
+  oberste_geschossdecke_gedaemmt          Boolean?
+  aussenwand_min_12cm_gedaemmt            Boolean?
+  dachgeschoss_min_12cm_gedaemmt          Boolean?
+  oberste_geschossdecke_min_12cm_gedaemmt Boolean?
+
+  anteilshaber             Anteilshaber[]             @ignore
+  bedarfsausweis_wohnen    BedarfsausweisWohnen[]
+  gebaeude_bilder          GebaeudeBilder[]
+  gebaeude_plaene          GebaeudePlaene[]
+  benutzer                 Benutzer?                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  adressen                 Adressen?                  @relation(fields: [gebaeude_adresse_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
-	@@map("gebaeude_stammdaten")
+
+  @@map("gebaeude_stammdaten")
 }
 
-
 model Rechnungen {
-  id                        Int                         @id @default(autoincrement())
-  benutzer_id               Int
-  empfaenger_zeile_1        String?                     @db.VarChar
-  empfaenger_zeile_2        String?                     @db.VarChar
-  strasse                   String                      @db.VarChar(100)
-  plz                       String?                     @db.VarChar
-  ort                       String?                     @db.VarChar
-  uid                       String                      @db.Uuid
-  bedarfsausweis_wohnen     BedarfsausweisWohnen[]
-  benutzer                  Benutzer                    @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                       Int                        @id @default(autoincrement())
+  benutzer_id              Int
+  empfaenger_zeile_1       String?                    @db.VarChar
+  empfaenger_zeile_2       String?                    @db.VarChar
+  strasse                  String                     @db.VarChar(100)
+  plz                      String?                    @db.VarChar
+  ort                      String?                    @db.VarChar
+  uid                      String                     @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  bedarfsausweis_wohnen    BedarfsausweisWohnen[]
+  benutzer                 Benutzer                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
-	@@map("rechnungen")
+
+  @@map("rechnungen")
 }
 
 model TokenUsage {
@@ -260,64 +301,75 @@ model TokenUsage {
 }
 
 model tokens {
-  id           Int           @id(map: "PK_TOKENS") @default(autoincrement())
-  token        String        @db.VarChar(36)
+  id           Int          @id(map: "PK_TOKENS") @default(autoincrement())
+  token        String       @db.VarChar(36)
   user_id      Int
-  date_created DateTime      @default(now()) @db.Timestamp(6)
-  last_used    DateTime      @default(now()) @db.Timestamp(6)
-  times_used   Int           @default(0)
-  permissions  Int           @default(0)
+  date_created DateTime     @default(now()) @db.Timestamp(6)
+  last_used    DateTime     @default(now()) @db.Timestamp(6)
+  times_used   Int          @default(0)
+  permissions  Int          @default(0)
   token_usage  TokenUsage[]
-  benutzer     Benutzer      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_benutzer_tokens_user_id")
+  benutzer     Benutzer     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_benutzer_tokens_user_id")
 }
 
 model VerbrauchsausweisGewerbe {
-  id                     Int                 @id
-  uid                    String              @db.Uuid
+  id                     Int                @id
+  uid                    String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   gebaeude_stammdaten_id Int
   rechnungen_id          Int?
   benutzer_id            Int
-  benutzer               Benutzer            @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  benutzer               Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_stammdaten    GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  rechnungen             Rechnungen?         @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  rechnungen             Rechnungen?        @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model VerbrauchsausweisWohnen {
-  id                      Int                 @id @default(autoincrement())
-  uid                     String              @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  gebaeude_stammdaten_id  Int
-  benutzer_id             Int
-  rechnungen_id           Int?
-  erstellungsdatum        DateTime?           @db.Timestamp(6)
-  ausstellgrund           String?             @db.VarChar
-  registriernummer        String?             @db.VarChar
-  erledigt                Boolean?
-  baujahr_heizung         Int[]
-  zusaetzliche_heizquelle Boolean?
-  brennstoff_1            String?             @db.VarChar(50)
-  einheit_1               String?             @db.VarChar(10)
-  brennstoff_2            String?             @db.VarChar(50)
-  einheit_2               String?             @db.VarChar(10)
-  startdatum              DateTime?           @db.Timestamp(6)
-  enddatum                DateTime?           @db.Timestamp(6)
-  verbrauch_1             Int?
-  verbrauch_2             Int?
-  verbrauch_3             Int?
-  verbrauch_4             Int?
-  verbrauch_5             Int?
-  verbrauch_6             Int?
-  warmwasser_enthalten    Boolean?
-  anteil_warmwasser_1     Float?
-  anteil_warmwasser_2     Float?
-  benutzer                Benutzer            @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  gebaeude_stammdaten     GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  rechnungen              Rechnungen?         @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                        Int       @id @default(autoincrement())
+  uid                       String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  gebaeude_stammdaten_id    Int
+  benutzer_id               Int
+  rechnungen_id             Int?
+  erstellungsdatum          DateTime? @db.Timestamp(6)
+  ausstellgrund             String?   @db.VarChar
+  registriernummer          String?   @db.VarChar
+  erledigt                  Boolean?
+  baujahr_heizung           Int[]
+  zusaetzliche_heizquelle   Boolean?
+  brennstoff_1              String?   @db.VarChar(50)
+  einheit_1                 String?   @db.VarChar(10)
+  brennstoff_2              String?   @db.VarChar(50)
+  einheit_2                 String?   @db.VarChar(10)
+  startdatum                DateTime? @db.Timestamp(6)
+  enddatum                  DateTime? @db.Timestamp(6)
+  verbrauch_1               Int?
+  verbrauch_2               Int?
+  verbrauch_3               Int?
+  verbrauch_4               Int?
+  verbrauch_5               Int?
+  verbrauch_6               Int?
+  warmwasser_enthalten      Boolean?
+  warmwasser_anteil_bekannt Boolean?
+
+  wird_gekuehlt Boolean?
+
+  keller_beheizt Boolean?
+
+  alternative_heizung    Boolean?
+  alternative_warmwasser Boolean?
+  alternative_lueftung   Boolean?
+  alternative_kuehlung   Boolean?
+
+  anteil_warmwasser_1 Float?
+  anteil_warmwasser_2 Float?
+  benutzer            Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  gebaeude_stammdaten GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  rechnungen          Rechnungen?        @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 // Diese Tabelle wird für die Postleitzahlenabfrage verwendet, keine andere Tabelle hat Relationen zu dieser.
 model Postleitzahlen {
-  id    Int    @default(autoincrement()) @id
-  plz   String @db.VarChar(5)
-  stadt String @db.VarChar(100)
+  id         Int    @id @default(autoincrement())
+  plz        String @db.VarChar(5)
+  stadt      String @db.VarChar(100)
   bundesland String @db.VarChar(100)
 }
