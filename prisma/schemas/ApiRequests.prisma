@@ -1,0 +1,15 @@
+import { Benutzer } from "./Benutzer"
+
+model ApiRequests {
+  id           Int       @id @default(autoincrement())
+  date         DateTime  @default(now()) @db.Timestamp(6)
+  ip           String    @db.VarChar(50)
+  method       String    @db.VarChar(10)
+  path         String    @db.VarChar(100)
+  status       Int
+  responseTime Float
+  responseSize Int
+  userAgent    String    @db.VarChar(500)
+  user_id      Int?
+  user         Benutzer? @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}

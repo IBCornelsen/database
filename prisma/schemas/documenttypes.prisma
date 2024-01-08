@@ -1,0 +1,9 @@
+import { documenttemplates } from "./documenttemplates"
+
+model documenttypes {
+  id                Int                 @id(map: "PK_DOCUMENTTYPES") @default(autoincrement())
+  name              String              @db.VarChar(100)
+  shortdescription  String              @db.VarChar(100)
+  longdescription   String              @db.VarChar(5000)
+  documenttemplates documenttemplates[]
+}

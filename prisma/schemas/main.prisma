@@ -1,0 +1,41 @@
+import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
+import { Benutzer } from "./Benutzer"
+import { VerbrauchsausweisGewerbe } from "./VerbrauchsausweisGewerbe"
+import { BedarfsausweisWohnen } from "./BedarfsausweisWohnen"
+import { Klimafaktoren } from "./Klimafaktoren"
+import { ApiRequests } from "./ApiRequests"
+import { documenttemplates } from "./documenttemplates"
+import { documenttypes } from "./documenttypes"
+import { Anteilshaber } from "./Anteilshaber"
+import { GebaeudeBilder } from "./GebaeudeBilder"
+import { GebaeudePlaene } from "./GebaeudePlaene"
+import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
+import { Postleitzahlen } from "./Postleitzahlen"
+import { Rechnungen } from "./Rechnungen"
+import { tokens } from "./tokens"
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+generator faker {
+  provider = "prisma-generator-fake-data"
+  output   = "../src/types/fake-data.ts"
+}
+
+generator zod {
+  provider = "zod-prisma"
+  output   = "../src/generated/zod"
+  relationModel = false
+  modelCase = "PascalCase"
+  modelSuffix = "Schema"
+  useDecimalJs = true
+  imports = null
+  prismaJsonNullability = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_DATABASE_URL")
+}

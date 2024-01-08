@@ -3,45 +3,6 @@ import { faker } from '@faker-js/faker';
 
 
 
-export function fakeKlimafaktoren() {
-  return {
-    plz: faker.lorem.words(5),
-    month: faker.number.int(),
-    year: faker.number.int(),
-  };
-}
-export function fakeKlimafaktorenComplete() {
-  return {
-    id: faker.number.int(),
-    plz: faker.lorem.words(5),
-    month: faker.number.int(),
-    year: faker.number.int(),
-    klimafaktor: 1,
-  };
-}
-export function fakeAdressen() {
-  return {
-    empfaenger_zeile_1: faker.lorem.words(5),
-    empfaenger_zeile_2: undefined,
-    strasse: faker.lorem.words(5),
-    plz: faker.lorem.words(5),
-    ort: faker.lorem.words(5),
-    geolocation: undefined,
-  };
-}
-export function fakeAdressenComplete() {
-  return {
-    id: faker.number.int(),
-    benutzer_id: faker.number.int(),
-    empfaenger_zeile_1: faker.lorem.words(5),
-    empfaenger_zeile_2: undefined,
-    strasse: faker.lorem.words(5),
-    plz: faker.lorem.words(5),
-    ort: faker.lorem.words(5),
-    geolocation: undefined,
-    uid: '[object Object]',
-  };
-}
 export function fakeAnteilshaber() {
   return {
     rolle: undefined,
@@ -56,6 +17,31 @@ export function fakeAnteilshaberComplete() {
     rolle: undefined,
     privilegien: undefined,
     uid: '[object Object]',
+  };
+}
+export function fakeApiRequests() {
+  return {
+    ip: faker.lorem.words(5),
+    method: faker.lorem.words(5),
+    path: faker.lorem.words(5),
+    status: faker.number.int(),
+    responseTime: faker.number.float(),
+    responseSize: faker.number.int(),
+    userAgent: faker.lorem.words(5),
+  };
+}
+export function fakeApiRequestsComplete() {
+  return {
+    id: faker.number.int(),
+    date: new Date(),
+    ip: faker.lorem.words(5),
+    method: faker.lorem.words(5),
+    path: faker.lorem.words(5),
+    status: faker.number.int(),
+    responseTime: faker.number.float(),
+    responseSize: faker.number.int(),
+    userAgent: faker.lorem.words(5),
+    user_id: undefined,
   };
 }
 export function fakeBedarfsausweisWohnen() {
@@ -212,20 +198,23 @@ export function fakeBenutzer() {
     email: faker.internet.email(),
     passwort: faker.lorem.words(5),
     profilbild: undefined,
+    plz: undefined,
+    ort: undefined,
+    adresse: undefined,
   };
 }
 export function fakeBenutzerComplete() {
   return {
     id: faker.number.int(),
+    uid: '[object Object]',
     name: undefined,
     vorname: undefined,
     email: faker.internet.email(),
     passwort: faker.lorem.words(5),
     profilbild: undefined,
-    benutzer_adresse_id: undefined,
-    rechnung_adresse_id: undefined,
-    versand_adresse_id: undefined,
-    uid: '[object Object]',
+    plz: undefined,
+    ort: undefined,
+    adresse: undefined,
   };
 }
 export function fakedocumenttemplates() {
@@ -340,7 +329,6 @@ export function fakeGebaeudeStammdatenComplete() {
     id: faker.number.int(),
     uid: '[object Object]',
     benutzer_id: undefined,
-    gebaeude_adresse_id: undefined,
     gebaeudetyp: undefined,
     gebaeudeteil: undefined,
     baujahr_gebaeude: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
@@ -389,6 +377,37 @@ export function fakeGebaeudeStammdatenComplete() {
     oberste_geschossdecke_min_12cm_gedaemmt: undefined,
   };
 }
+export function fakeKlimafaktoren() {
+  return {
+    plz: faker.lorem.words(5),
+    month: faker.number.int(),
+    year: faker.number.int(),
+  };
+}
+export function fakeKlimafaktorenComplete() {
+  return {
+    id: faker.number.int(),
+    plz: faker.lorem.words(5),
+    month: faker.number.int(),
+    year: faker.number.int(),
+    klimafaktor: 1,
+  };
+}
+export function fakePostleitzahlen() {
+  return {
+    plz: faker.lorem.words(5),
+    stadt: faker.lorem.words(5),
+    bundesland: faker.lorem.words(5),
+  };
+}
+export function fakePostleitzahlenComplete() {
+  return {
+    id: faker.number.int(),
+    plz: faker.lorem.words(5),
+    stadt: faker.lorem.words(5),
+    bundesland: faker.lorem.words(5),
+  };
+}
 export function fakeRechnungen() {
   return {
     empfaenger_zeile_1: undefined,
@@ -408,27 +427,6 @@ export function fakeRechnungenComplete() {
     plz: undefined,
     ort: undefined,
     uid: '[object Object]',
-  };
-}
-export function fakeTokenUsage() {
-  return {
-    resource_hash: faker.lorem.words(5),
-    payload_length: faker.number.int(),
-    response_length: faker.number.int(),
-    response_success: faker.datatype.boolean(),
-    response_code: faker.number.int(),
-  };
-}
-export function fakeTokenUsageComplete() {
-  return {
-    id: faker.number.int(),
-    token_id: faker.number.int(),
-    date: new Date(),
-    resource_hash: faker.lorem.words(5),
-    payload_length: faker.number.int(),
-    response_length: faker.number.int(),
-    response_success: faker.datatype.boolean(),
-    response_code: faker.number.int(),
   };
 }
 export function faketokens() {
@@ -469,7 +467,6 @@ export function fakeVerbrauchsausweisWohnen() {
     brennstoff_2: undefined,
     einheit_2: undefined,
     startdatum: undefined,
-    enddatum: undefined,
     verbrauch_1: undefined,
     verbrauch_2: undefined,
     verbrauch_3: undefined,
@@ -493,7 +490,7 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     id: faker.number.int(),
     uid: '[object Object]',
     gebaeude_stammdaten_id: faker.number.int(),
-    benutzer_id: faker.number.int(),
+    benutzer_id: undefined,
     rechnungen_id: undefined,
     erstellungsdatum: undefined,
     ausstellgrund: undefined,
@@ -506,7 +503,6 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     brennstoff_2: undefined,
     einheit_2: undefined,
     startdatum: undefined,
-    enddatum: undefined,
     verbrauch_1: undefined,
     verbrauch_2: undefined,
     verbrauch_3: undefined,
@@ -521,22 +517,8 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     alternative_warmwasser: undefined,
     alternative_lueftung: undefined,
     alternative_kuehlung: undefined,
+    ausweisart: 'VA',
     anteil_warmwasser_1: undefined,
     anteil_warmwasser_2: undefined,
-  };
-}
-export function fakePostleitzahlen() {
-  return {
-    plz: faker.lorem.words(5),
-    stadt: faker.lorem.words(5),
-    bundesland: faker.lorem.words(5),
-  };
-}
-export function fakePostleitzahlenComplete() {
-  return {
-    id: faker.number.int(),
-    plz: faker.lorem.words(5),
-    stadt: faker.lorem.words(5),
-    bundesland: faker.lorem.words(5),
   };
 }

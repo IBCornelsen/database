@@ -1,0 +1,11 @@
+model Klimafaktoren {
+  id          Int    @id @default(autoincrement())
+  plz         String @db.VarChar(5)
+  month       Int
+  year        Int
+  klimafaktor Float  @default(1)
+
+  // Mithilfe eines composite keys können wir einfach den Monat und das Jahr mit der Postleitzahl verknüpfen
+  // somit müssen wir nicht mehr eine Zeile für jeden Monat anlegen.
+  @@unique([plz, month, year])
+}

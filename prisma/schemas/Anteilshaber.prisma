@@ -1,0 +1,13 @@
+import { Benutzer } from "./Benutzer"
+import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
+
+model Anteilshaber {
+  id                  Int                @id @default(autoincrement())
+  benutzer_id         Int
+  gebaeude_id         Int
+  rolle               String?            @db.VarChar
+  privilegien         BigInt?
+  uid                 String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  benutzer            Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  gebaeude_stammdaten GebaeudeStammdaten @relation(fields: [gebaeude_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}

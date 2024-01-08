@@ -1,0 +1,47 @@
+import { Benutzer } from "./Benutzer"
+import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
+import { Rechnungen } from "./Rechnungen"
+
+model VerbrauchsausweisWohnen {
+  id                        Int       @id @default(autoincrement())
+  uid                       String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  gebaeude_stammdaten_id    Int
+  benutzer_id               Int?
+  rechnungen_id             Int?
+  erstellungsdatum          DateTime? @db.Timestamp(6)
+  ausstellgrund             String?   @db.VarChar
+  registriernummer          String?   @db.VarChar
+  erledigt                  Boolean?
+  baujahr_heizung           Int[]
+  zusaetzliche_heizquelle   Boolean?
+  brennstoff_1              String?   @db.VarChar(50)
+  einheit_1                 String?   @db.VarChar(50)
+  brennstoff_2              String?   @db.VarChar(50)
+  einheit_2                 String?   @db.VarChar(50)
+  startdatum                DateTime? @db.Timestamp(6)
+  verbrauch_1               Int?
+  verbrauch_2               Int?
+  verbrauch_3               Int?
+  verbrauch_4               Int?
+  verbrauch_5               Int?
+  verbrauch_6               Int?
+  warmwasser_enthalten      Boolean?
+  warmwasser_anteil_bekannt Boolean?
+
+  wird_gekuehlt Boolean?
+
+  keller_beheizt Boolean?
+
+  alternative_heizung    Boolean?
+  alternative_warmwasser Boolean?
+  alternative_lueftung   Boolean?
+  alternative_kuehlung   Boolean?
+
+  ausweisart String @default("VA") @db.VarChar
+
+  anteil_warmwasser_1 Float?
+  anteil_warmwasser_2 Float?
+  benutzer            Benutzer?          @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  gebaeude_stammdaten GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  rechnungen          Rechnungen?        @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}

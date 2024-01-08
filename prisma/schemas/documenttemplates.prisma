@@ -1,0 +1,17 @@
+import { Benutzer } from "./Benutzer"
+import { documenttypes } from "./documenttypes"
+
+model documenttemplates {
+  id               Int           @id(map: "PK_DOCUMENTTEMPLATES") @default(autoincrement())
+  name             String        @db.VarChar(100)
+  shortdescription String        @db.VarChar(100)
+  longdescription  String        @db.VarChar(5000)
+  user_id          Int
+  is_private       Boolean       @default(true)
+  documenttype     Int
+  filename         String        @db.VarChar(100)
+  created_at       DateTime      @default(now()) @db.Timestamp(0)
+  updated_at       DateTime      @default(now()) @db.Timestamp(0)
+  benutzer         Benutzer      @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "benutzer_fk")
+  documenttypes    documenttypes @relation(fields: [documenttype], references: [id], onDelete: Cascade, map: "documenttypes_fk")
+}

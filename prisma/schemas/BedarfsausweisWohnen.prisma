@@ -1,0 +1,83 @@
+import { Benutzer } from "./Benutzer"
+import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
+import { Rechnungen } from "./Rechnungen"
+
+model BedarfsausweisWohnen {
+  id                            Int                @id @default(autoincrement())
+  uid                           String             @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  gebaeude_stammdaten_id        Int
+  benutzer_id                   Int
+  rechnungen_id                 Int?
+  ausweisart                    String             @db.VarChar
+  erstellungsdatum              DateTime?          @db.Timestamp(6)
+  ausstellgrund                 String             @db.VarChar
+  registriernummer              String?            @db.VarChar
+  erledigt                      Boolean?
+  saniert                       Boolean?
+  baujahr                       Int[]
+  einheiten                     Int?
+  wohnflaeche                   Int?
+  keller_beheizt                Boolean?
+  dachgeschoss_beheizt          Int?
+  lueftungskonzept              String?            @db.VarChar
+  leerstand                     Float?             @db.Real
+  versorgungssysteme            Int?
+  fenster_dach                  Int?
+  energiequelle_2_nutzung       Int?
+  daemmung                      Int?
+  anzahl_vollgeschosse          Int?
+  geschosshoehe                 Float?
+  anzahl_gauben                 Int?
+  breite_gauben                 Float?
+  masse_a                       Float?
+  masse_b                       Float?
+  masse_c                       Float?
+  masse_d                       Float?
+  masse_e                       Float?
+  masse_f                       Float?
+  fensterflaeche_so_sw          Float?
+  fensterflaeche_nw_no          Float?
+  aussenwandflaeche_unbeheizt   Float?
+  dachflaeche                   Float?
+  deckenflaeche                 Float?
+  dach_u_wert                   Float?
+  decke_u_wert                  Float?
+  aussenwand_flaeche            Float?
+  aussenwand_u_wert             Float?
+  fussboden_flaeche             Float?
+  fussboden_u_wert              Float?
+  volumen                       Float?
+  dicht                         Boolean?
+  fenster_flaeche_1             Float?
+  fenster_art_1                 Float?
+  fenster_flaeche_2             Float?
+  fenster_art_2                 Float?
+  dachfenster_flaeche           Float?
+  dachfenster_art               Float?
+  haustuer_flaeche              Float?
+  haustuer_art                  Float?
+  dach_bauart                   String?            @db.VarChar
+  decke_bauart                  String?            @db.VarChar
+  dach_daemmung                 Float?
+  decke_daemmung                Float?
+  aussenwand_daemmung           Float?
+  boden_daemmung                Float?
+  aussenwand_bauart             String?            @db.VarChar
+  boden_bauart                  String?            @db.VarChar
+  warmwasser_verteilung         String?            @db.VarChar
+  warmwasser_speicherung        String?            @db.VarChar
+  warmwasser_erzeugung          String?            @db.VarChar
+  heizung_zentral               Boolean?
+  heizung_verteilung            String?            @db.VarChar
+  heizung_speicherung           String?            @db.VarChar
+  waerme_erzeugung_heizung      String?            @db.VarChar
+  anteil_zusatzheizung          Float?
+  kollektor_flaeche             Float?
+  vanw_stromverbrauch_enthalten Float?
+  wird_gekuehlt                 Boolean?
+  benutzer                      Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  gebaeude_stammdaten           GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  rechnungen                    Rechnungen?        @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("bedarfsausweis_wohnen")
+}

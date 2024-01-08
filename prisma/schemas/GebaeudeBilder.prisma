@@ -1,0 +1,11 @@
+import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
+
+model GebaeudeBilder {
+  id                     Int                @id @default(autoincrement())
+  gebaeude_stammdaten_id Int
+  kategorie              String             @db.VarChar
+  uid                    String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  gebaeude_stammdaten    GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("gebaeude_bilder")
+}
