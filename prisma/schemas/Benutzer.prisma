@@ -7,18 +7,27 @@ import { tokens } from "./tokens"
 import { VerbrauchsausweisGewerbe } from "./VerbrauchsausweisGewerbe"
 import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
 import { ApiRequests } from "./ApiRequests"
+import { RefreshTokens } from "./RefreshTokens"
+
+enum BenutzerRolle {
+  USER
+  ADMIN
+}
 
 model Benutzer {
-  id         Int     @id @default(autoincrement())
-  uid        String  @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name       String? @db.VarChar(50)
-  vorname    String? @db.VarChar(50)
-  email      String  @unique(map: "benutzer_email_idx") @db.VarChar(255)
-  passwort   String  @db.VarChar(255)
-  profilbild String? @db.VarChar
-  plz        String? @db.VarChar(5)
-  ort        String? @db.VarChar(50)
-  adresse    String? @db.VarChar(100)
+  id         Int           @id @default(autoincrement())
+  uid        String        @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String?       @db.VarChar(50)
+  vorname    String?       @db.VarChar(50)
+  email      String        @unique(map: "benutzer_email_idx") @db.VarChar(255)
+  passwort   String        @db.VarChar(255)
+  profilbild String?       @db.VarChar
+  plz        String?       @db.VarChar(5)
+  ort        String?       @db.VarChar(50)
+  adresse    String?       @db.VarChar(100)
+  telefon    String?       @db.VarChar(50)
+  anrede     String?       @db.VarChar(50)
+  rolle      BenutzerRolle @default(USER)
 
   anteilshaber             Anteilshaber[]             @ignore
   bedarfsausweis_wohnen    BedarfsausweisWohnen[]
@@ -29,6 +38,7 @@ model Benutzer {
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
   ApiRequests              ApiRequests[]
+	RefreshTokens						RefreshTokens[]
 
   @@map("benutzer")
 }

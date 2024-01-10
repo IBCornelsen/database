@@ -154,17 +154,25 @@ model BedarfsausweisWohnen {
 // Benutzer.prisma
 //
 
+enum BenutzerRolle {
+  USER
+  ADMIN
+}
+
 model Benutzer {
-  id         Int     @id @default(autoincrement())
-  uid        String  @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name       String? @db.VarChar(50)
-  vorname    String? @db.VarChar(50)
-  email      String  @unique(map: "benutzer_email_idx") @db.VarChar(255)
-  passwort   String  @db.VarChar(255)
-  profilbild String? @db.VarChar
-  plz        String? @db.VarChar(5)
-  ort        String? @db.VarChar(50)
-  adresse    String? @db.VarChar(100)
+  id         Int           @id @default(autoincrement())
+  uid        String        @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String?       @db.VarChar(50)
+  vorname    String?       @db.VarChar(50)
+  email      String        @unique(map: "benutzer_email_idx") @db.VarChar(255)
+  passwort   String        @db.VarChar(255)
+  profilbild String?       @db.VarChar
+  plz        String?       @db.VarChar(5)
+  ort        String?       @db.VarChar(50)
+  adresse    String?       @db.VarChar(100)
+  telefon    String?       @db.VarChar(50)
+  anrede     String?       @db.VarChar(50)
+  rolle      BenutzerRolle @default(USER)
 
   anteilshaber             Anteilshaber[]             @ignore
   bedarfsausweis_wohnen    BedarfsausweisWohnen[]
@@ -175,6 +183,7 @@ model Benutzer {
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
   ApiRequests              ApiRequests[]
+  RefreshTokens            RefreshTokens[]
 
   @@map("benutzer")
 }
@@ -335,21 +344,59 @@ model Postleitzahlen {
 // Rechnungen.prisma
 //
 
+enum Bezahlmethoden {
+  PAYPAL
+  GIROPAY
+  SOFORT
+  KREDITKARTE
+  RECHNUNG
+}
+
 model Rechnungen {
-  id                       Int                        @id @default(autoincrement())
-  benutzer_id              Int
-  empfaenger_zeile_1       String?                    @db.VarChar
-  empfaenger_zeile_2       String?                    @db.VarChar
-  strasse                  String                     @db.VarChar(100)
-  plz                      String?                    @db.VarChar
-  ort                      String?                    @db.VarChar
-  uid                      String                     @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  bedarfsausweis_wohnen    BedarfsausweisWohnen[]
+  id  Int    @id @default(autoincrement())
+  uid String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  benutzer_id Int
+  empfaenger  String? @db.VarChar
+  strasse     String? @db.VarChar
+  plz         String? @db.VarChar
+  ort         String? @db.VarChar
+  zusatzzeile String? @db.VarChar
+  telefon     String? @db.VarChar
+  email       String? @db.VarChar
+
+  abweichende_versand_adresse Boolean @default(false)
+  versand_empfaenger          String? @db.VarChar
+  versand_strasse             String? @db.VarChar
+  versand_plz                 String? @db.VarChar
+  versand_ort                 String? @db.VarChar
+  versand_zusatzzeile         String? @db.VarChar
+
+  bezahlmethode Bezahlmethoden
+
   benutzer                 Benutzer                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  bedarfsausweis_wohnen    BedarfsausweisWohnen[]
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
 
   @@map("rechnungen")
+}
+
+//
+// RefreshTokens.prisma
+//
+
+model RefreshTokens {
+  id     Int      @id @default(autoincrement())
+  token  String   @unique
+  uid    String   @db.Uuid
+  // Wir nehmen die IP Adresse des Clients mit auf.
+  // Falls sich die IP Adresse eines Refresh Token Owners ändert, können wir diesen einfach invalidieren.
+  ip     String
+  expiry DateTime
+
+  // Relationen
+  user Benutzer @relation(fields: [uid], references: [uid])
 }
 
 //

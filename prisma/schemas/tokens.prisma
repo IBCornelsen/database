@@ -1,12 +1,12 @@
 import { Benutzer } from "./Benutzer"
 
 model tokens {
-  id           Int          @id(map: "PK_TOKENS") @default(autoincrement())
-  token        String       @db.VarChar(36)
+  id           Int      @id(map: "PK_TOKENS") @default(autoincrement())
+  token        String   @db.VarChar(36)
   user_id      Int
-  date_created DateTime     @default(now()) @db.Timestamp(6)
-  last_used    DateTime     @default(now()) @db.Timestamp(6)
-  times_used   Int          @default(0)
-  permissions  Int          @default(0)
-  benutzer     Benutzer     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_benutzer_tokens_user_id")
+  date_created DateTime @default(now()) @db.Timestamp(6)
+  last_used    DateTime @default(now()) @db.Timestamp(6)
+  times_used   Int      @default(0)
+  permissions  Int      @default(0)
+  benutzer     Benutzer @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_benutzer_tokens_user_id")
 }

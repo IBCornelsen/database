@@ -3,17 +3,38 @@ import { BedarfsausweisWohnen } from "./BedarfsausweisWohnen"
 import { VerbrauchsausweisGewerbe } from "./VerbrauchsausweisGewerbe"
 import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
 
+enum Bezahlmethoden {
+  PAYPAL
+  GIROPAY
+  SOFORT
+  KREDITKARTE
+  RECHNUNG
+}
+
 model Rechnungen {
-  id                       Int                        @id @default(autoincrement())
-  benutzer_id              Int
-  empfaenger_zeile_1       String?                    @db.VarChar
-  empfaenger_zeile_2       String?                    @db.VarChar
-  strasse                  String                     @db.VarChar(100)
-  plz                      String?                    @db.VarChar
-  ort                      String?                    @db.VarChar
-  uid                      String                     @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  bedarfsausweis_wohnen    BedarfsausweisWohnen[]
+  id  Int    @id @default(autoincrement())
+  uid String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  benutzer_id Int
+  empfaenger  String? @db.VarChar
+  strasse     String? @db.VarChar
+  plz         String? @db.VarChar
+  ort         String? @db.VarChar
+  zusatzzeile String? @db.VarChar
+  telefon     String? @db.VarChar
+  email       String? @db.VarChar
+
+	abweichende_versand_adresse Boolean @default(false)
+  versand_empfaenger  String? @db.VarChar
+  versand_strasse     String? @db.VarChar
+  versand_plz         String? @db.VarChar
+  versand_ort         String? @db.VarChar
+  versand_zusatzzeile String? @db.VarChar
+
+  bezahlmethode Bezahlmethoden
+
   benutzer                 Benutzer                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  bedarfsausweis_wohnen    BedarfsausweisWohnen[]
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
 

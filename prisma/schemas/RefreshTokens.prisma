@@ -1,0 +1,14 @@
+import { Benutzer } from "Benutzer"
+
+model RefreshTokens {
+  id         Int     @id @default(autoincrement())
+  token			String  @unique
+	uid				String @db.Uuid
+	// Wir nehmen die IP Adresse des Clients mit auf.
+	// Falls sich die IP Adresse eines Refresh Token Owners ändert, können wir diesen einfach invalidieren.
+	ip				String
+	expiry		DateTime
+
+	// Relationen
+	user			Benutzer		@relation(fields: [uid], references: [uid])
+}

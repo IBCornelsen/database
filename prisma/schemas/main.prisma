@@ -13,6 +13,7 @@ import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
 import { Postleitzahlen } from "./Postleitzahlen"
 import { Rechnungen } from "./Rechnungen"
 import { tokens } from "./tokens"
+import { RefreshTokens } from "./RefreshTokens"
 
 generator client {
   provider      = "prisma-client-js"

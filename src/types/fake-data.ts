@@ -1,4 +1,4 @@
-import {  } from '/home/letsmoe/Documents/IBCornelsen/IBCornelsen/database/node_modules/@prisma/client';
+import { BenutzerRolle, Bezahlmethoden } from '/home/letsmoe/Documents/IBCornelsen/IBCornelsen/database/node_modules/@prisma/client';
 import { faker } from '@faker-js/faker';
 
 
@@ -201,6 +201,8 @@ export function fakeBenutzer() {
     plz: undefined,
     ort: undefined,
     adresse: undefined,
+    telefon: undefined,
+    anrede: undefined,
   };
 }
 export function fakeBenutzerComplete() {
@@ -215,6 +217,9 @@ export function fakeBenutzerComplete() {
     plz: undefined,
     ort: undefined,
     adresse: undefined,
+    telefon: undefined,
+    anrede: undefined,
+    rolle: BenutzerRolle.USER,
   };
 }
 export function fakedocumenttemplates() {
@@ -410,23 +415,56 @@ export function fakePostleitzahlenComplete() {
 }
 export function fakeRechnungen() {
   return {
-    empfaenger_zeile_1: undefined,
-    empfaenger_zeile_2: undefined,
-    strasse: faker.lorem.words(5),
+    empfaenger: undefined,
+    strasse: undefined,
     plz: undefined,
     ort: undefined,
+    zusatzzeile: undefined,
+    telefon: undefined,
+    email: undefined,
+    versand_empfaenger: undefined,
+    versand_strasse: undefined,
+    versand_plz: undefined,
+    versand_ort: undefined,
+    versand_zusatzzeile: undefined,
+    bezahlmethode: faker.helpers.arrayElement([Bezahlmethoden.PAYPAL, Bezahlmethoden.GIROPAY, Bezahlmethoden.SOFORT, Bezahlmethoden.KREDITKARTE, Bezahlmethoden.RECHNUNG] as const),
   };
 }
 export function fakeRechnungenComplete() {
   return {
     id: faker.number.int(),
+    uid: '[object Object]',
     benutzer_id: faker.number.int(),
-    empfaenger_zeile_1: undefined,
-    empfaenger_zeile_2: undefined,
-    strasse: faker.lorem.words(5),
+    empfaenger: undefined,
+    strasse: undefined,
     plz: undefined,
     ort: undefined,
-    uid: '[object Object]',
+    zusatzzeile: undefined,
+    telefon: undefined,
+    email: undefined,
+    abweichende_versand_adresse: false,
+    versand_empfaenger: undefined,
+    versand_strasse: undefined,
+    versand_plz: undefined,
+    versand_ort: undefined,
+    versand_zusatzzeile: undefined,
+    bezahlmethode: faker.helpers.arrayElement([Bezahlmethoden.PAYPAL, Bezahlmethoden.GIROPAY, Bezahlmethoden.SOFORT, Bezahlmethoden.KREDITKARTE, Bezahlmethoden.RECHNUNG] as const),
+  };
+}
+export function fakeRefreshTokens() {
+  return {
+    token: faker.lorem.words(5),
+    ip: faker.lorem.words(5),
+    expiry: faker.date.anytime(),
+  };
+}
+export function fakeRefreshTokensComplete() {
+  return {
+    id: faker.number.int(),
+    token: faker.lorem.words(5),
+    uid: faker.string.uuid(),
+    ip: faker.lorem.words(5),
+    expiry: faker.date.anytime(),
   };
 }
 export function faketokens() {
