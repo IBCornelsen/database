@@ -4,36 +4,6 @@
 //
 
 //
-// main.prisma
-//
-
-generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-1.1.x"]
-}
-
-generator faker {
-  provider = "prisma-generator-fake-data"
-  output   = "../src/types/fake-data.ts"
-}
-
-generator zod {
-  provider              = "zod-prisma"
-  output                = "../src/generated/zod"
-  relationModel         = false
-  modelCase             = "PascalCase"
-  modelSuffix           = "Schema"
-  useDecimalJs          = true
-  imports               = null
-  prismaJsonNullability = true
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_DATABASE_URL")
-}
-
-//
 // Anteilshaber.prisma
 //
 
@@ -330,6 +300,42 @@ model Klimafaktoren {
 }
 
 //
+// main.prisma
+//
+
+enum Ausweisart {
+  VerbrauchsausweisWohnen
+  VerbrauchsausweisGewerbe
+  BedarfsausweisWohnen
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+generator faker {
+  provider = "prisma-generator-fake-data"
+  output   = "../src/types/fake-data.ts"
+}
+
+generator zod {
+  provider              = "zod-prisma"
+  output                = "../src/generated/zod"
+  relationModel         = false
+  modelCase             = "PascalCase"
+  modelSuffix           = "Schema"
+  useDecimalJs          = true
+  imports               = null
+  prismaJsonNullability = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_DATABASE_URL")
+}
+
+//
 // Postleitzahlen.prisma
 //
 
@@ -352,6 +358,12 @@ enum Bezahlmethoden {
   RECHNUNG
 }
 
+enum Rechnungsstatus {
+  OFFEN
+  BEZAHLT
+  STORNIERT
+}
+
 model Rechnungen {
   id  Int    @id @default(autoincrement())
   uid String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
@@ -372,7 +384,13 @@ model Rechnungen {
   versand_ort                 String? @db.VarChar
   versand_zusatzzeile         String? @db.VarChar
 
-  bezahlmethode Bezahlmethoden
+  bezahlmethode         Bezahlmethoden
+  status                Rechnungsstatus
+  betrag                Float
+  erstellt_am           DateTime        @default(now())
+  bezahlt_am            DateTime?
+  storniert_am          DateTime?
+  transaktions_referenz String?         @db.VarChar
 
   benutzer                 Benutzer                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   bedarfsausweis_wohnen    BedarfsausweisWohnen[]
@@ -468,7 +486,7 @@ model VerbrauchsausweisWohnen {
   alternative_lueftung   Boolean?
   alternative_kuehlung   Boolean?
 
-  ausweisart String @default("VA") @db.VarChar
+  ausweisart Ausweisart @default(VerbrauchsausweisWohnen)
 
   anteil_warmwasser_1 Float?
   anteil_warmwasser_2 Float?

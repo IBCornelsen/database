@@ -1,6 +1,7 @@
 import { Benutzer } from "./Benutzer"
 import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
 import { Rechnungen } from "./Rechnungen"
+import { Ausweisart } from "main"
 
 model VerbrauchsausweisWohnen {
   id                        Int       @id @default(autoincrement())
@@ -37,7 +38,7 @@ model VerbrauchsausweisWohnen {
   alternative_lueftung   Boolean?
   alternative_kuehlung   Boolean?
 
-  ausweisart String @default("VA") @db.VarChar
+  ausweisart Ausweisart @default(VerbrauchsausweisWohnen)
 
   anteil_warmwasser_1 Float?
   anteil_warmwasser_2 Float?

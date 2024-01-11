@@ -11,6 +11,12 @@ enum Bezahlmethoden {
   RECHNUNG
 }
 
+enum Rechnungsstatus {
+	OFFEN
+	BEZAHLT
+	STORNIERT
+}
+
 model Rechnungen {
   id  Int    @id @default(autoincrement())
   uid String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
@@ -32,6 +38,12 @@ model Rechnungen {
   versand_zusatzzeile String? @db.VarChar
 
   bezahlmethode Bezahlmethoden
+	status				Rechnungsstatus
+	betrag        Float
+	erstellt_am   DateTime @default(now())
+	bezahlt_am    DateTime?
+	storniert_am  DateTime?
+	transaktions_referenz String? @db.VarChar
 
   benutzer                 Benutzer                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   bedarfsausweis_wohnen    BedarfsausweisWohnen[]

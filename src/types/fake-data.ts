@@ -1,4 +1,4 @@
-import { BenutzerRolle, Bezahlmethoden } from '/home/letsmoe/Documents/IBCornelsen/IBCornelsen/database/node_modules/@prisma/client';
+import { BenutzerRolle, Ausweisart, Bezahlmethoden, Rechnungsstatus } from '/home/letsmoe/Documents/IBCornelsen/IBCornelsen/database/node_modules/@prisma/client';
 import { faker } from '@faker-js/faker';
 
 
@@ -428,6 +428,11 @@ export function fakeRechnungen() {
     versand_ort: undefined,
     versand_zusatzzeile: undefined,
     bezahlmethode: faker.helpers.arrayElement([Bezahlmethoden.PAYPAL, Bezahlmethoden.GIROPAY, Bezahlmethoden.SOFORT, Bezahlmethoden.KREDITKARTE, Bezahlmethoden.RECHNUNG] as const),
+    status: faker.helpers.arrayElement([Rechnungsstatus.OFFEN, Rechnungsstatus.BEZAHLT, Rechnungsstatus.STORNIERT] as const),
+    betrag: faker.number.float(),
+    bezahlt_am: undefined,
+    storniert_am: undefined,
+    transaktions_referenz: undefined,
   };
 }
 export function fakeRechnungenComplete() {
@@ -449,6 +454,12 @@ export function fakeRechnungenComplete() {
     versand_ort: undefined,
     versand_zusatzzeile: undefined,
     bezahlmethode: faker.helpers.arrayElement([Bezahlmethoden.PAYPAL, Bezahlmethoden.GIROPAY, Bezahlmethoden.SOFORT, Bezahlmethoden.KREDITKARTE, Bezahlmethoden.RECHNUNG] as const),
+    status: faker.helpers.arrayElement([Rechnungsstatus.OFFEN, Rechnungsstatus.BEZAHLT, Rechnungsstatus.STORNIERT] as const),
+    betrag: faker.number.float(),
+    erstellt_am: new Date(),
+    bezahlt_am: undefined,
+    storniert_am: undefined,
+    transaktions_referenz: undefined,
   };
 }
 export function fakeRefreshTokens() {
@@ -555,7 +566,7 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     alternative_warmwasser: undefined,
     alternative_lueftung: undefined,
     alternative_kuehlung: undefined,
-    ausweisart: 'VA',
+    ausweisart: Ausweisart.VerbrauchsausweisWohnen,
     anteil_warmwasser_1: undefined,
     anteil_warmwasser_2: undefined,
   };
