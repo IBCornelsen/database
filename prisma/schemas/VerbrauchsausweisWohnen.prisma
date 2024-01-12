@@ -1,7 +1,7 @@
 import { Benutzer } from "./Benutzer"
 import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
 import { Rechnungen } from "./Rechnungen"
-import { Ausweisart } from "main"
+import { Ausweisart, Ausstellgrund } from "main"
 
 model VerbrauchsausweisWohnen {
   id                        Int       @id @default(autoincrement())
@@ -10,7 +10,7 @@ model VerbrauchsausweisWohnen {
   benutzer_id               Int?
   rechnungen_id             Int?
   erstellungsdatum          DateTime? @db.Timestamp(6)
-  ausstellgrund             String?   @db.VarChar
+  ausstellgrund						Ausstellgrund?
   registriernummer          String?   @db.VarChar
   erledigt                  Boolean?
   baujahr_heizung           Int[]

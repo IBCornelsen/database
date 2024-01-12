@@ -1,6 +1,7 @@
 import { Benutzer } from "./Benutzer"
 import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
 import { Rechnungen } from "./Rechnungen"
+import { Ausweisart, Ausstellgrund } from "main"
 
 model BedarfsausweisWohnen {
   id                            Int                @id @default(autoincrement())
@@ -8,9 +9,8 @@ model BedarfsausweisWohnen {
   gebaeude_stammdaten_id        Int
   benutzer_id                   Int
   rechnungen_id                 Int?
-  ausweisart                    String             @db.VarChar
   erstellungsdatum              DateTime?          @db.Timestamp(6)
-  ausstellgrund                 String             @db.VarChar
+  ausstellgrund						Ausstellgrund?
   registriernummer              String?            @db.VarChar
   erledigt                      Boolean?
   saniert                       Boolean?
@@ -75,6 +75,9 @@ model BedarfsausweisWohnen {
   kollektor_flaeche             Float?
   vanw_stromverbrauch_enthalten Float?
   wird_gekuehlt                 Boolean?
+
+	ausweisart Ausweisart @default(BedarfsausweisWohnen)
+
   benutzer                      Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_stammdaten           GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   rechnungen                    Rechnungen?        @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

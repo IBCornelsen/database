@@ -2,6 +2,7 @@ import { Benutzer } from "./Benutzer"
 import { BedarfsausweisWohnen } from "./BedarfsausweisWohnen"
 import { VerbrauchsausweisGewerbe } from "./VerbrauchsausweisGewerbe"
 import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
+import { Service } from "main"
 
 enum Bezahlmethoden {
   PAYPAL
@@ -12,9 +13,13 @@ enum Bezahlmethoden {
 }
 
 enum Rechnungsstatus {
-	OFFEN
-	BEZAHLT
-	STORNIERT
+	open
+	canceled
+	pending
+	authorized
+	expired
+	failed
+	paid
 }
 
 model Rechnungen {
@@ -39,11 +44,12 @@ model Rechnungen {
 
   bezahlmethode Bezahlmethoden
 	status				Rechnungsstatus
+	services Service[]
 	betrag        Float
 	erstellt_am   DateTime @default(now())
 	bezahlt_am    DateTime?
 	storniert_am  DateTime?
-	transaktions_referenz String? @db.VarChar
+	transaktions_referenz String? @db.VarChar @unique
 
   benutzer                 Benutzer                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   bedarfsausweis_wohnen    BedarfsausweisWohnen[]

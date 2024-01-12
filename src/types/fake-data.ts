@@ -1,4 +1,4 @@
-import { BenutzerRolle, Ausweisart, Bezahlmethoden, Rechnungsstatus } from '/home/letsmoe/Documents/IBCornelsen/IBCornelsen/database/node_modules/@prisma/client';
+import { BenutzerRolle, Ausstellgrund, Ausweisart, Service, Bezahlmethoden, Rechnungsstatus } from '/home/letsmoe/Documents/IBCornelsen/IBCornelsen/database/node_modules/@prisma/client';
 import { faker } from '@faker-js/faker';
 
 
@@ -46,9 +46,8 @@ export function fakeApiRequestsComplete() {
 }
 export function fakeBedarfsausweisWohnen() {
   return {
-    ausweisart: faker.lorem.words(5),
     erstellungsdatum: undefined,
-    ausstellgrund: faker.lorem.words(5),
+    ausstellgrund: undefined,
     registriernummer: undefined,
     erledigt: undefined,
     saniert: undefined,
@@ -122,9 +121,8 @@ export function fakeBedarfsausweisWohnenComplete() {
     gebaeude_stammdaten_id: faker.number.int(),
     benutzer_id: faker.number.int(),
     rechnungen_id: undefined,
-    ausweisart: faker.lorem.words(5),
     erstellungsdatum: undefined,
-    ausstellgrund: faker.lorem.words(5),
+    ausstellgrund: undefined,
     registriernummer: undefined,
     erledigt: undefined,
     saniert: undefined,
@@ -189,6 +187,7 @@ export function fakeBedarfsausweisWohnenComplete() {
     kollektor_flaeche: undefined,
     vanw_stromverbrauch_enthalten: undefined,
     wird_gekuehlt: undefined,
+    ausweisart: Ausweisart.BedarfsausweisWohnen,
   };
 }
 export function fakeBenutzer() {
@@ -428,7 +427,8 @@ export function fakeRechnungen() {
     versand_ort: undefined,
     versand_zusatzzeile: undefined,
     bezahlmethode: faker.helpers.arrayElement([Bezahlmethoden.PAYPAL, Bezahlmethoden.GIROPAY, Bezahlmethoden.SOFORT, Bezahlmethoden.KREDITKARTE, Bezahlmethoden.RECHNUNG] as const),
-    status: faker.helpers.arrayElement([Rechnungsstatus.OFFEN, Rechnungsstatus.BEZAHLT, Rechnungsstatus.STORNIERT] as const),
+    status: faker.helpers.arrayElement([Rechnungsstatus.open, Rechnungsstatus.canceled, Rechnungsstatus.pending, Rechnungsstatus.authorized, Rechnungsstatus.expired, Rechnungsstatus.failed, Rechnungsstatus.paid] as const),
+    services: faker.helpers.arrayElement([Service.Telefonberatung, Service.Aushang, Service.Qualitaetsdruck, Service.SameDay] as const),
     betrag: faker.number.float(),
     bezahlt_am: undefined,
     storniert_am: undefined,
@@ -454,7 +454,8 @@ export function fakeRechnungenComplete() {
     versand_ort: undefined,
     versand_zusatzzeile: undefined,
     bezahlmethode: faker.helpers.arrayElement([Bezahlmethoden.PAYPAL, Bezahlmethoden.GIROPAY, Bezahlmethoden.SOFORT, Bezahlmethoden.KREDITKARTE, Bezahlmethoden.RECHNUNG] as const),
-    status: faker.helpers.arrayElement([Rechnungsstatus.OFFEN, Rechnungsstatus.BEZAHLT, Rechnungsstatus.STORNIERT] as const),
+    status: faker.helpers.arrayElement([Rechnungsstatus.open, Rechnungsstatus.canceled, Rechnungsstatus.pending, Rechnungsstatus.authorized, Rechnungsstatus.expired, Rechnungsstatus.failed, Rechnungsstatus.paid] as const),
+    services: faker.helpers.arrayElement([Service.Telefonberatung, Service.Aushang, Service.Qualitaetsdruck, Service.SameDay] as const),
     betrag: faker.number.float(),
     erstellt_am: new Date(),
     bezahlt_am: undefined,
@@ -494,6 +495,11 @@ export function faketokensComplete() {
     permissions: 0,
   };
 }
+export function fakeVerbrauchsausweisGewerbe() {
+  return {
+    ausstellgrund: undefined,
+  };
+}
 export function fakeVerbrauchsausweisGewerbeComplete() {
   return {
     id: faker.number.int(),
@@ -501,6 +507,8 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
     gebaeude_stammdaten_id: faker.number.int(),
     rechnungen_id: undefined,
     benutzer_id: faker.number.int(),
+    ausstellgrund: undefined,
+    ausweisart: Ausweisart.VerbrauchsausweisGewerbe,
   };
 }
 export function fakeVerbrauchsausweisWohnen() {
