@@ -6,7 +6,7 @@
 	"types": "./src/index.ts",
   "type": "module",
 	"scripts": {
-		"postinstall": "bunx prisma@2.18.0 generate",
+		"postinstall": "bunx prisma generate",
 		"db:introspect": "dotenv -- prisma introspect",
     "db:generate": "dotenv -- prisma generate",
 		"prisma:merge": "bunx prisma-import --schemas=./prisma/schemas/* --output=./prisma/schema.prisma --force",

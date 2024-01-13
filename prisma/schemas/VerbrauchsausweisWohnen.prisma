@@ -13,7 +13,6 @@ model VerbrauchsausweisWohnen {
   ausstellgrund						Ausstellgrund?
   registriernummer          String?   @db.VarChar
   erledigt                  Boolean?
-  baujahr_heizung           Int[]
   zusaetzliche_heizquelle   Boolean?
   brennstoff_1              String?   @db.VarChar(50)
   einheit_1                 String?   @db.VarChar(50)

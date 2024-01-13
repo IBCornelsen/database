@@ -1,7 +1,8 @@
 version: '3'
 services:
   ibcornelsen-database:
-    network_mode: host
     build: ./
     env_file:
       - .env
+    ports:
+      - 5432:5432

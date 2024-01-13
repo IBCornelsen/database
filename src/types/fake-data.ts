@@ -1,4 +1,4 @@
-import { BenutzerRolle, Ausstellgrund, Ausweisart, Service, Bezahlmethoden, Rechnungsstatus } from '/home/letsmoe/Documents/IBCornelsen/IBCornelsen/database/node_modules/@prisma/client';
+import { BenutzerRolle, Ausstellgrund, Ausweisart, Service, Bezahlmethoden, Rechnungsstatus } from '/home/moritz/Documents/IBCornelsen/database/node_modules/@prisma/client';
 import { faker } from '@faker-js/faker';
 
 
@@ -517,7 +517,6 @@ export function fakeVerbrauchsausweisWohnen() {
     ausstellgrund: undefined,
     registriernummer: undefined,
     erledigt: undefined,
-    baujahr_heizung: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
     zusaetzliche_heizquelle: undefined,
     brennstoff_1: undefined,
     einheit_1: undefined,
@@ -553,7 +552,6 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     ausstellgrund: undefined,
     registriernummer: undefined,
     erledigt: undefined,
-    baujahr_heizung: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
     zusaetzliche_heizquelle: undefined,
     brennstoff_1: undefined,
     einheit_1: undefined,
