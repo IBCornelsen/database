@@ -368,11 +368,11 @@ model Postleitzahlen {
 //
 
 enum Bezahlmethoden {
-  PAYPAL
-  GIROPAY
-  SOFORT
-  KREDITKARTE
-  RECHNUNG
+  paypal
+  giropay
+  sofort
+  creditcard
+  rechnung
 }
 
 enum Rechnungsstatus {

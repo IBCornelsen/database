@@ -5,11 +5,11 @@ import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
 import { Service } from "main"
 
 enum Bezahlmethoden {
-  PAYPAL
-  GIROPAY
-  SOFORT
-  KREDITKARTE
-  RECHNUNG
+  paypal
+  giropay
+  sofort
+  creditcard
+  rechnung
 }
 
 enum Rechnungsstatus {
