@@ -222,26 +222,32 @@ model GebaeudePlaene {
 // GebaeudeStammdaten.prisma
 //
 
+enum Heizungsstatus {
+  BEHEIZT
+  UNBEHEIZT
+  NICHT_VORHANDEN
+}
+
 model GebaeudeStammdaten {
-  id               Int      @id @default(autoincrement())
-  uid              String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id               Int            @id @default(autoincrement())
+  uid              String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   benutzer_id      Int?
-  gebaeudetyp      String?  @db.VarChar
-  gebaeudeteil     String?  @db.VarChar
+  gebaeudetyp      String?        @db.VarChar
+  gebaeudeteil     String?        @db.VarChar
   baujahr_gebaeude Int[]
   baujahr_heizung  Int[]
   baujahr_klima    Int[]
   einheiten        Int?
   flaeche          Int?
   saniert          Boolean?
-  keller           Int?
-  dachgeschoss     Int?
-  lueftung         String?  @db.VarChar(50)
-  kuehlung         String?  @db.VarChar(50)
+  keller           Heizungsstatus
+  dachgeschoss     Heizungsstatus
+  lueftung         String?        @db.VarChar(50)
+  kuehlung         String?        @db.VarChar(50)
   leerstand        Int?
-  plz              String?  @db.VarChar(5)
-  ort              String?  @db.VarChar(50)
-  adresse          String?  @db.VarChar(100)
+  plz              String?        @db.VarChar(5)
+  ort              String?        @db.VarChar(50)
+  adresse          String?        @db.VarChar(100)
 
   zentralheizung                          Boolean?
   solarsystem_warmwasser                  Boolean?
@@ -358,9 +364,12 @@ datasource db {
 
 model Postleitzahlen {
   id         Int    @id @default(autoincrement())
-  plz        String @unique @db.VarChar(5)
+  plz        String @db.VarChar(5)
   stadt      String @db.VarChar(100)
   bundesland String @db.VarChar(100)
+  landkreis  String @db.VarChar(100)
+  lat        Float
+  lon        Float
 }
 
 //
@@ -465,6 +474,7 @@ model VerbrauchsausweisGewerbe {
   rechnungen_id          Int?
   benutzer_id            Int
   ausstellgrund          Ausstellgrund?
+  startdatum             DateTime?      @db.Timestamp(6)
 
   ausweisart Ausweisart @default(VerbrauchsausweisGewerbe)
 

@@ -1,20 +1,20 @@
-
 import { Benutzer } from "./Benutzer"
 import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
 import { Rechnungen } from "./Rechnungen"
 import { Ausweisart, Ausstellgrund } from "main"
 
 model VerbrauchsausweisGewerbe {
-  id                     Int                @id
-  uid                    String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id                     Int            @id
+  uid                    String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   gebaeude_stammdaten_id Int
   rechnungen_id          Int?
   benutzer_id            Int
-	ausstellgrund						Ausstellgrund?
+  ausstellgrund          Ausstellgrund?
+  startdatum             DateTime?      @db.Timestamp(6)
 
-	ausweisart Ausweisart @default(VerbrauchsausweisGewerbe)
+  ausweisart Ausweisart @default(VerbrauchsausweisGewerbe)
 
-  benutzer               Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  gebaeude_stammdaten    GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  rechnungen             Rechnungen?        @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  benutzer            Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  gebaeude_stammdaten GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  rechnungen          Rechnungen?        @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

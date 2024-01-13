@@ -38,7 +38,8 @@ model Benutzer {
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
   ApiRequests              ApiRequests[]
-	RefreshTokens						RefreshTokens[]
+  RefreshTokens            RefreshTokens[]
 
   @@map("benutzer")
 }
+

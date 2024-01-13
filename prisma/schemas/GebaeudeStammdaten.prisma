@@ -6,26 +6,32 @@ import { GebaeudePlaene } from "./GebaeudePlaene"
 import { VerbrauchsausweisGewerbe } from "./VerbrauchsausweisGewerbe"
 import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
 
+enum Heizungsstatus {
+	BEHEIZT
+	UNBEHEIZT
+	NICHT_VORHANDEN
+}
+
 model GebaeudeStammdaten {
-  id               Int      @id @default(autoincrement())
-  uid              String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id               Int            @id @default(autoincrement())
+  uid              String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   benutzer_id      Int?
-  gebaeudetyp      String?  @db.VarChar
-  gebaeudeteil     String?  @db.VarChar
+  gebaeudetyp      String?        @db.VarChar
+  gebaeudeteil     String?        @db.VarChar
   baujahr_gebaeude Int[]
   baujahr_heizung  Int[]
   baujahr_klima    Int[]
   einheiten        Int?
   flaeche          Int?
   saniert          Boolean?
-  keller           Int?
-  dachgeschoss     Int?
-  lueftung         String?  @db.VarChar(50)
-  kuehlung         String?  @db.VarChar(50)
+  keller           Heizungsstatus
+  dachgeschoss     Heizungsstatus
+  lueftung         String?        @db.VarChar(50)
+  kuehlung         String?        @db.VarChar(50)
   leerstand        Int?
-  plz              String?  @db.VarChar(5)
-  ort              String?  @db.VarChar(50)
-  adresse          String?  @db.VarChar(100)
+  plz              String?        @db.VarChar(5)
+  ort              String?        @db.VarChar(50)
+  adresse          String?        @db.VarChar(100)
 
   zentralheizung                          Boolean?
   solarsystem_warmwasser                  Boolean?
@@ -68,3 +74,4 @@ model GebaeudeStammdaten {
 
   @@map("gebaeude_stammdaten")
 }
+

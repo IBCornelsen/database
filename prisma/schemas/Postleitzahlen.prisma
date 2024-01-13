@@ -1,6 +1,9 @@
 model Postleitzahlen {
   id         Int    @id @default(autoincrement())
-  plz        String @unique @db.VarChar(5)
+  plz        String @db.VarChar(5)
   stadt      String @db.VarChar(100)
   bundesland String @db.VarChar(100)
+  landkreis  String @db.VarChar(100)
+  lat        Float
+  lon        Float
 }

@@ -1,4 +1,4 @@
-import { BenutzerRolle, Ausstellgrund, Ausweisart, Service, Bezahlmethoden, Rechnungsstatus } from '/home/moritz/Documents/IBCornelsen/database/node_modules/@prisma/client';
+import { BenutzerRolle, Heizungsstatus, Ausstellgrund, Ausweisart, Service, Bezahlmethoden, Rechnungsstatus } from '/home/moritz/Documents/IBCornelsen/database/node_modules/@prisma/client';
 import { faker } from '@faker-js/faker';
 
 
@@ -288,8 +288,8 @@ export function fakeGebaeudeStammdaten() {
     einheiten: undefined,
     flaeche: undefined,
     saniert: undefined,
-    keller: undefined,
-    dachgeschoss: undefined,
+    keller: faker.helpers.arrayElement([Heizungsstatus.BEHEIZT, Heizungsstatus.UNBEHEIZT, Heizungsstatus.NICHT_VORHANDEN] as const),
+    dachgeschoss: faker.helpers.arrayElement([Heizungsstatus.BEHEIZT, Heizungsstatus.UNBEHEIZT, Heizungsstatus.NICHT_VORHANDEN] as const),
     lueftung: undefined,
     kuehlung: undefined,
     leerstand: undefined,
@@ -341,8 +341,8 @@ export function fakeGebaeudeStammdatenComplete() {
     einheiten: undefined,
     flaeche: undefined,
     saniert: undefined,
-    keller: undefined,
-    dachgeschoss: undefined,
+    keller: faker.helpers.arrayElement([Heizungsstatus.BEHEIZT, Heizungsstatus.UNBEHEIZT, Heizungsstatus.NICHT_VORHANDEN] as const),
+    dachgeschoss: faker.helpers.arrayElement([Heizungsstatus.BEHEIZT, Heizungsstatus.UNBEHEIZT, Heizungsstatus.NICHT_VORHANDEN] as const),
     lueftung: undefined,
     kuehlung: undefined,
     leerstand: undefined,
@@ -402,6 +402,9 @@ export function fakePostleitzahlen() {
     plz: faker.lorem.words(5),
     stadt: faker.lorem.words(5),
     bundesland: faker.lorem.words(5),
+    landkreis: faker.lorem.words(5),
+    lat: faker.number.float(),
+    lon: faker.number.float(),
   };
 }
 export function fakePostleitzahlenComplete() {
@@ -410,6 +413,9 @@ export function fakePostleitzahlenComplete() {
     plz: faker.lorem.words(5),
     stadt: faker.lorem.words(5),
     bundesland: faker.lorem.words(5),
+    landkreis: faker.lorem.words(5),
+    lat: faker.number.float(),
+    lon: faker.number.float(),
   };
 }
 export function fakeRechnungen() {
@@ -498,6 +504,7 @@ export function faketokensComplete() {
 export function fakeVerbrauchsausweisGewerbe() {
   return {
     ausstellgrund: undefined,
+    startdatum: undefined,
   };
 }
 export function fakeVerbrauchsausweisGewerbeComplete() {
@@ -508,6 +515,7 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
     rechnungen_id: undefined,
     benutzer_id: faker.number.int(),
     ausstellgrund: undefined,
+    startdatum: undefined,
     ausweisart: Ausweisart.VerbrauchsausweisGewerbe,
   };
 }

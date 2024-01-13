@@ -16,18 +16,20 @@ import { tokens } from "./tokens"
 import { RefreshTokens } from "./RefreshTokens"
 
 enum Ausstellgrund {
-	Neubau
-	Vermietung
-	Verkauf
-	Modernisierung
-	Sonstiges
+  Neubau
+  Vermietung
+  Verkauf
+  Modernisierung
+  Sonstiges
 }
 
+
 enum Ausweisart {
-	VerbrauchsausweisWohnen
-	VerbrauchsausweisGewerbe
-	BedarfsausweisWohnen
+  VerbrauchsausweisWohnen
+  VerbrauchsausweisGewerbe
+  BedarfsausweisWohnen
 }
+
 
 enum Service {
 	Telefonberatung
