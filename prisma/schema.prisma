@@ -195,10 +195,17 @@ model documenttypes {
 // GebaeudeBilder.prisma
 //
 
+enum BilderKategorie {
+  Heizung
+  Fenster
+  Gebaeude
+  Daemmung
+}
+
 model GebaeudeBilder {
   id                     Int                @id @default(autoincrement())
   gebaeude_stammdaten_id Int
-  kategorie              String             @db.VarChar
+  kategorie              BilderKategorie
   uid                    String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   gebaeude_stammdaten    GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
@@ -229,25 +236,25 @@ enum Heizungsstatus {
 }
 
 model GebaeudeStammdaten {
-  id               Int            @id @default(autoincrement())
-  uid              String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id               Int             @id @default(autoincrement())
+  uid              String          @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   benutzer_id      Int?
-  gebaeudetyp      String?        @db.VarChar
-  gebaeudeteil     String?        @db.VarChar
+  gebaeudetyp      String?         @db.VarChar
+  gebaeudeteil     String?         @db.VarChar
   baujahr_gebaeude Int[]
   baujahr_heizung  Int[]
   baujahr_klima    Int[]
   einheiten        Int?
   flaeche          Int?
   saniert          Boolean?
-  keller           Heizungsstatus
-  dachgeschoss     Heizungsstatus
-  lueftung         String?        @db.VarChar(50)
-  kuehlung         String?        @db.VarChar(50)
+  keller           Heizungsstatus?
+  dachgeschoss     Heizungsstatus?
+  lueftung         String?         @db.VarChar(50)
+  kuehlung         String?         @db.VarChar(50)
   leerstand        Int?
-  plz              String?        @db.VarChar(5)
-  ort              String?        @db.VarChar(50)
-  adresse          String?        @db.VarChar(100)
+  plz              String?         @db.VarChar(5)
+  ort              String?         @db.VarChar(50)
+  adresse          String?         @db.VarChar(100)
 
   zentralheizung                          Boolean?
   solarsystem_warmwasser                  Boolean?
@@ -468,15 +475,57 @@ model tokens {
 //
 
 model VerbrauchsausweisGewerbe {
-  id                     Int            @id
-  uid                    String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  gebaeude_stammdaten_id Int
-  rechnungen_id          Int?
-  benutzer_id            Int
-  ausstellgrund          Ausstellgrund?
-  startdatum             DateTime?      @db.Timestamp(6)
+  id                      Int            @id @default(autoincrement())
+  uid                     String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  gebaeude_stammdaten_id  Int
+  benutzer_id             Int
+  rechnungen_id           Int?
+  erstellungsdatum        DateTime?      @db.Timestamp(6)
+  ausstellgrund           Ausstellgrund?
+  registriernummer        String?        @db.VarChar
+  erledigt                Boolean?
+  zusaetzliche_heizquelle Boolean?
+  brennstoff_1            String?        @db.VarChar(50)
+  einheit_1               String?        @db.VarChar(50)
+  brennstoff_2            String?        @db.VarChar(50)
+  einheit_2               String?        @db.VarChar(50)
+  startdatum              DateTime?      @db.Timestamp(6)
+  verbrauch_1             Int?
+  verbrauch_2             Int?
+  verbrauch_3             Int?
+  verbrauch_4             Int?
+  verbrauch_5             Int?
+  verbrauch_6             Int?
+
+  strom_1 Int?
+  strom_2 Int?
+  strom_3 Int?
+
+  stromverbrauch_enthaelt_heizung     Boolean?
+  stromverbrauch_enthaelt_warmwasser  Boolean?
+  stromverbrauch_enthaelt_lueftung    Boolean?
+  stromverbrauch_enthaelt_beleuchtung Boolean?
+  stromverbrauch_enthaelt_kuehlung    Boolean?
+  stromverbrauch_enthaelt_sonstige    String?  @db.VarChar(50)
+
+  kuehlung_enthalten Boolean?
+  anteil_kuehlung_1  Float?
+  anteil_kuehlung_2  Float?
+
+  wird_gekuehlt Boolean?
+
+  keller_beheizt Boolean?
+
+  alternative_heizung    Boolean?
+  alternative_warmwasser Boolean?
+  alternative_lueftung   Boolean?
+  alternative_kuehlung   Boolean?
 
   ausweisart Ausweisart @default(VerbrauchsausweisGewerbe)
+
+  warmwasser_enthalten Boolean?
+  anteil_warmwasser_1  Float?
+  anteil_warmwasser_2  Float?
 
   benutzer            Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_stammdaten GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -491,7 +540,7 @@ model VerbrauchsausweisWohnen {
   id                        Int            @id @default(autoincrement())
   uid                       String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   gebaeude_stammdaten_id    Int
-  benutzer_id               Int?
+  benutzer_id               Int
   rechnungen_id             Int?
   erstellungsdatum          DateTime?      @db.Timestamp(6)
   ausstellgrund             Ausstellgrund?
@@ -525,7 +574,8 @@ model VerbrauchsausweisWohnen {
 
   anteil_warmwasser_1 Float?
   anteil_warmwasser_2 Float?
-  benutzer            Benutzer?          @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  benutzer            Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_stammdaten GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   rechnungen          Rechnungen?        @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

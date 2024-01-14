@@ -1,4 +1,4 @@
-import { BenutzerRolle, Heizungsstatus, Ausstellgrund, Ausweisart, Service, Bezahlmethoden, Rechnungsstatus } from '/home/moritz/Documents/IBCornelsen/database/node_modules/@prisma/client';
+import { BenutzerRolle, BilderKategorie, Heizungsstatus, Ausstellgrund, Ausweisart, Service, Bezahlmethoden, Rechnungsstatus } from '/home/moritz/Documents/IBCornelsen/database/node_modules/@prisma/client';
 import { faker } from '@faker-js/faker';
 
 
@@ -260,14 +260,14 @@ export function fakedocumenttypesComplete() {
 }
 export function fakeGebaeudeBilder() {
   return {
-    kategorie: faker.lorem.words(5),
+    kategorie: faker.helpers.arrayElement([BilderKategorie.Heizung, BilderKategorie.Fenster, BilderKategorie.Gebaeude, BilderKategorie.Daemmung] as const),
   };
 }
 export function fakeGebaeudeBilderComplete() {
   return {
     id: faker.number.int(),
     gebaeude_stammdaten_id: faker.number.int(),
-    kategorie: faker.lorem.words(5),
+    kategorie: faker.helpers.arrayElement([BilderKategorie.Heizung, BilderKategorie.Fenster, BilderKategorie.Gebaeude, BilderKategorie.Daemmung] as const),
     uid: '[object Object]',
   };
 }
@@ -288,8 +288,8 @@ export function fakeGebaeudeStammdaten() {
     einheiten: undefined,
     flaeche: undefined,
     saniert: undefined,
-    keller: faker.helpers.arrayElement([Heizungsstatus.BEHEIZT, Heizungsstatus.UNBEHEIZT, Heizungsstatus.NICHT_VORHANDEN] as const),
-    dachgeschoss: faker.helpers.arrayElement([Heizungsstatus.BEHEIZT, Heizungsstatus.UNBEHEIZT, Heizungsstatus.NICHT_VORHANDEN] as const),
+    keller: undefined,
+    dachgeschoss: undefined,
     lueftung: undefined,
     kuehlung: undefined,
     leerstand: undefined,
@@ -341,8 +341,8 @@ export function fakeGebaeudeStammdatenComplete() {
     einheiten: undefined,
     flaeche: undefined,
     saniert: undefined,
-    keller: faker.helpers.arrayElement([Heizungsstatus.BEHEIZT, Heizungsstatus.UNBEHEIZT, Heizungsstatus.NICHT_VORHANDEN] as const),
-    dachgeschoss: faker.helpers.arrayElement([Heizungsstatus.BEHEIZT, Heizungsstatus.UNBEHEIZT, Heizungsstatus.NICHT_VORHANDEN] as const),
+    keller: undefined,
+    dachgeschoss: undefined,
     lueftung: undefined,
     kuehlung: undefined,
     leerstand: undefined,
@@ -503,8 +503,43 @@ export function faketokensComplete() {
 }
 export function fakeVerbrauchsausweisGewerbe() {
   return {
+    erstellungsdatum: undefined,
     ausstellgrund: undefined,
+    registriernummer: undefined,
+    erledigt: undefined,
+    zusaetzliche_heizquelle: undefined,
+    brennstoff_1: undefined,
+    einheit_1: undefined,
+    brennstoff_2: undefined,
+    einheit_2: undefined,
     startdatum: undefined,
+    verbrauch_1: undefined,
+    verbrauch_2: undefined,
+    verbrauch_3: undefined,
+    verbrauch_4: undefined,
+    verbrauch_5: undefined,
+    verbrauch_6: undefined,
+    strom_1: undefined,
+    strom_2: undefined,
+    strom_3: undefined,
+    stromverbrauch_enthaelt_heizung: undefined,
+    stromverbrauch_enthaelt_warmwasser: undefined,
+    stromverbrauch_enthaelt_lueftung: undefined,
+    stromverbrauch_enthaelt_beleuchtung: undefined,
+    stromverbrauch_enthaelt_kuehlung: undefined,
+    stromverbrauch_enthaelt_sonstige: undefined,
+    kuehlung_enthalten: undefined,
+    anteil_kuehlung_1: undefined,
+    anteil_kuehlung_2: undefined,
+    wird_gekuehlt: undefined,
+    keller_beheizt: undefined,
+    alternative_heizung: undefined,
+    alternative_warmwasser: undefined,
+    alternative_lueftung: undefined,
+    alternative_kuehlung: undefined,
+    warmwasser_enthalten: undefined,
+    anteil_warmwasser_1: undefined,
+    anteil_warmwasser_2: undefined,
   };
 }
 export function fakeVerbrauchsausweisGewerbeComplete() {
@@ -512,11 +547,46 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
     id: faker.number.int(),
     uid: '[object Object]',
     gebaeude_stammdaten_id: faker.number.int(),
-    rechnungen_id: undefined,
     benutzer_id: faker.number.int(),
+    rechnungen_id: undefined,
+    erstellungsdatum: undefined,
     ausstellgrund: undefined,
+    registriernummer: undefined,
+    erledigt: undefined,
+    zusaetzliche_heizquelle: undefined,
+    brennstoff_1: undefined,
+    einheit_1: undefined,
+    brennstoff_2: undefined,
+    einheit_2: undefined,
     startdatum: undefined,
+    verbrauch_1: undefined,
+    verbrauch_2: undefined,
+    verbrauch_3: undefined,
+    verbrauch_4: undefined,
+    verbrauch_5: undefined,
+    verbrauch_6: undefined,
+    strom_1: undefined,
+    strom_2: undefined,
+    strom_3: undefined,
+    stromverbrauch_enthaelt_heizung: undefined,
+    stromverbrauch_enthaelt_warmwasser: undefined,
+    stromverbrauch_enthaelt_lueftung: undefined,
+    stromverbrauch_enthaelt_beleuchtung: undefined,
+    stromverbrauch_enthaelt_kuehlung: undefined,
+    stromverbrauch_enthaelt_sonstige: undefined,
+    kuehlung_enthalten: undefined,
+    anteil_kuehlung_1: undefined,
+    anteil_kuehlung_2: undefined,
+    wird_gekuehlt: undefined,
+    keller_beheizt: undefined,
+    alternative_heizung: undefined,
+    alternative_warmwasser: undefined,
+    alternative_lueftung: undefined,
+    alternative_kuehlung: undefined,
     ausweisart: Ausweisart.VerbrauchsausweisGewerbe,
+    warmwasser_enthalten: undefined,
+    anteil_warmwasser_1: undefined,
+    anteil_warmwasser_2: undefined,
   };
 }
 export function fakeVerbrauchsausweisWohnen() {
@@ -554,7 +624,7 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     id: faker.number.int(),
     uid: '[object Object]',
     gebaeude_stammdaten_id: faker.number.int(),
-    benutzer_id: undefined,
+    benutzer_id: faker.number.int(),
     rechnungen_id: undefined,
     erstellungsdatum: undefined,
     ausstellgrund: undefined,

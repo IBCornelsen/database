@@ -7,7 +7,7 @@ model VerbrauchsausweisWohnen {
   id                        Int       @id @default(autoincrement())
   uid                       String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   gebaeude_stammdaten_id    Int
-  benutzer_id               Int?
+  benutzer_id               Int
   rechnungen_id             Int?
   erstellungsdatum          DateTime? @db.Timestamp(6)
   ausstellgrund						Ausstellgrund?
@@ -41,7 +41,8 @@ model VerbrauchsausweisWohnen {
 
   anteil_warmwasser_1 Float?
   anteil_warmwasser_2 Float?
-  benutzer            Benutzer?          @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  benutzer            Benutzer          @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_stammdaten GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   rechnungen          Rechnungen?        @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
