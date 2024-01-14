@@ -1,31 +1,32 @@
 {
   "name": "@ibcornelsen/database",
-	"version": "0.0.1",
-	"description": "IBCornelsen database configuration",
+  "version": "0.0.1",
+  "description": "IBCornelsen database configuration",
   "module": "./src/index.ts",
-	"types": "./src/index.ts",
+  "types": "./src/index.ts",
   "type": "module",
-	"scripts": {
-		"postinstall": "bunx prisma generate",
-		"db:introspect": "dotenv -- prisma introspect",
+  "scripts": {
+    "postinstall": "bunx prisma generate",
+    "db:introspect": "dotenv -- prisma introspect",
     "db:generate": "dotenv -- prisma generate",
-		"prisma:merge": "bunx prisma-import --schemas=./prisma/schemas/* --output=./prisma/schema.prisma --force",
-		"prisma:generate": "bun run prisma:merge && bunx prisma generate"
-	},
+    "prisma:merge": "bunx prisma-import --schemas=./prisma/schemas/* --output=./prisma/schema.prisma --force",
+    "prisma:generate": "bun run prisma:merge && bunx prisma generate"
+  },
   "devDependencies": {
     "bun-types": "latest",
     "prisma": "^5.7.0",
-		"prisma-generator-fake-data": "latest",
-		"zod-prisma": "latest",
-		"prisma-import": "latest"
+    "prisma-generator-fake-data": "latest",
+    "zod-prisma": "latest",
+    "prisma-import": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@prisma/client": "5.7.0"
+    "@prisma/client": "5.7.0",
+    "prisma-dbml-generator": "^0.10.0"
   },
-	"prisma": {
-		"seed": "bun prisma/seed.ts"
-	}
+  "prisma": {
+    "seed": "bun prisma/seed.ts"
+  }
 }

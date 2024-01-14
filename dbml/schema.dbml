@@ -1,0 +1,479 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Project "IBCornelsen Database" {
+  database_type: 'PostgreSQL'
+  Note: ''
+}
+
+Table Anteilshaber {
+  id Int [pk, increment]
+  benutzer_id Int [not null]
+  gebaeude_id Int [not null]
+  rolle String
+  privilegien BigInt
+  uid String [unique, not null]
+  benutzer benutzer [not null]
+  gebaeude_stammdaten gebaeude_stammdaten [not null]
+}
+
+Table ApiRequests {
+  id Int [pk, increment]
+  date DateTime [default: `now()`, not null]
+  ip String [not null]
+  method String [not null]
+  path String [not null]
+  status Int [not null]
+  responseTime Float [not null]
+  responseSize Int [not null]
+  userAgent String [not null]
+  user_id Int
+  user benutzer
+}
+
+Table BedarfsausweisWohnen {
+  id Int [pk, increment]
+  uid String [not null]
+  gebaeude_stammdaten_id Int [not null]
+  benutzer_id Int [not null]
+  rechnungen_id Int
+  erstellungsdatum DateTime
+  ausstellgrund Ausstellgrund
+  registriernummer String
+  erledigt Boolean
+  alternative_heizung Boolean
+  alternative_warmwasser Boolean
+  alternative_lueftung Boolean
+  alternative_kuehlung Boolean
+  anzahl_vollgeschosse Int
+  geschosshoehe Float
+  anzahl_gauben Int
+  breite_gauben Float
+  masse_a Float
+  masse_b Float
+  masse_c Float
+  masse_d Float
+  masse_e Float
+  masse_f Float
+  fensterflaeche_so_sw Float
+  fensterflaeche_nw_no Float
+  aussenwandflaeche_unbeheizt Float
+  dachflaeche Float
+  deckenflaeche Float
+  dach_u_wert Float
+  decke_u_wert Float
+  aussenwand_flaeche Float
+  aussenwand_u_wert Float
+  fussboden_flaeche Float
+  fussboden_u_wert Float
+  volumen Float
+  dicht Boolean
+  fenster_flaeche_1 Float
+  fenster_art_1 Float
+  fenster_flaeche_2 Float
+  fenster_art_2 Float
+  dachfenster_flaeche Float
+  dachfenster_art Float
+  haustuer_flaeche Float
+  haustuer_art Float
+  dach_bauart String
+  decke_bauart String
+  dach_daemmung Float
+  decke_daemmung Float
+  aussenwand_daemmung Float
+  boden_daemmung Float
+  aussenwand_bauart String
+  boden_bauart String
+  warmwasser_verteilung String
+  warmwasser_speicherung String
+  warmwasser_erzeugung String
+  heizung_zentral Boolean
+  heizung_verteilung String
+  heizung_speicherung String
+  waerme_erzeugung_heizung String
+  anteil_zusatzheizung Float
+  kollektor_flaeche Float
+  ausweisart Ausweisart [not null, default: 'BedarfsausweisWohnen']
+  benutzer benutzer [not null]
+  gebaeude_stammdaten gebaeude_stammdaten [not null]
+  rechnungen rechnungen
+}
+
+Table benutzer {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  name String
+  vorname String
+  email String [unique, not null]
+  passwort String [not null]
+  profilbild String
+  plz String
+  ort String
+  adresse String
+  telefon String
+  anrede String
+  rolle BenutzerRolle [not null, default: 'USER']
+  BedarfsausweisWohnen BedarfsausweisWohnen [not null]
+  documenttemplates documenttemplates [not null]
+  gebaeude_stammdaten gebaeude_stammdaten [not null]
+  rechnungen rechnungen [not null]
+  tokens tokens [not null]
+  VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe [not null]
+  VerbrauchsausweisWohnen VerbrauchsausweisWohnen [not null]
+  ApiRequests ApiRequests [not null]
+  RefreshTokens RefreshTokens [not null]
+}
+
+Table documenttemplates {
+  id Int [pk, increment]
+  name String [not null]
+  shortdescription String [not null]
+  longdescription String [not null]
+  user_id Int [not null]
+  is_private Boolean [not null, default: true]
+  documenttype Int [not null]
+  filename String [not null]
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [default: `now()`, not null]
+  benutzer benutzer [not null]
+  documenttypes documenttypes [not null]
+}
+
+Table documenttypes {
+  id Int [pk, increment]
+  name String [not null]
+  shortdescription String [not null]
+  longdescription String [not null]
+  documenttemplates documenttemplates [not null]
+}
+
+Table gebaeude_bilder {
+  id Int [pk, increment]
+  gebaeude_stammdaten_id Int [not null]
+  kategorie BilderKategorie [not null]
+  uid String [unique, not null]
+  gebaeude_stammdaten gebaeude_stammdaten [not null]
+}
+
+Table gebaeude_plaene {
+  id Int [pk, increment]
+  gebaeude_stammdaten_id Int [not null]
+  uid String [unique, not null]
+  gebaeude_stammdaten gebaeude_stammdaten [not null]
+}
+
+Table gebaeude_stammdaten {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  benutzer_id Int
+  gebaeudetyp String
+  gebaeudeteil String
+  baujahr_gebaeude Int[] [not null]
+  baujahr_heizung Int[] [not null]
+  baujahr_klima Int[] [not null]
+  einheiten Int
+  flaeche Int
+  saniert Boolean
+  keller Heizungsstatus
+  dachgeschoss Heizungsstatus
+  lueftung String
+  kuehlung String
+  leerstand Int
+  plz String
+  ort String
+  adresse String
+  zentralheizung Boolean
+  solarsystem_warmwasser Boolean
+  warmwasser_rohre_gedaemmt Boolean
+  niedertemperatur_kessel Boolean
+  brennwert_kessel Boolean
+  heizungsrohre_gedaemmt Boolean
+  standard_kessel Boolean
+  waermepumpe Boolean
+  raum_temperatur_regler Boolean
+  photovoltaik Boolean
+  durchlauf_erhitzer Boolean
+  einzelofen Boolean
+  zirkulation Boolean
+  einfach_verglasung Boolean
+  dreifach_verglasung Boolean
+  fenster_teilweise_undicht Boolean
+  doppel_verglasung Boolean
+  fenster_dicht Boolean
+  rolllaeden_kaesten_gedaemmt Boolean
+  isolier_verglasung Boolean
+  tueren_undicht Boolean
+  tueren_dicht Boolean
+  dachgeschoss_gedaemmt Boolean
+  keller_decke_gedaemmt Boolean
+  keller_wand_gedaemmt Boolean
+  aussenwand_gedaemmt Boolean
+  oberste_geschossdecke_gedaemmt Boolean
+  aussenwand_min_12cm_gedaemmt Boolean
+  dachgeschoss_min_12cm_gedaemmt Boolean
+  oberste_geschossdecke_min_12cm_gedaemmt Boolean
+  BedarfsausweisWohnen BedarfsausweisWohnen [not null]
+  GebaeudeBilder gebaeude_bilder [not null]
+  GebaeudePlaene gebaeude_plaene [not null]
+  Benutzer benutzer
+  VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe [not null]
+  VerbrauchsausweisWohnen VerbrauchsausweisWohnen [not null]
+}
+
+Table Klimafaktoren {
+  id Int [pk, increment]
+  plz String [not null]
+  month Int [not null]
+  year Int [not null]
+  klimafaktor Float [not null, default: 1]
+
+  indexes {
+    (plz, month, year) [unique]
+  }
+}
+
+Table Postleitzahlen {
+  id Int [pk, increment]
+  plz String [not null]
+  stadt String [not null]
+  bundesland String [not null]
+  landkreis String [not null]
+  lat Float [not null]
+  lon Float [not null]
+}
+
+Table rechnungen {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  benutzer_id Int [not null]
+  empfaenger String
+  strasse String
+  plz String
+  ort String
+  zusatzzeile String
+  telefon String
+  email String
+  abweichende_versand_adresse Boolean [not null, default: false]
+  versand_empfaenger String
+  versand_strasse String
+  versand_plz String
+  versand_ort String
+  versand_zusatzzeile String
+  bezahlmethode Bezahlmethoden [not null]
+  status Rechnungsstatus [not null]
+  services Service[] [not null]
+  betrag Float [not null]
+  erstellt_am DateTime [default: `now()`, not null]
+  bezahlt_am DateTime
+  storniert_am DateTime
+  transaktions_referenz String [unique]
+  benutzer benutzer [not null]
+  BedarfsausweisWohnen BedarfsausweisWohnen [not null]
+  VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe [not null]
+  VerbrauchsausweisWohnen VerbrauchsausweisWohnen [not null]
+}
+
+Table RefreshTokens {
+  id Int [pk, increment]
+  token String [unique, not null]
+  uid String [not null]
+  ip String [not null]
+  expiry DateTime [not null]
+  user benutzer [not null]
+}
+
+Table tokens {
+  id Int [pk, increment]
+  token String [not null]
+  user_id Int [not null]
+  date_created DateTime [default: `now()`, not null]
+  last_used DateTime [default: `now()`, not null]
+  times_used Int [not null, default: 0]
+  permissions Int [not null, default: 0]
+  benutzer benutzer [not null]
+}
+
+Table VerbrauchsausweisGewerbe {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  gebaeude_stammdaten_id Int [not null]
+  benutzer_id Int [not null]
+  rechnungen_id Int
+  erstellungsdatum DateTime
+  ausstellgrund Ausstellgrund
+  registriernummer String
+  erledigt Boolean
+  zusaetzliche_heizquelle Boolean
+  brennstoff_1 String
+  einheit_1 String
+  brennstoff_2 String
+  einheit_2 String
+  startdatum DateTime
+  verbrauch_1 Int
+  verbrauch_2 Int
+  verbrauch_3 Int
+  verbrauch_4 Int
+  verbrauch_5 Int
+  verbrauch_6 Int
+  strom_1 Int
+  strom_2 Int
+  strom_3 Int
+  stromverbrauch_enthaelt_heizung Boolean
+  stromverbrauch_enthaelt_warmwasser Boolean
+  stromverbrauch_enthaelt_lueftung Boolean
+  stromverbrauch_enthaelt_beleuchtung Boolean
+  stromverbrauch_enthaelt_kuehlung Boolean
+  stromverbrauch_enthaelt_sonstige String
+  kuehlung_enthalten Boolean
+  anteil_kuehlung_1 Float
+  anteil_kuehlung_2 Float
+  wird_gekuehlt Boolean
+  keller_beheizt Boolean
+  alternative_heizung Boolean
+  alternative_warmwasser Boolean
+  alternative_lueftung Boolean
+  alternative_kuehlung Boolean
+  ausweisart Ausweisart [not null, default: 'VerbrauchsausweisGewerbe']
+  warmwasser_enthalten Boolean
+  anteil_warmwasser_1 Float
+  anteil_warmwasser_2 Float
+  benutzer benutzer [not null]
+  gebaeude_stammdaten gebaeude_stammdaten [not null]
+  rechnungen rechnungen
+}
+
+Table VerbrauchsausweisWohnen {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  gebaeude_stammdaten_id Int [not null]
+  benutzer_id Int [not null]
+  rechnungen_id Int
+  erstellungsdatum DateTime
+  ausstellgrund Ausstellgrund
+  registriernummer String
+  erledigt Boolean
+  zusaetzliche_heizquelle Boolean
+  brennstoff_1 String
+  einheit_1 String
+  brennstoff_2 String
+  einheit_2 String
+  startdatum DateTime
+  verbrauch_1 Int
+  verbrauch_2 Int
+  verbrauch_3 Int
+  verbrauch_4 Int
+  verbrauch_5 Int
+  verbrauch_6 Int
+  warmwasser_enthalten Boolean
+  warmwasser_anteil_bekannt Boolean
+  wird_gekuehlt Boolean
+  keller_beheizt Boolean
+  alternative_heizung Boolean
+  alternative_warmwasser Boolean
+  alternative_lueftung Boolean
+  alternative_kuehlung Boolean
+  ausweisart Ausweisart [not null, default: 'VerbrauchsausweisWohnen']
+  anteil_warmwasser_1 Float
+  anteil_warmwasser_2 Float
+  benutzer benutzer [not null]
+  gebaeude_stammdaten gebaeude_stammdaten [not null]
+  rechnungen rechnungen
+}
+
+Enum BenutzerRolle {
+  USER
+  ADMIN
+}
+
+Enum BilderKategorie {
+  Heizung
+  Fenster
+  Gebaeude
+  Daemmung
+}
+
+Enum Heizungsstatus {
+  BEHEIZT
+  UNBEHEIZT
+  NICHT_VORHANDEN
+}
+
+Enum Ausstellgrund {
+  Neubau
+  Vermietung
+  Verkauf
+  Modernisierung
+  Sonstiges
+}
+
+Enum Ausweisart {
+  VerbrauchsausweisWohnen
+  VerbrauchsausweisGewerbe
+  BedarfsausweisWohnen
+}
+
+Enum Service {
+  Telefonberatung
+  Aushang
+  Qualitaetsdruck
+  SameDay
+}
+
+Enum Bezahlmethoden {
+  paypal
+  giropay
+  sofort
+  creditcard
+  rechnung
+}
+
+Enum Rechnungsstatus {
+  open
+  canceled
+  pending
+  authorized
+  expired
+  failed
+  paid
+}
+
+Ref: Anteilshaber.benutzer_id - benutzer.id [delete: No Action]
+
+Ref: Anteilshaber.gebaeude_id - gebaeude_stammdaten.id [delete: No Action]
+
+Ref: ApiRequests.user_id > benutzer.id [delete: No Action]
+
+Ref: BedarfsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
+
+Ref: BedarfsausweisWohnen.gebaeude_stammdaten_id > gebaeude_stammdaten.id [delete: No Action]
+
+Ref: BedarfsausweisWohnen.rechnungen_id > rechnungen.id [delete: No Action]
+
+Ref: documenttemplates.user_id > benutzer.id [delete: Cascade]
+
+Ref: documenttemplates.documenttype > documenttypes.id [delete: Cascade]
+
+Ref: gebaeude_bilder.gebaeude_stammdaten_id > gebaeude_stammdaten.id [delete: No Action]
+
+Ref: gebaeude_plaene.gebaeude_stammdaten_id > gebaeude_stammdaten.id [delete: No Action]
+
+Ref: gebaeude_stammdaten.benutzer_id > benutzer.id [delete: No Action]
+
+Ref: rechnungen.benutzer_id > benutzer.id [delete: No Action]
+
+Ref: RefreshTokens.uid > benutzer.uid
+
+Ref: tokens.user_id > benutzer.id [delete: No Action]
+
+Ref: VerbrauchsausweisGewerbe.benutzer_id > benutzer.id [delete: No Action]
+
+Ref: VerbrauchsausweisGewerbe.gebaeude_stammdaten_id > gebaeude_stammdaten.id [delete: No Action]
+
+Ref: VerbrauchsausweisGewerbe.rechnungen_id > rechnungen.id [delete: No Action]
+
+Ref: VerbrauchsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
+
+Ref: VerbrauchsausweisWohnen.gebaeude_stammdaten_id > gebaeude_stammdaten.id [delete: No Action]
+
+Ref: VerbrauchsausweisWohnen.rechnungen_id > rechnungen.id [delete: No Action]
