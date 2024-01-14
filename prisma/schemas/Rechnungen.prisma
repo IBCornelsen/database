@@ -52,7 +52,7 @@ model Rechnungen {
   transaktions_referenz String?         @unique @db.VarChar
 
   benutzer                 Benutzer                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  bedarfsausweis_wohnen    BedarfsausweisWohnen[]
+  BedarfsausweisWohnen    BedarfsausweisWohnen[]
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
 

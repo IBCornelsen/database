@@ -29,8 +29,8 @@ model Benutzer {
   anrede     String?       @db.VarChar(50)
   rolle      BenutzerRolle @default(USER)
 
-  anteilshaber             Anteilshaber[]             @ignore
-  bedarfsausweis_wohnen    BedarfsausweisWohnen[]
+  Anteilshaber             Anteilshaber[]             @ignore
+  BedarfsausweisWohnen    BedarfsausweisWohnen[]
   documenttemplates        documenttemplates[]
   gebaeude_stammdaten      GebaeudeStammdaten[]
   rechnungen               Rechnungen[]

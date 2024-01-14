@@ -64,11 +64,11 @@ model GebaeudeStammdaten {
   dachgeschoss_min_12cm_gedaemmt          Boolean?
   oberste_geschossdecke_min_12cm_gedaemmt Boolean?
 
-  anteilshaber             Anteilshaber[]             @ignore
-  bedarfsausweis_wohnen    BedarfsausweisWohnen[]
-  gebaeude_bilder          GebaeudeBilder[]
-  gebaeude_plaene          GebaeudePlaene[]
-  benutzer                 Benutzer?                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Anteilshaber             Anteilshaber[]             @ignore
+  BedarfsausweisWohnen    BedarfsausweisWohnen[]
+  GebaeudeBilder          GebaeudeBilder[]
+  GebaeudePlaene          GebaeudePlaene[]
+  Benutzer                 Benutzer?                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
 
