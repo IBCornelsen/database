@@ -35,7 +35,7 @@ model Rechnungen {
   telefon     String? @db.VarChar
   email       String? @db.VarChar
 
-  abweichende_versand_adresse Boolean @default(false)
+  abweichende_versand_adresse Boolean? @default(false)
   versand_empfaenger          String? @db.VarChar
   versand_strasse             String? @db.VarChar
   versand_plz                 String? @db.VarChar

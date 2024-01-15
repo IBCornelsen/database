@@ -1,0 +1,31 @@
+import { Benutzer } from "Benutzer"
+
+enum TicketStatus {
+  OFFEN
+  IN_BEARBEITUNG
+  IN_WARTESCHLEIFE
+  GESCHLOSSEN
+  GELOEST
+}
+
+model Tickets {
+  id           Int          @id @default(autoincrement())
+  uid          String       @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  benutzer_id  Int?
+  created_at   DateTime     @default(now())
+  updated_at   DateTime?    @updatedAt
+  deleted_at   DateTime?
+  // Attribute
+  status       TicketStatus @default(OFFEN)
+  titel        String
+  beschreibung String
+	metadata 	 Json?
+	email				String
+
+  bearbeiter_id Int?
+  prioritaet    Int? @default(0)
+
+  // Relationen
+  benutzer   Benutzer? @relation(fields: [benutzer_id], references: [id], name: "ErstellteTickets")
+  bearbeiter Benutzer? @relation(fields: [bearbeiter_id], references: [id], name: "BearbeiteteTickets")
+}

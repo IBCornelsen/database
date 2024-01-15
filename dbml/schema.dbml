@@ -123,6 +123,8 @@ Table benutzer {
   VerbrauchsausweisWohnen VerbrauchsausweisWohnen [not null]
   ApiRequests ApiRequests [not null]
   RefreshTokens RefreshTokens [not null]
+  ErstellteTickets Tickets [not null]
+  BearbeiteteTickets Tickets [not null]
 }
 
 Table documenttemplates {
@@ -254,7 +256,7 @@ Table rechnungen {
   zusatzzeile String
   telefon String
   email String
-  abweichende_versand_adresse Boolean [not null, default: false]
+  abweichende_versand_adresse Boolean [default: false]
   versand_empfaenger String
   versand_strasse String
   versand_plz String
@@ -281,6 +283,24 @@ Table RefreshTokens {
   ip String [not null]
   expiry DateTime [not null]
   user benutzer [not null]
+}
+
+Table Tickets {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  benutzer_id Int
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime
+  deleted_at DateTime
+  status TicketStatus [not null, default: 'OFFEN']
+  titel String [not null]
+  beschreibung String [not null]
+  metadata Json
+  email String [not null]
+  bearbeiter_id Int
+  prioritaet Int [default: 0]
+  benutzer benutzer
+  bearbeiter benutzer
 }
 
 Table tokens {
@@ -438,6 +458,14 @@ Enum Rechnungsstatus {
   paid
 }
 
+Enum TicketStatus {
+  OFFEN
+  IN_BEARBEITUNG
+  IN_WARTESCHLEIFE
+  GESCHLOSSEN
+  GELOEST
+}
+
 Ref: Anteilshaber.benutzer_id - benutzer.id [delete: No Action]
 
 Ref: Anteilshaber.gebaeude_id - gebaeude_stammdaten.id [delete: No Action]
@@ -463,6 +491,10 @@ Ref: gebaeude_stammdaten.benutzer_id > benutzer.id [delete: No Action]
 Ref: rechnungen.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: RefreshTokens.uid > benutzer.uid
+
+Ref: Tickets.benutzer_id > benutzer.id
+
+Ref: Tickets.bearbeiter_id > benutzer.id
 
 Ref: tokens.user_id > benutzer.id [delete: No Action]
 

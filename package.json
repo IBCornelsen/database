@@ -17,14 +17,14 @@
     "prisma": "^5.7.0",
     "prisma-generator-fake-data": "latest",
     "zod-prisma": "latest",
-    "prisma-import": "latest"
+    "prisma-import": "latest",
+		"prisma-dbml-generator": "^0.10.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@prisma/client": "5.7.0",
-    "prisma-dbml-generator": "^0.10.0"
+    "@prisma/client": "5.7.0"
   },
   "prisma": {
     "seed": "bun prisma/seed.ts"

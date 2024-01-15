@@ -8,6 +8,7 @@ import { VerbrauchsausweisGewerbe } from "./VerbrauchsausweisGewerbe"
 import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
 import { ApiRequests } from "./ApiRequests"
 import { RefreshTokens } from "./RefreshTokens"
+import { Tickets } from "./Tickets"
 
 enum BenutzerRolle {
   USER
@@ -30,7 +31,7 @@ model Benutzer {
   rolle      BenutzerRolle @default(USER)
 
   Anteilshaber             Anteilshaber[]             @ignore
-  BedarfsausweisWohnen    BedarfsausweisWohnen[]
+  BedarfsausweisWohnen     BedarfsausweisWohnen[]
   documenttemplates        documenttemplates[]
   gebaeude_stammdaten      GebaeudeStammdaten[]
   rechnungen               Rechnungen[]
@@ -39,7 +40,10 @@ model Benutzer {
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
   ApiRequests              ApiRequests[]
   RefreshTokens            RefreshTokens[]
+	ErstellteTickets								Tickets[] @relation("ErstellteTickets")
+	BearbeiteteTickets							Tickets[] @relation("BearbeiteteTickets")
 
   @@map("benutzer")
 }
+
 

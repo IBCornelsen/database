@@ -146,6 +146,8 @@ model Benutzer {
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
   ApiRequests              ApiRequests[]
   RefreshTokens            RefreshTokens[]
+  ErstellteTickets         Tickets[]                  @relation("ErstellteTickets")
+  BearbeiteteTickets       Tickets[]                  @relation("BearbeiteteTickets")
 
   @@map("benutzer")
 }
@@ -412,12 +414,12 @@ model Rechnungen {
   telefon     String? @db.VarChar
   email       String? @db.VarChar
 
-  abweichende_versand_adresse Boolean @default(false)
-  versand_empfaenger          String? @db.VarChar
-  versand_strasse             String? @db.VarChar
-  versand_plz                 String? @db.VarChar
-  versand_ort                 String? @db.VarChar
-  versand_zusatzzeile         String? @db.VarChar
+  abweichende_versand_adresse Boolean? @default(false)
+  versand_empfaenger          String?  @db.VarChar
+  versand_strasse             String?  @db.VarChar
+  versand_plz                 String?  @db.VarChar
+  versand_ort                 String?  @db.VarChar
+  versand_zusatzzeile         String?  @db.VarChar
 
   bezahlmethode         Bezahlmethoden
   status                Rechnungsstatus
@@ -451,6 +453,40 @@ model RefreshTokens {
 
   // Relationen
   user Benutzer @relation(fields: [uid], references: [uid])
+}
+
+//
+// Tickets.prisma
+//
+
+enum TicketStatus {
+  OFFEN
+  IN_BEARBEITUNG
+  IN_WARTESCHLEIFE
+  GESCHLOSSEN
+  GELOEST
+}
+
+model Tickets {
+  id           Int          @id @default(autoincrement())
+  uid          String       @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  benutzer_id  Int?
+  created_at   DateTime     @default(now())
+  updated_at   DateTime?    @updatedAt
+  deleted_at   DateTime?
+  // Attribute
+  status       TicketStatus @default(OFFEN)
+  titel        String
+  beschreibung String
+  metadata     Json?
+  email        String
+
+  bearbeiter_id Int?
+  prioritaet    Int? @default(0)
+
+  // Relationen
+  benutzer   Benutzer? @relation(fields: [benutzer_id], references: [id], name: "ErstellteTickets")
+  bearbeiter Benutzer? @relation(fields: [bearbeiter_id], references: [id], name: "BearbeiteteTickets")
 }
 
 //

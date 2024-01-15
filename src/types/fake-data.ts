@@ -1,4 +1,4 @@
-import { BenutzerRolle, BilderKategorie, Heizungsstatus, Ausstellgrund, Ausweisart, Service, Bezahlmethoden, Rechnungsstatus } from '/home/moritz/Documents/IBCornelsen/database/node_modules/@prisma/client';
+import { BenutzerRolle, BilderKategorie, Heizungsstatus, Ausstellgrund, Ausweisart, Service, Bezahlmethoden, Rechnungsstatus, TicketStatus } from '/home/moritz/Documents/IBCornelsen/database/node_modules/@prisma/client';
 import { faker } from '@faker-js/faker';
 
 
@@ -463,6 +463,33 @@ export function fakeRefreshTokensComplete() {
     uid: faker.string.uuid(),
     ip: faker.lorem.words(5),
     expiry: faker.date.anytime(),
+  };
+}
+export function fakeTickets() {
+  return {
+    updated_at: undefined,
+    deleted_at: undefined,
+    titel: faker.lorem.words(5),
+    beschreibung: faker.lorem.words(5),
+    metadata: undefined,
+    email: faker.internet.email(),
+  };
+}
+export function fakeTicketsComplete() {
+  return {
+    id: faker.number.int(),
+    uid: '[object Object]',
+    benutzer_id: undefined,
+    created_at: new Date(),
+    updated_at: undefined,
+    deleted_at: undefined,
+    status: TicketStatus.OFFEN,
+    titel: faker.lorem.words(5),
+    beschreibung: faker.lorem.words(5),
+    metadata: undefined,
+    email: faker.internet.email(),
+    bearbeiter_id: undefined,
+    prioritaet: 0,
   };
 }
 export function faketokens() {
