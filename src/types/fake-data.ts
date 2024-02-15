@@ -459,8 +459,8 @@ export function fakeRefreshTokens() {
 export function fakeRefreshTokensComplete() {
   return {
     id: faker.number.int(),
+    benutzer_id: faker.number.int(),
     token: faker.lorem.words(5),
-    uid: faker.string.uuid(),
     ip: faker.lorem.words(5),
     expiry: faker.date.anytime(),
   };

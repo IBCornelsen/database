@@ -278,8 +278,8 @@ Table rechnungen {
 
 Table RefreshTokens {
   id Int [pk, increment]
+  benutzer_id Int [not null]
   token String [unique, not null]
-  uid String [not null]
   ip String [not null]
   expiry DateTime [not null]
   user benutzer [not null]
@@ -490,7 +490,7 @@ Ref: gebaeude_stammdaten.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: rechnungen.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: RefreshTokens.uid > benutzer.uid
+Ref: RefreshTokens.benutzer_id > benutzer.id [delete: Cascade]
 
 Ref: Tickets.benutzer_id > benutzer.id
 
