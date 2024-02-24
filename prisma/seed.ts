@@ -3,6 +3,8 @@
 // Mehr Infos: https://www.prisma.io/docs/orm/prisma-migrate/workflows/seeding
 
 import { PrismaClient } from '@prisma/client'
+import crypto from "node:crypto"
+import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient({
 	log: ["warn", "error"],
@@ -58,3 +60,44 @@ await prisma.postleitzahlen.createMany({
 		}
 	})
 })
+
+function hashPassword(password: string): string {
+	const salt = crypto.randomBytes(16).toString("hex");
+	const hash = hashWithGivenSalt(password, salt) + salt;
+	return hash;
+}
+
+function hashWithGivenSalt(password: string, salt: string): string {
+	const hash = crypto.scryptSync(password, salt, 32).toString("hex");
+	return hash;
+}
+
+// Admin erstellen
+await prisma.benutzer.create({
+	data: {
+		email: "admin@ib-cornelsen.de",
+		passwort: hashPassword("0G4v2ij1OXTscIx"),
+		rolle: "ADMIN",
+		name: "Admin",
+		vorname: "Admin",
+		adresse: "Adminstraße 1",
+		plz: "12345",
+	}
+})
+
+// Benutzer erstellen
+
+for (let i = 0; i < 100; i++) {
+	await prisma.benutzer.create({
+		data: {
+			email: faker.internet.email(),
+			passwort: hashPassword(faker.internet.password()),
+			name: faker.person.lastName(),
+			vorname: faker.person.firstName(),
+			adresse: faker.location.street(),
+			plz: faker.location.zipCode({ format: "#####" }),
+			ort: faker.location.city(),
+			rolle: "USER"
+		}
+	})
+}
