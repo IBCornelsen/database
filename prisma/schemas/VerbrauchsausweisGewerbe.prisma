@@ -2,6 +2,7 @@ import { Benutzer } from "./Benutzer"
 import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
 import { Rechnungen } from "./Rechnungen"
 import { Ausweisart, Ausstellgrund } from "main"
+import { GebaeudeAufnahmeAllgemein } from "GebaeudeAufnahmeAllgemein"
 
 model VerbrauchsausweisGewerbe {
   id                      Int            @id @default(autoincrement())
@@ -56,7 +57,9 @@ model VerbrauchsausweisGewerbe {
   anteil_warmwasser_1  Float?
   anteil_warmwasser_2  Float?
 
+	gebaeudeaufnahme_allgemein_id        Int @unique
+
   benutzer            Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  gebaeude_stammdaten GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeudeaufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   rechnungen          Rechnungen?        @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

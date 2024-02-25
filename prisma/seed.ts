@@ -88,16 +88,67 @@ await prisma.benutzer.create({
 // Benutzer erstellen
 
 for (let i = 0; i < 100; i++) {
-	await prisma.benutzer.create({
+	let firstName = faker.person.firstName()
+	let lastName = faker.person.lastName()
+	const benutzer = await prisma.benutzer.create({
 		data: {
-			email: faker.internet.email(),
+			email: faker.internet.email({
+				firstName: firstName,
+				lastName: lastName
+			}),
 			passwort: hashPassword(faker.internet.password()),
-			name: faker.person.lastName(),
-			vorname: faker.person.firstName(),
+			name: lastName,
+			vorname: firstName,
 			adresse: faker.location.street(),
 			plz: faker.location.zipCode({ format: "#####" }),
 			ort: faker.location.city(),
 			rolle: "USER"
 		}
 	})
+
+	for (let j = 0; j < Math.round(Math.random() * 5); j++) {
+		// Für jeden Nutzer erstellen wir auch noch bis zu 5 Ausweise.
+		await prisma.gebaeudeStammdaten.create({
+			data: {
+				adresse: faker.location.street(),
+				latitude: faker.location.latitude(),
+				longitude: faker.location.longitude(),
+				ort: faker.location.city(),
+				plz: faker.location.zipCode({ format: "#####" }),
+				benutzer: {
+					connect: {
+						id: benutzer.id
+					}
+				},
+				gebaeude_aufnahme_allgemein: {
+					create: {
+						adresse: faker.location.street(),
+						alternative_heizung: faker.datatype.boolean(),
+						alternative_kuehlung: faker.datatype.boolean(),
+						alternative_lueftung: faker.datatype.boolean(),
+						alternative_warmwasser: faker.datatype.boolean(),
+						aussenwand_gedaemmt: faker.datatype.boolean(),
+						aussenwand_min_12cm_gedaemmt: faker.datatype.boolean(),
+						baujahr_gebaeude: [faker.date.past().getFullYear()],
+						baujahr_heizung: [faker.date.past().getFullYear()],
+						baujahr_klima: [faker.date.past().getFullYear()],
+						Benutzer: {
+							connect: {
+								id: benutzer.id
+							}
+						},
+						VerbrauchsausweisWohnen: {
+							create: {
+								benutzer: {
+									connect: {
+										id: benutzer.id
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		})
+	}
 }

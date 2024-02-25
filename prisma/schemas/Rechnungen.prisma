@@ -36,11 +36,11 @@ model Rechnungen {
   email       String? @db.VarChar
 
   abweichende_versand_adresse Boolean? @default(false)
-  versand_empfaenger          String? @db.VarChar
-  versand_strasse             String? @db.VarChar
-  versand_plz                 String? @db.VarChar
-  versand_ort                 String? @db.VarChar
-  versand_zusatzzeile         String? @db.VarChar
+  versand_empfaenger          String?  @db.VarChar
+  versand_strasse             String?  @db.VarChar
+  versand_plz                 String?  @db.VarChar
+  versand_ort                 String?  @db.VarChar
+  versand_zusatzzeile         String?  @db.VarChar
 
   bezahlmethode         Bezahlmethoden
   status                Rechnungsstatus
@@ -52,10 +52,11 @@ model Rechnungen {
   transaktions_referenz String?         @unique @db.VarChar
 
   benutzer                 Benutzer                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  BedarfsausweisWohnen    BedarfsausweisWohnen[]
+  BedarfsausweisWohnen     BedarfsausweisWohnen[]
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
 
   @@map("rechnungen")
 }
+
 

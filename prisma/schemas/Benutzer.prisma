@@ -40,10 +40,11 @@ model Benutzer {
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
   ApiRequests              ApiRequests[]
   RefreshTokens            RefreshTokens[]
-	ErstellteTickets								Tickets[] @relation("ErstellteTickets")
-	BearbeiteteTickets							Tickets[] @relation("BearbeiteteTickets")
+  ErstellteTickets         Tickets[]                  @relation("ErstellteTickets")
+  BearbeiteteTickets       Tickets[]                  @relation("BearbeiteteTickets")
 
   @@map("benutzer")
 }
+
 
 

@@ -15,7 +15,7 @@ Table Anteilshaber {
   privilegien BigInt
   uid String [unique, not null]
   benutzer benutzer [not null]
-  gebaeude_stammdaten gebaeude_stammdaten [not null]
+  gebaeude_stammdaten GebaeudeStammdaten [not null]
 }
 
 Table ApiRequests {
@@ -35,7 +35,6 @@ Table ApiRequests {
 Table BedarfsausweisWohnen {
   id Int [pk, increment]
   uid String [not null]
-  gebaeude_stammdaten_id Int [not null]
   benutzer_id Int [not null]
   rechnungen_id Int
   erstellungsdatum DateTime
@@ -94,9 +93,10 @@ Table BedarfsausweisWohnen {
   waerme_erzeugung_heizung String
   anteil_zusatzheizung Float
   kollektor_flaeche Float
+  gebaeudeaufnahme_allgemein_id Int [unique, not null]
   ausweisart Ausweisart [not null, default: 'BedarfsausweisWohnen']
   benutzer benutzer [not null]
-  gebaeude_stammdaten gebaeude_stammdaten [not null]
+  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
   rechnungen rechnungen
 }
 
@@ -116,7 +116,7 @@ Table benutzer {
   rolle BenutzerRolle [not null, default: 'USER']
   BedarfsausweisWohnen BedarfsausweisWohnen [not null]
   documenttemplates documenttemplates [not null]
-  gebaeude_stammdaten gebaeude_stammdaten [not null]
+  gebaeude_stammdaten GebaeudeStammdaten [not null]
   rechnungen rechnungen [not null]
   tokens tokens [not null]
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe [not null]
@@ -125,6 +125,7 @@ Table benutzer {
   RefreshTokens RefreshTokens [not null]
   ErstellteTickets Tickets [not null]
   BearbeiteteTickets Tickets [not null]
+  GebaeudeAufnahmeAllgemein GebaeudeAufnahmeAllgemein [not null]
 }
 
 Table documenttemplates {
@@ -150,22 +151,7 @@ Table documenttypes {
   documenttemplates documenttemplates [not null]
 }
 
-Table gebaeude_bilder {
-  id Int [pk, increment]
-  gebaeude_stammdaten_id Int [not null]
-  kategorie BilderKategorie [not null]
-  uid String [unique, not null]
-  gebaeude_stammdaten gebaeude_stammdaten [not null]
-}
-
-Table gebaeude_plaene {
-  id Int [pk, increment]
-  gebaeude_stammdaten_id Int [not null]
-  uid String [unique, not null]
-  gebaeude_stammdaten gebaeude_stammdaten [not null]
-}
-
-Table gebaeude_stammdaten {
+Table GebaeudeAufnahmeAllgemein {
   id Int [pk, increment]
   uid String [unique, not null]
   benutzer_id Int
@@ -176,15 +162,24 @@ Table gebaeude_stammdaten {
   baujahr_klima Int[] [not null]
   einheiten Int
   flaeche Int
+  nutzflaeche Int
   saniert Boolean
   keller Heizungsstatus
   dachgeschoss Heizungsstatus
   lueftung String
   kuehlung String
   leerstand Int
+  alternative_heizung Boolean
+  alternative_warmwasser Boolean
+  alternative_kuehlung Boolean
+  alternative_lueftung Boolean
+  brennstoff_1 String
+  brennstoff_2 String
   plz String
   ort String
   adresse String
+  erledigt Boolean [default: false]
+  erstellungsdatum DateTime [default: `now()`]
   zentralheizung Boolean
   solarsystem_warmwasser Boolean
   warmwasser_rohre_gedaemmt Boolean
@@ -215,12 +210,43 @@ Table gebaeude_stammdaten {
   aussenwand_min_12cm_gedaemmt Boolean
   dachgeschoss_min_12cm_gedaemmt Boolean
   oberste_geschossdecke_min_12cm_gedaemmt Boolean
-  BedarfsausweisWohnen BedarfsausweisWohnen [not null]
-  GebaeudeBilder gebaeude_bilder [not null]
-  GebaeudePlaene gebaeude_plaene [not null]
-  Benutzer benutzer
-  VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe [not null]
-  VerbrauchsausweisWohnen VerbrauchsausweisWohnen [not null]
+  gebaeude_stammdaten_id Int [not null]
+  bedarfsausweis_wohnen BedarfsausweisWohnen
+  benutzer benutzer
+  verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe
+  verbrauchsausweis_wohnen VerbrauchsausweisWohnen
+  gebaeude_stammdaten GebaeudeStammdaten [not null]
+}
+
+Table gebaeude_bilder {
+  id Int [pk, increment]
+  gebaeude_stammdaten_id Int [not null]
+  kategorie BilderKategorie [not null]
+  uid String [unique, not null]
+  gebaeude_stammdaten GebaeudeStammdaten [not null]
+}
+
+Table gebaeude_plaene {
+  id Int [pk, increment]
+  gebaeude_stammdaten_id Int [not null]
+  uid String [unique, not null]
+  gebaeude_stammdaten GebaeudeStammdaten [not null]
+}
+
+Table GebaeudeStammdaten {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  benutzer_id Int [not null]
+  latitude Float
+  longitude Float
+  plz String
+  ort String
+  adresse String
+  gebaeude_bilder gebaeude_bilder [not null]
+  gebaeude_plaene gebaeude_plaene [not null]
+  benutzer benutzer [not null]
+  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
+  Anteilshaber Anteilshaber [not null]
 }
 
 Table Klimafaktoren {
@@ -358,15 +384,15 @@ Table VerbrauchsausweisGewerbe {
   warmwasser_enthalten Boolean
   anteil_warmwasser_1 Float
   anteil_warmwasser_2 Float
+  gebaeudeaufnahme_allgemein_id Int [unique, not null]
   benutzer benutzer [not null]
-  gebaeude_stammdaten gebaeude_stammdaten [not null]
+  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
   rechnungen rechnungen
 }
 
 Table VerbrauchsausweisWohnen {
   id Int [pk, increment]
   uid String [unique, not null]
-  gebaeude_stammdaten_id Int [not null]
   benutzer_id Int [not null]
   rechnungen_id Int
   erstellungsdatum DateTime
@@ -374,9 +400,7 @@ Table VerbrauchsausweisWohnen {
   registriernummer String
   erledigt Boolean
   zusaetzliche_heizquelle Boolean
-  brennstoff_1 String
   einheit_1 String
-  brennstoff_2 String
   einheit_2 String
   startdatum DateTime
   verbrauch_1 Int
@@ -396,8 +420,9 @@ Table VerbrauchsausweisWohnen {
   ausweisart Ausweisart [not null, default: 'VerbrauchsausweisWohnen']
   anteil_warmwasser_1 Float
   anteil_warmwasser_2 Float
+  gebaeudeaufnahme_allgemein_id Int [unique, not null]
   benutzer benutzer [not null]
-  gebaeude_stammdaten gebaeude_stammdaten [not null]
+  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
   rechnungen rechnungen
 }
 
@@ -406,17 +431,17 @@ Enum BenutzerRolle {
   ADMIN
 }
 
+Enum Heizungsstatus {
+  BEHEIZT
+  UNBEHEIZT
+  NICHT_VORHANDEN
+}
+
 Enum BilderKategorie {
   Heizung
   Fenster
   Gebaeude
   Daemmung
-}
-
-Enum Heizungsstatus {
-  BEHEIZT
-  UNBEHEIZT
-  NICHT_VORHANDEN
 }
 
 Enum Ausstellgrund {
@@ -468,13 +493,13 @@ Enum TicketStatus {
 
 Ref: Anteilshaber.benutzer_id - benutzer.id [delete: No Action]
 
-Ref: Anteilshaber.gebaeude_id - gebaeude_stammdaten.id [delete: No Action]
+Ref: Anteilshaber.gebaeude_id > GebaeudeStammdaten.id [delete: No Action]
 
 Ref: ApiRequests.user_id > benutzer.id [delete: No Action]
 
 Ref: BedarfsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: BedarfsausweisWohnen.gebaeude_stammdaten_id > gebaeude_stammdaten.id [delete: No Action]
+Ref: BedarfsausweisWohnen.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAllgemein.id [delete: No Action]
 
 Ref: BedarfsausweisWohnen.rechnungen_id > rechnungen.id [delete: No Action]
 
@@ -482,11 +507,15 @@ Ref: documenttemplates.user_id > benutzer.id [delete: Cascade]
 
 Ref: documenttemplates.documenttype > documenttypes.id [delete: Cascade]
 
-Ref: gebaeude_bilder.gebaeude_stammdaten_id > gebaeude_stammdaten.id [delete: No Action]
+Ref: GebaeudeAufnahmeAllgemein.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: gebaeude_plaene.gebaeude_stammdaten_id > gebaeude_stammdaten.id [delete: No Action]
+Ref: GebaeudeAufnahmeAllgemein.gebaeude_stammdaten_id > GebaeudeStammdaten.id
 
-Ref: gebaeude_stammdaten.benutzer_id > benutzer.id [delete: No Action]
+Ref: gebaeude_bilder.gebaeude_stammdaten_id > GebaeudeStammdaten.id [delete: No Action]
+
+Ref: gebaeude_plaene.gebaeude_stammdaten_id > GebaeudeStammdaten.id [delete: No Action]
+
+Ref: GebaeudeStammdaten.benutzer_id > benutzer.id
 
 Ref: rechnungen.benutzer_id > benutzer.id [delete: No Action]
 
@@ -500,12 +529,12 @@ Ref: tokens.user_id > benutzer.id [delete: No Action]
 
 Ref: VerbrauchsausweisGewerbe.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: VerbrauchsausweisGewerbe.gebaeude_stammdaten_id > gebaeude_stammdaten.id [delete: No Action]
+Ref: VerbrauchsausweisGewerbe.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAllgemein.id [delete: No Action]
 
 Ref: VerbrauchsausweisGewerbe.rechnungen_id > rechnungen.id [delete: No Action]
 
 Ref: VerbrauchsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: VerbrauchsausweisWohnen.gebaeude_stammdaten_id > gebaeude_stammdaten.id [delete: No Action]
+Ref: VerbrauchsausweisWohnen.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAllgemein.id [delete: No Action]
 
 Ref: VerbrauchsausweisWohnen.rechnungen_id > rechnungen.id [delete: No Action]
