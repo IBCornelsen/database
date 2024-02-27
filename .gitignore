@@ -170,3 +170,4 @@ dist
 bun.lockb
 
 src/generated
+src/types/fake-data.ts

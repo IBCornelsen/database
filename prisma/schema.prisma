@@ -259,6 +259,9 @@ model GebaeudeAufnahmeAllgemein {
   dachgeschoss_min_12cm_gedaemmt          Boolean?
   oberste_geschossdecke_min_12cm_gedaemmt Boolean?
 
+  // Eigenschaften der Bestellung
+  storniert Boolean @default(false)
+
   gebaeude_stammdaten_id Int
 
   bedarfsausweis_wohnen     BedarfsausweisWohnen?
