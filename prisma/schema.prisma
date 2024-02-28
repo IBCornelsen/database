@@ -222,10 +222,18 @@ model GebaeudeAufnahmeAllgemein {
   brennstoff_1 String? @db.VarChar(50)
   brennstoff_2 String? @db.VarChar(50)
 
-  plz              String?   @db.VarChar(5)
-  ort              String?   @db.VarChar(50)
-  adresse          String?   @db.VarChar(100)
-  erledigt         Boolean?  @default(false)
+  plz             String?  @db.VarChar(5)
+  ort             String?  @db.VarChar(50)
+  adresse         String?  @db.VarChar(100)
+  erledigt        Boolean? @default(false)
+  bestellt        Boolean? @default(false)
+  zurueckgestellt Boolean? @default(false)
+  prueftext       String?  @db.VarChar(1000)
+
+  boxpruefung Boolean? @default(false)
+
+  energieeffizienzklasse String? @db.VarChar(5)
+
   erstellungsdatum DateTime? @default(now())
 
   zentralheizung                          Boolean?

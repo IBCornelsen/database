@@ -179,6 +179,11 @@ Table GebaeudeAufnahmeAllgemein {
   ort String
   adresse String
   erledigt Boolean [default: false]
+  bestellt Boolean [default: false]
+  zurueckgestellt Boolean [default: false]
+  prueftext String
+  boxpruefung Boolean [default: false]
+  energieeffizienzklasse String
   erstellungsdatum DateTime [default: `now()`]
   zentralheizung Boolean
   solarsystem_warmwasser Boolean
