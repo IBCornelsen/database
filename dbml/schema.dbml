@@ -178,6 +178,7 @@ Table GebaeudeAufnahmeAllgemein {
   plz String
   ort String
   adresse String
+  storniert Boolean [default: false]
   erledigt Boolean [default: false]
   bestellt Boolean [default: false]
   zurueckgestellt Boolean [default: false]
@@ -215,7 +216,6 @@ Table GebaeudeAufnahmeAllgemein {
   aussenwand_min_12cm_gedaemmt Boolean
   dachgeschoss_min_12cm_gedaemmt Boolean
   oberste_geschossdecke_min_12cm_gedaemmt Boolean
-  storniert Boolean [not null, default: false]
   gebaeude_stammdaten_id Int [not null]
   bedarfsausweis_wohnen BedarfsausweisWohnen
   benutzer benutzer

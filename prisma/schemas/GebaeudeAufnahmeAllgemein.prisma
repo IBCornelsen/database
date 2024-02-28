@@ -43,6 +43,8 @@ model GebaeudeAufnahmeAllgemein {
   plz              String?   @db.VarChar(5)
   ort              String?   @db.VarChar(50)
   adresse          String?   @db.VarChar(100)
+	// Eigenschaften der Bestellung
+	storniert Boolean? @default(false)
   erledigt         Boolean?  @default(false)
 	bestellt					Boolean?  @default(false)
 	zurueckgestellt Boolean?  @default(false)
@@ -84,9 +86,6 @@ model GebaeudeAufnahmeAllgemein {
   aussenwand_min_12cm_gedaemmt            Boolean?
   dachgeschoss_min_12cm_gedaemmt          Boolean?
   oberste_geschossdecke_min_12cm_gedaemmt Boolean?
-
-	// Eigenschaften der Bestellung
-	storniert Boolean @default(false)
 
   gebaeude_stammdaten_id Int
 	

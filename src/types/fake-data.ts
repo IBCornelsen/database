@@ -325,6 +325,7 @@ export function fakeGebaeudeAufnahmeAllgemeinComplete() {
     plz: undefined,
     ort: undefined,
     adresse: undefined,
+    storniert: false,
     erledigt: false,
     bestellt: false,
     zurueckgestellt: false,
@@ -362,7 +363,6 @@ export function fakeGebaeudeAufnahmeAllgemeinComplete() {
     aussenwand_min_12cm_gedaemmt: undefined,
     dachgeschoss_min_12cm_gedaemmt: undefined,
     oberste_geschossdecke_min_12cm_gedaemmt: undefined,
-    storniert: false,
     gebaeude_stammdaten_id: faker.number.int(),
   };
 }
