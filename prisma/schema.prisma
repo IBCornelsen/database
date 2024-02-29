@@ -149,6 +149,7 @@ model Benutzer {
   RefreshTokens             RefreshTokens[]
   ErstellteTickets          Tickets[]                   @relation("ErstellteTickets")
   BearbeiteteTickets        Tickets[]                   @relation("BearbeiteteTickets")
+  events                    Event[]
   GebaeudeAufnahmeAllgemein GebaeudeAufnahmeAllgemein[]
 
   @@map("benutzer")
@@ -183,6 +184,31 @@ model documenttypes {
   shortdescription  String              @db.VarChar(100)
   longdescription   String              @db.VarChar(5000)
   documenttemplates documenttemplates[]
+}
+
+//
+// Event.prisma
+//
+
+// Dieses Model wird für getriggerte Events verwendet
+// Hier werden beispielsweise Events wie "Nachricht Verschickt" gespeichert.
+// Diese Events werden dann in der Admin-Oberfläche angezeigt.
+model Event {
+  id   Int      @id @default(autoincrement())
+  uid  String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date DateTime @default(now()) @db.Timestamp(6)
+
+  title       String  @db.VarChar(255)
+  description String? @db.Text
+
+  // Verlinkung des Gebäudes
+  gebaeude_aufnahme_allgemein_id Int?
+  gebaeude_aufnahme_allgemein    GebaeudeAufnahmeAllgemein? @relation(fields: [gebaeude_aufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  // Verlinkung des Benutzers
+  benutzer_id                    Int?
+  benutzer                       Benutzer?                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  GebaeudeStammdaten             GebaeudeStammdaten?        @relation(fields: [gebaeudeStammdatenId], references: [id])
+  gebaeudeStammdatenId           Int?
 }
 
 //
@@ -276,6 +302,7 @@ model GebaeudeAufnahmeAllgemein {
   verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe?
   verbrauchsausweis_wohnen  VerbrauchsausweisWohnen?
   gebaeude_stammdaten       GebaeudeStammdaten        @relation(fields: [gebaeude_stammdaten_id], references: [id])
+  Event                     Event[]
 }
 
 //
@@ -328,6 +355,7 @@ model GebaeudeStammdaten {
   ort     String?
   adresse String?
 
+  events                      Event[]
   gebaeude_bilder             GebaeudeBilder[]
   gebaeude_plaene             GebaeudePlaene[]
   benutzer                    Benutzer                    @relation(fields: [benutzer_id], references: [id])
@@ -618,11 +646,13 @@ model VerbrauchsausweisGewerbe {
 //
 
 model VerbrauchsausweisWohnen {
-  id                        Int            @id @default(autoincrement())
-  uid                       String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  benutzer_id               Int
-  rechnungen_id             Int?
-  erstellungsdatum          DateTime?      @db.Timestamp(6)
+  id                Int       @id @default(autoincrement())
+  uid               String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  benutzer_id       Int
+  rechnungen_id     Int?
+  erstellungsdatum  DateTime? @default(now()) @db.Timestamp(6)
+  ausstellungsdatum DateTime? @db.Timestamp(6)
+
   ausstellgrund             Ausstellgrund?
   registriernummer          String?        @db.VarChar
   erledigt                  Boolean?

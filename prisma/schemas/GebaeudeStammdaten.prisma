@@ -9,6 +9,7 @@ import { GebaeudeBilder } from "GebaeudeBilder"
 import { GebaeudePlaene } from "GebaeudePlaene"
 import { Benutzer } from "Benutzer"
 import { GebaeudeAufnahmeAllgemein } from "GebaeudeAufnahmeAllgemein"
+import { Event } from "Event"
 
 
 model GebaeudeStammdaten {
@@ -23,6 +24,7 @@ model GebaeudeStammdaten {
   ort     String?
   adresse String?
 
+	events Event[]
   gebaeude_bilder             GebaeudeBilder[]
   gebaeude_plaene             GebaeudePlaene[]
   benutzer                    Benutzer                    @relation(fields: [benutzer_id], references: [id])

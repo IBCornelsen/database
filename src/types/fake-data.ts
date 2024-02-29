@@ -238,6 +238,24 @@ export function fakedocumenttypesComplete() {
     longdescription: faker.lorem.words(5),
   };
 }
+export function fakeEvent() {
+  return {
+    title: faker.lorem.words(5),
+    description: undefined,
+  };
+}
+export function fakeEventComplete() {
+  return {
+    id: faker.number.int(),
+    uid: '[object Object]',
+    date: new Date(),
+    title: faker.lorem.words(5),
+    description: undefined,
+    gebaeude_aufnahme_allgemein_id: undefined,
+    benutzer_id: undefined,
+    gebaeudeStammdatenId: undefined,
+  };
+}
 export function fakeGebaeudeAufnahmeAllgemein() {
   return {
     gebaeudetyp: undefined,
@@ -646,7 +664,7 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
 }
 export function fakeVerbrauchsausweisWohnen() {
   return {
-    erstellungsdatum: undefined,
+    ausstellungsdatum: undefined,
     ausstellgrund: undefined,
     registriernummer: undefined,
     erledigt: undefined,
@@ -678,7 +696,8 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     uid: '[object Object]',
     benutzer_id: faker.number.int(),
     rechnungen_id: undefined,
-    erstellungsdatum: undefined,
+    erstellungsdatum: new Date(),
+    ausstellungsdatum: undefined,
     ausstellgrund: undefined,
     registriernummer: undefined,
     erledigt: undefined,

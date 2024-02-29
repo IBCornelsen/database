@@ -9,7 +9,9 @@ model VerbrauchsausweisWohnen {
   uid                       String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   benutzer_id               Int
   rechnungen_id             Int?
-  erstellungsdatum          DateTime?      @db.Timestamp(6)
+  erstellungsdatum          DateTime?      @default(now()) @db.Timestamp(6)
+	ausstellungsdatum         DateTime?      @db.Timestamp(6)
+	
   ausstellgrund             Ausstellgrund?
   registriernummer          String?        @db.VarChar
   erledigt                  Boolean?

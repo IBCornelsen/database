@@ -15,6 +15,7 @@ import { Rechnungen } from "./Rechnungen"
 import { tokens } from "./tokens"
 import { RefreshTokens } from "./RefreshTokens"
 import { Tickets } from "./Tickets"
+import { Event } from "./Event"
 
 enum Ausstellgrund {
   Neubau

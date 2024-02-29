@@ -125,6 +125,7 @@ Table benutzer {
   RefreshTokens RefreshTokens [not null]
   ErstellteTickets Tickets [not null]
   BearbeiteteTickets Tickets [not null]
+  events Event [not null]
   GebaeudeAufnahmeAllgemein GebaeudeAufnahmeAllgemein [not null]
 }
 
@@ -149,6 +150,20 @@ Table documenttypes {
   shortdescription String [not null]
   longdescription String [not null]
   documenttemplates documenttemplates [not null]
+}
+
+Table Event {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  date DateTime [default: `now()`, not null]
+  title String [not null]
+  description String
+  gebaeude_aufnahme_allgemein_id Int
+  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein
+  benutzer_id Int
+  benutzer benutzer
+  GebaeudeStammdaten GebaeudeStammdaten
+  gebaeudeStammdatenId Int
 }
 
 Table GebaeudeAufnahmeAllgemein {
@@ -222,6 +237,7 @@ Table GebaeudeAufnahmeAllgemein {
   verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe
   verbrauchsausweis_wohnen VerbrauchsausweisWohnen
   gebaeude_stammdaten GebaeudeStammdaten [not null]
+  Event Event [not null]
 }
 
 Table gebaeude_bilder {
@@ -248,6 +264,7 @@ Table GebaeudeStammdaten {
   plz String
   ort String
   adresse String
+  events Event [not null]
   gebaeude_bilder gebaeude_bilder [not null]
   gebaeude_plaene gebaeude_plaene [not null]
   benutzer benutzer [not null]
@@ -401,7 +418,8 @@ Table VerbrauchsausweisWohnen {
   uid String [unique, not null]
   benutzer_id Int [not null]
   rechnungen_id Int
-  erstellungsdatum DateTime
+  erstellungsdatum DateTime [default: `now()`]
+  ausstellungsdatum DateTime
   ausstellgrund Ausstellgrund
   registriernummer String
   erledigt Boolean
@@ -512,6 +530,12 @@ Ref: BedarfsausweisWohnen.rechnungen_id > rechnungen.id [delete: No Action]
 Ref: documenttemplates.user_id > benutzer.id [delete: Cascade]
 
 Ref: documenttemplates.documenttype > documenttypes.id [delete: Cascade]
+
+Ref: Event.gebaeude_aufnahme_allgemein_id > GebaeudeAufnahmeAllgemein.id [delete: No Action]
+
+Ref: Event.benutzer_id > benutzer.id [delete: No Action]
+
+Ref: Event.gebaeudeStammdatenId > GebaeudeStammdaten.id
 
 Ref: GebaeudeAufnahmeAllgemein.benutzer_id > benutzer.id [delete: No Action]
 

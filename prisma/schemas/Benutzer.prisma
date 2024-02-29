@@ -9,6 +9,7 @@ import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
 import { ApiRequests } from "./ApiRequests"
 import { RefreshTokens } from "./RefreshTokens"
 import { Tickets } from "./Tickets"
+import { Event } from "./Event"
 
 enum BenutzerRolle {
   USER
@@ -42,6 +43,7 @@ model Benutzer {
   RefreshTokens            RefreshTokens[]
   ErstellteTickets         Tickets[]                  @relation("ErstellteTickets")
   BearbeiteteTickets       Tickets[]                  @relation("BearbeiteteTickets")
+	events Event[]
 
   @@map("benutzer")
 }

@@ -1,0 +1,22 @@
+import { Benutzer } from "./Benutzer"
+import { GebaeudeAufnahmeAllgemein } from "GebaeudeAufnahmeAllgemein"
+
+// Dieses Model wird für getriggerte Events verwendet
+// Hier werden beispielsweise Events wie "Nachricht Verschickt" gespeichert.
+// Diese Events werden dann in der Admin-Oberfläche angezeigt.
+model Event {
+  id           Int       @id @default(autoincrement())
+	uid        String        @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date         DateTime  @default(now()) @db.Timestamp(6)
+
+  title String @db.VarChar(255)
+	description String? @db.Text
+
+
+	// Verlinkung des Gebäudes
+	gebaeude_aufnahme_allgemein_id Int?
+	gebaeude_aufnahme_allgemein    GebaeudeAufnahmeAllgemein? @relation(fields: [gebaeude_aufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+	// Verlinkung des Benutzers
+  benutzer_id      Int?
+  benutzer         Benutzer? @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
