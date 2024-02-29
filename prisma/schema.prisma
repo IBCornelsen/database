@@ -207,8 +207,6 @@ model Event {
   // Verlinkung des Benutzers
   benutzer_id                    Int?
   benutzer                       Benutzer?                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  GebaeudeStammdaten             GebaeudeStammdaten?        @relation(fields: [gebaeudeStammdatenId], references: [id])
-  gebaeudeStammdatenId           Int?
 }
 
 //
@@ -297,12 +295,12 @@ model GebaeudeAufnahmeAllgemein {
 
   gebaeude_stammdaten_id Int
 
+  events                    Event[]
   bedarfsausweis_wohnen     BedarfsausweisWohnen?
   benutzer                  Benutzer?                 @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe?
   verbrauchsausweis_wohnen  VerbrauchsausweisWohnen?
   gebaeude_stammdaten       GebaeudeStammdaten        @relation(fields: [gebaeude_stammdaten_id], references: [id])
-  Event                     Event[]
 }
 
 //
@@ -355,7 +353,6 @@ model GebaeudeStammdaten {
   ort     String?
   adresse String?
 
-  events                      Event[]
   gebaeude_bilder             GebaeudeBilder[]
   gebaeude_plaene             GebaeudePlaene[]
   benutzer                    Benutzer                    @relation(fields: [benutzer_id], references: [id])

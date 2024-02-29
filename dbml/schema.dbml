@@ -162,8 +162,6 @@ Table Event {
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein
   benutzer_id Int
   benutzer benutzer
-  GebaeudeStammdaten GebaeudeStammdaten
-  gebaeudeStammdatenId Int
 }
 
 Table GebaeudeAufnahmeAllgemein {
@@ -232,12 +230,12 @@ Table GebaeudeAufnahmeAllgemein {
   dachgeschoss_min_12cm_gedaemmt Boolean
   oberste_geschossdecke_min_12cm_gedaemmt Boolean
   gebaeude_stammdaten_id Int [not null]
+  events Event [not null]
   bedarfsausweis_wohnen BedarfsausweisWohnen
   benutzer benutzer
   verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe
   verbrauchsausweis_wohnen VerbrauchsausweisWohnen
   gebaeude_stammdaten GebaeudeStammdaten [not null]
-  Event Event [not null]
 }
 
 Table gebaeude_bilder {
@@ -264,7 +262,6 @@ Table GebaeudeStammdaten {
   plz String
   ort String
   adresse String
-  events Event [not null]
   gebaeude_bilder gebaeude_bilder [not null]
   gebaeude_plaene gebaeude_plaene [not null]
   benutzer benutzer [not null]
@@ -534,8 +531,6 @@ Ref: documenttemplates.documenttype > documenttypes.id [delete: Cascade]
 Ref: Event.gebaeude_aufnahme_allgemein_id > GebaeudeAufnahmeAllgemein.id [delete: No Action]
 
 Ref: Event.benutzer_id > benutzer.id [delete: No Action]
-
-Ref: Event.gebaeudeStammdatenId > GebaeudeStammdaten.id
 
 Ref: GebaeudeAufnahmeAllgemein.benutzer_id > benutzer.id [delete: No Action]
 

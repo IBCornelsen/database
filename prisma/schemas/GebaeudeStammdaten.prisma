@@ -24,7 +24,6 @@ model GebaeudeStammdaten {
   ort     String?
   adresse String?
 
-	events Event[]
   gebaeude_bilder             GebaeudeBilder[]
   gebaeude_plaene             GebaeudePlaene[]
   benutzer                    Benutzer                    @relation(fields: [benutzer_id], references: [id])

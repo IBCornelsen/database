@@ -253,7 +253,6 @@ export function fakeEventComplete() {
     description: undefined,
     gebaeude_aufnahme_allgemein_id: undefined,
     benutzer_id: undefined,
-    gebaeudeStammdatenId: undefined,
   };
 }
 export function fakeGebaeudeAufnahmeAllgemein() {

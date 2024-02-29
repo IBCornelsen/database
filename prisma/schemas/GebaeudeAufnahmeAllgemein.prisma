@@ -6,6 +6,7 @@ import { GebaeudePlaene } from "./GebaeudePlaene"
 import { VerbrauchsausweisGewerbe } from "./VerbrauchsausweisGewerbe"
 import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
 import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
+import { Event } from "./Event"
 
 enum Heizungsstatus {
 	BEHEIZT
@@ -89,6 +90,7 @@ model GebaeudeAufnahmeAllgemein {
 
   gebaeude_stammdaten_id Int
 	
+	events Event[]
   bedarfsausweis_wohnen     BedarfsausweisWohnen?			
   benutzer                 Benutzer?                @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe? 
