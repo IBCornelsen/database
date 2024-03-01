@@ -656,7 +656,7 @@ model VerbrauchsausweisWohnen {
   zusaetzliche_heizquelle   Boolean?
   einheit_1                 String?        @db.VarChar(50)
   einheit_2                 String?        @db.VarChar(50)
-  startdatum                DateTime?      @db.Timestamp(6)
+  startdatum                DateTime?      @db.Timestamptz(6)
   verbrauch_1               Int?
   verbrauch_2               Int?
   verbrauch_3               Int?
