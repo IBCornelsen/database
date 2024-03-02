@@ -1,7 +1,7 @@
 import { Benutzer } from "./Benutzer"
 import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
 import { Rechnungen } from "./Rechnungen"
-import { Ausweisart, Ausstellgrund } from "main"
+import { Ausstellgrund } from "main"
 import { GebaeudeAufnahmeAllgemein } from "GebaeudeAufnahmeAllgemein"
 
 model VerbrauchsausweisWohnen {

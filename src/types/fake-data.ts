@@ -168,7 +168,6 @@ export function fakeBedarfsausweisWohnenComplete() {
     anteil_zusatzheizung: undefined,
     kollektor_flaeche: undefined,
     gebaeudeaufnahme_allgemein_id: faker.number.int(),
-    ausweisart: Ausweisart.BedarfsausweisWohnen,
   };
 }
 export function fakeBenutzer() {
@@ -258,6 +257,7 @@ export function fakeEventComplete() {
 }
 export function fakeGebaeudeAufnahmeAllgemein() {
   return {
+    ausweisart: undefined,
     gebaeudetyp: undefined,
     gebaeudeteil: undefined,
     baujahr_gebaeude: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
@@ -320,6 +320,7 @@ export function fakeGebaeudeAufnahmeAllgemeinComplete() {
     id: faker.number.int(),
     uid: '[object Object]',
     benutzer_id: undefined,
+    ausweisart: undefined,
     gebaeudetyp: undefined,
     gebaeudeteil: undefined,
     baujahr_gebaeude: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
@@ -655,7 +656,6 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
     alternative_warmwasser: undefined,
     alternative_lueftung: undefined,
     alternative_kuehlung: undefined,
-    ausweisart: Ausweisart.VerbrauchsausweisGewerbe,
     warmwasser_enthalten: undefined,
     anteil_warmwasser_1: undefined,
     anteil_warmwasser_2: undefined,
@@ -682,6 +682,7 @@ export function fakeVerbrauchsausweisWohnen() {
     warmwasser_anteil_bekannt: undefined,
     wird_gekuehlt: undefined,
     keller_beheizt: undefined,
+    faktorKeller: undefined,
     alternative_heizung: undefined,
     alternative_warmwasser: undefined,
     alternative_lueftung: undefined,
@@ -715,11 +716,11 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     warmwasser_anteil_bekannt: undefined,
     wird_gekuehlt: undefined,
     keller_beheizt: undefined,
+    faktorKeller: undefined,
     alternative_heizung: undefined,
     alternative_warmwasser: undefined,
     alternative_lueftung: undefined,
     alternative_kuehlung: undefined,
-    ausweisart: Ausweisart.VerbrauchsausweisWohnen,
     anteil_warmwasser_1: undefined,
     anteil_warmwasser_2: undefined,
     gebaeudeaufnahme_allgemein_id: faker.number.int(),

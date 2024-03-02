@@ -167,7 +167,7 @@ Table GebaeudeAufnahmeAllgemein {
   id Int [pk, increment]
   uid String [unique, not null]
   benutzer_id Int
-  ausweisart Ausweisart [not null]
+  ausweisart Ausweisart
   gebaeudetyp String
   gebaeudeteil String
   baujahr_gebaeude Int[] [not null]
