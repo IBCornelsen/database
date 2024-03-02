@@ -223,7 +223,7 @@ model GebaeudeAufnahmeAllgemein {
   id               Int             @id @default(autoincrement())
   uid              String          @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   benutzer_id      Int?
-  ausweisart Ausweisart
+  ausweisart Ausweisart?
   gebaeudetyp      String?         @db.VarChar
   gebaeudeteil     String?         @db.VarChar
   baujahr_gebaeude Int[]
