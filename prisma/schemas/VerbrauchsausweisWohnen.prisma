@@ -31,13 +31,14 @@ model VerbrauchsausweisWohnen {
   wird_gekuehlt Boolean?
 
   keller_beheizt Boolean?
+  faktorKeller  Float?
 
   alternative_heizung    Boolean?
   alternative_warmwasser Boolean?
   alternative_lueftung   Boolean?
   alternative_kuehlung   Boolean?
 
-  ausweisart Ausweisart @default(VerbrauchsausweisWohnen)
+  
 
   anteil_warmwasser_1 Float?
   anteil_warmwasser_2 Float?

@@ -94,7 +94,6 @@ Table BedarfsausweisWohnen {
   anteil_zusatzheizung Float
   kollektor_flaeche Float
   gebaeudeaufnahme_allgemein_id Int [unique, not null]
-  ausweisart Ausweisart [not null, default: 'BedarfsausweisWohnen']
   benutzer benutzer [not null]
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
   rechnungen rechnungen
@@ -168,6 +167,7 @@ Table GebaeudeAufnahmeAllgemein {
   id Int [pk, increment]
   uid String [unique, not null]
   benutzer_id Int
+  ausweisart Ausweisart [not null]
   gebaeudetyp String
   gebaeudeteil String
   baujahr_gebaeude Int[] [not null]
@@ -400,7 +400,6 @@ Table VerbrauchsausweisGewerbe {
   alternative_warmwasser Boolean
   alternative_lueftung Boolean
   alternative_kuehlung Boolean
-  ausweisart Ausweisart [not null, default: 'VerbrauchsausweisGewerbe']
   warmwasser_enthalten Boolean
   anteil_warmwasser_1 Float
   anteil_warmwasser_2 Float
@@ -434,11 +433,11 @@ Table VerbrauchsausweisWohnen {
   warmwasser_anteil_bekannt Boolean
   wird_gekuehlt Boolean
   keller_beheizt Boolean
+  faktorKeller Float
   alternative_heizung Boolean
   alternative_warmwasser Boolean
   alternative_lueftung Boolean
   alternative_kuehlung Boolean
-  ausweisart Ausweisart [not null, default: 'VerbrauchsausweisWohnen']
   anteil_warmwasser_1 Float
   anteil_warmwasser_2 Float
   gebaeudeaufnahme_allgemein_id Int [unique, not null]

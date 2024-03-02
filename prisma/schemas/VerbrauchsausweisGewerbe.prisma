@@ -51,7 +51,7 @@ model VerbrauchsausweisGewerbe {
   alternative_lueftung   Boolean?
   alternative_kuehlung   Boolean?
 
-  ausweisart Ausweisart @default(VerbrauchsausweisGewerbe)
+
 
   warmwasser_enthalten Boolean?
   anteil_warmwasser_1  Float?
