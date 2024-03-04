@@ -122,10 +122,10 @@ Table benutzer {
   VerbrauchsausweisWohnen VerbrauchsausweisWohnen [not null]
   ApiRequests ApiRequests [not null]
   RefreshTokens RefreshTokens [not null]
+  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
   ErstellteTickets Tickets [not null]
   BearbeiteteTickets Tickets [not null]
   events Event [not null]
-  GebaeudeAufnahmeAllgemein GebaeudeAufnahmeAllgemein [not null]
 }
 
 Table documenttemplates {

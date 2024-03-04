@@ -8,6 +8,7 @@ import { VerbrauchsausweisGewerbe } from "./VerbrauchsausweisGewerbe"
 import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
 import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
 import { Event } from "./Event"
+import { Ausweisart, Ausstellgrund } from "main"
 
 enum Heizungsstatus {
 	BEHEIZT

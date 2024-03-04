@@ -10,6 +10,7 @@ import { ApiRequests } from "./ApiRequests"
 import { RefreshTokens } from "./RefreshTokens"
 import { Tickets } from "./Tickets"
 import { Event } from "./Event"
+import { GebaeudeAufnahmeAllgemein } from "GebaeudeAufnahmeAllgemein"
 
 enum BenutzerRolle {
   USER
@@ -41,6 +42,7 @@ model Benutzer {
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
   ApiRequests              ApiRequests[]
   RefreshTokens            RefreshTokens[]
+	gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein[]
   ErstellteTickets         Tickets[]                  @relation("ErstellteTickets")
   BearbeiteteTickets       Tickets[]                  @relation("BearbeiteteTickets")
 	events Event[]

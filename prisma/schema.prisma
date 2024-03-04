@@ -106,8 +106,6 @@ model BedarfsausweisWohnen {
 
   gebaeudeaufnahme_allgemein_id Int @unique
 
-  
-
   benutzer                    Benutzer                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeudeaufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   rechnungen                  Rechnungen?               @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -137,20 +135,20 @@ model Benutzer {
   anrede     String?       @db.VarChar(50)
   rolle      BenutzerRolle @default(USER)
 
-  Anteilshaber              Anteilshaber[]              @ignore
-  BedarfsausweisWohnen      BedarfsausweisWohnen[]
-  documenttemplates         documenttemplates[]
-  gebaeude_stammdaten       GebaeudeStammdaten[]
-  rechnungen                Rechnungen[]
-  tokens                    tokens[]
-  VerbrauchsausweisGewerbe  VerbrauchsausweisGewerbe[]
-  VerbrauchsausweisWohnen   VerbrauchsausweisWohnen[]
-  ApiRequests               ApiRequests[]
-  RefreshTokens             RefreshTokens[]
-  ErstellteTickets          Tickets[]                   @relation("ErstellteTickets")
-  BearbeiteteTickets        Tickets[]                   @relation("BearbeiteteTickets")
-  events                    Event[]
-  GebaeudeAufnahmeAllgemein GebaeudeAufnahmeAllgemein[]
+  Anteilshaber                Anteilshaber[]              @ignore
+  BedarfsausweisWohnen        BedarfsausweisWohnen[]
+  documenttemplates           documenttemplates[]
+  gebaeude_stammdaten         GebaeudeStammdaten[]
+  rechnungen                  Rechnungen[]
+  tokens                      tokens[]
+  VerbrauchsausweisGewerbe    VerbrauchsausweisGewerbe[]
+  VerbrauchsausweisWohnen     VerbrauchsausweisWohnen[]
+  ApiRequests                 ApiRequests[]
+  RefreshTokens               RefreshTokens[]
+  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein[]
+  ErstellteTickets            Tickets[]                   @relation("ErstellteTickets")
+  BearbeiteteTickets          Tickets[]                   @relation("BearbeiteteTickets")
+  events                      Event[]
 
   @@map("benutzer")
 }
@@ -223,7 +221,7 @@ model GebaeudeAufnahmeAllgemein {
   id               Int             @id @default(autoincrement())
   uid              String          @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   benutzer_id      Int?
-  ausweisart Ausweisart?
+  ausweisart       Ausweisart?
   gebaeudetyp      String?         @db.VarChar
   gebaeudeteil     String?         @db.VarChar
   baujahr_gebaeude Int[]
@@ -626,8 +624,6 @@ model VerbrauchsausweisGewerbe {
   alternative_lueftung   Boolean?
   alternative_kuehlung   Boolean?
 
-  
-
   warmwasser_enthalten Boolean?
   anteil_warmwasser_1  Float?
   anteil_warmwasser_2  Float?
@@ -670,14 +666,12 @@ model VerbrauchsausweisWohnen {
   wird_gekuehlt Boolean?
 
   keller_beheizt Boolean?
-  faktorKeller Float?
+  faktorKeller   Float?
 
   alternative_heizung    Boolean?
   alternative_warmwasser Boolean?
   alternative_lueftung   Boolean?
   alternative_kuehlung   Boolean?
-
-  
 
   anteil_warmwasser_1 Float?
   anteil_warmwasser_2 Float?

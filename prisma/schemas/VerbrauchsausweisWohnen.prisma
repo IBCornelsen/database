@@ -38,8 +38,6 @@ model VerbrauchsausweisWohnen {
   alternative_lueftung   Boolean?
   alternative_kuehlung   Boolean?
 
-  
-
   anteil_warmwasser_1 Float?
   anteil_warmwasser_2 Float?
 

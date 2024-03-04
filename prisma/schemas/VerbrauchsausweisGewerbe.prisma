@@ -51,8 +51,6 @@ model VerbrauchsausweisGewerbe {
   alternative_lueftung   Boolean?
   alternative_kuehlung   Boolean?
 
-
-
   warmwasser_enthalten Boolean?
   anteil_warmwasser_1  Float?
   anteil_warmwasser_2  Float?

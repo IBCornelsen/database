@@ -1,6 +1,5 @@
-import { BenutzerRolle, Heizungsstatus, BilderKategorie, Ausstellgrund, Ausweisart, Service, Bezahlmethoden, Rechnungsstatus, TicketStatus } from '@prisma/client';
+import { BenutzerRolle, Heizungsstatus, BilderKategorie, Ausstellgrund, Ausweisart, Service, Bezahlmethoden, Rechnungsstatus, TicketStatus } from '/home/moritz/Documents/IBCornelsen/database/node_modules/@prisma/client';
 import { faker } from '@faker-js/faker';
-import Decimal from 'decimal.js';
 
 
 
