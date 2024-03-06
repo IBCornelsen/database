@@ -8,14 +8,8 @@ DB_PASSWORD="hHMP8cd^N3SnzGRR"
 DB_PORT=5432
 DB_VOLUME="postgres_data"
 
-git_pull_force() {
-	git reset --hard HEAD
-	git clean -f -d
-	git pull origin main
-}
-
-cd ~/$DB_CONTAINER_NAME
-git_pull_force;
+PERSISTENT_DIR="${HOME}/persistent/${APP_NAME}";
+mkdir -p $PERSISTENT_DIR;
 
 # Danach machen wir ein Backup der Datenbank, falls bei der Migration etwas schiefgehen sollte.
 BACKUP_FILENAME="${HOME}/backups/$(date +"%Y-%m-%d_%H-%M-%S").sql.gz"
@@ -32,7 +26,6 @@ docker volume rm $DB_VOLUME
 docker volume create $DB_VOLUME
 
 # Und starten einen neuen "database" container.
-cd ~/$DB_CONTAINER_NAME
 docker build -t $DB_CONTAINER_NAME .
 docker run -d --name $DB_CONTAINER_NAME \
 	-e POSTGRES_USER=$DB_USER \
@@ -49,11 +42,3 @@ done
 
 # Und wenden das Backup an.
 gunzip -c $BACKUP_FILENAME | docker exec -i $DB_CONTAINER_NAME psql -U $DB_USER -d postgres
-
-# Wir gehen durch alle "modifications" durch und führen die Skripte nacheinander aus
-cd ~/$DB_CONTAINER_NAME/modifications
-for f in *.sql
-do
-		echo "Processing $f file..."
-		docker exec -i $DB_CONTAINER_NAME psql -U $DB_USER -d $DB_NAME < $f
-done
