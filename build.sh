@@ -8,6 +8,21 @@ DB_PASSWORD="hHMP8cd^N3SnzGRR"
 DB_PORT=5432
 DB_VOLUME="postgres_data"
 
+# Wir gehen davon aus, dass die Änderungen bereits von GitHub gepullt wurden
+# Dieses Skript ist nur dafür gedacht, von GitHub bei einer Automation
+# ausgeführt zu werden. Außerdem würde es nicht wirklich Sinn ergeben, wenn das
+# Build Skript sich die Änderungen am build Skript holen würde...
+
+# Als erstes linken wir das package mit bun, damit wir z.B. in online-energieausweis darauf zugreifen können.
+bun link
+# Dann installieren wir noch einmal alle dependencies, das ist besonders wichtig
+# falls wir lokal verlinkte Projekte haben, sonst werden die nicht in unser
+# docker image übernommen
+bun install
+
+# Jeder unserer Applikationen hat ein Verzeichnis in dem alle Dateien dauerhaft,
+# Versionsunabhängig gespeichert werden. Dieses legen wir hier an, falls es noch
+# nicht existiert.
 PERSISTENT_DIR="${HOME}/persistent/${APP_NAME}";
 mkdir -p $PERSISTENT_DIR;
 
