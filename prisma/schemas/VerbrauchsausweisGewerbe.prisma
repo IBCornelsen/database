@@ -1,6 +1,5 @@
 import { Benutzer } from "./Benutzer"
 import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
-import { Rechnungen } from "./Rechnungen"
 import { Ausweisart, Ausstellgrund } from "main"
 import { GebaeudeAufnahmeAllgemein } from "GebaeudeAufnahmeAllgemein"
 
@@ -9,11 +8,8 @@ model VerbrauchsausweisGewerbe {
   uid                     String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   gebaeude_stammdaten_id  Int
   benutzer_id             Int
-  rechnungen_id           Int?
-  erstellungsdatum        DateTime?      @db.Timestamp(6)
   ausstellgrund           Ausstellgrund?
   registriernummer        String?        @db.VarChar
-  erledigt                Boolean?
   zusaetzliche_heizquelle Boolean?
   brennstoff_1            String?        @db.VarChar(50)
   einheit_1               String?        @db.VarChar(50)
@@ -59,5 +55,4 @@ model VerbrauchsausweisGewerbe {
 
   benutzer            Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeudeaufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  rechnungen          Rechnungen?        @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

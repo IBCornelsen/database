@@ -36,11 +36,8 @@ Table BedarfsausweisWohnen {
   id Int [pk, increment]
   uid String [not null]
   benutzer_id Int [not null]
-  rechnungen_id Int
-  erstellungsdatum DateTime
   ausstellgrund Ausstellgrund
   registriernummer String
-  erledigt Boolean
   alternative_heizung Boolean
   alternative_warmwasser Boolean
   alternative_lueftung Boolean
@@ -96,7 +93,6 @@ Table BedarfsausweisWohnen {
   gebaeudeaufnahme_allgemein_id Int [unique, not null]
   benutzer benutzer [not null]
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
-  rechnungen rechnungen
 }
 
 Table benutzer {
@@ -116,7 +112,7 @@ Table benutzer {
   BedarfsausweisWohnen BedarfsausweisWohnen [not null]
   documenttemplates documenttemplates [not null]
   gebaeude_stammdaten GebaeudeStammdaten [not null]
-  rechnungen rechnungen [not null]
+  rechnungen Rechnung [not null]
   tokens tokens [not null]
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe [not null]
   VerbrauchsausweisWohnen VerbrauchsausweisWohnen [not null]
@@ -199,6 +195,7 @@ Table GebaeudeAufnahmeAllgemein {
   boxpruefung Boolean [default: false]
   energieeffizienzklasse String
   erstellungsdatum DateTime [default: `now()`]
+  ausstellungsdatum DateTime
   zentralheizung Boolean
   solarsystem_warmwasser Boolean
   warmwasser_rohre_gedaemmt Boolean
@@ -236,6 +233,7 @@ Table GebaeudeAufnahmeAllgemein {
   verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe
   verbrauchsausweis_wohnen VerbrauchsausweisWohnen
   gebaeude_stammdaten GebaeudeStammdaten [not null]
+  rechnungen Rechnung [not null]
 }
 
 Table gebaeude_bilder {
@@ -291,10 +289,11 @@ Table Postleitzahlen {
   lon Float [not null]
 }
 
-Table rechnungen {
+Table Rechnung {
   id Int [pk, increment]
   uid String [unique, not null]
   benutzer_id Int [not null]
+  gebaeude_aufnahme_allgemein_id Int [not null]
   empfaenger String
   strasse String
   plz String
@@ -317,9 +316,7 @@ Table rechnungen {
   storniert_am DateTime
   transaktions_referenz String [unique]
   benutzer benutzer [not null]
-  BedarfsausweisWohnen BedarfsausweisWohnen [not null]
-  VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe [not null]
-  VerbrauchsausweisWohnen VerbrauchsausweisWohnen [not null]
+  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
 }
 
 Table RefreshTokens {
@@ -365,11 +362,8 @@ Table VerbrauchsausweisGewerbe {
   uid String [unique, not null]
   gebaeude_stammdaten_id Int [not null]
   benutzer_id Int [not null]
-  rechnungen_id Int
-  erstellungsdatum DateTime
   ausstellgrund Ausstellgrund
   registriernummer String
-  erledigt Boolean
   zusaetzliche_heizquelle Boolean
   brennstoff_1 String
   einheit_1 String
@@ -406,19 +400,14 @@ Table VerbrauchsausweisGewerbe {
   gebaeudeaufnahme_allgemein_id Int [unique, not null]
   benutzer benutzer [not null]
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
-  rechnungen rechnungen
 }
 
 Table VerbrauchsausweisWohnen {
   id Int [pk, increment]
   uid String [unique, not null]
   benutzer_id Int [not null]
-  rechnungen_id Int
-  erstellungsdatum DateTime [default: `now()`]
-  ausstellungsdatum DateTime
   ausstellgrund Ausstellgrund
   registriernummer String
-  erledigt Boolean
   zusaetzliche_heizquelle Boolean
   einheit_1 String
   einheit_2 String
@@ -443,7 +432,6 @@ Table VerbrauchsausweisWohnen {
   gebaeudeaufnahme_allgemein_id Int [unique, not null]
   benutzer benutzer [not null]
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
-  rechnungen rechnungen
 }
 
 Enum BenutzerRolle {
@@ -521,8 +509,6 @@ Ref: BedarfsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: BedarfsausweisWohnen.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAllgemein.id [delete: No Action]
 
-Ref: BedarfsausweisWohnen.rechnungen_id > rechnungen.id [delete: No Action]
-
 Ref: documenttemplates.user_id > benutzer.id [delete: Cascade]
 
 Ref: documenttemplates.documenttype > documenttypes.id [delete: Cascade]
@@ -541,7 +527,9 @@ Ref: gebaeude_plaene.gebaeude_stammdaten_id > GebaeudeStammdaten.id [delete: No 
 
 Ref: GebaeudeStammdaten.benutzer_id > benutzer.id
 
-Ref: rechnungen.benutzer_id > benutzer.id [delete: No Action]
+Ref: Rechnung.benutzer_id > benutzer.id [delete: No Action]
+
+Ref: Rechnung.gebaeude_aufnahme_allgemein_id > GebaeudeAufnahmeAllgemein.id [delete: No Action]
 
 Ref: RefreshTokens.benutzer_id > benutzer.id [delete: Cascade]
 
@@ -555,10 +543,6 @@ Ref: VerbrauchsausweisGewerbe.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: VerbrauchsausweisGewerbe.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAllgemein.id [delete: No Action]
 
-Ref: VerbrauchsausweisGewerbe.rechnungen_id > rechnungen.id [delete: No Action]
-
 Ref: VerbrauchsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: VerbrauchsausweisWohnen.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAllgemein.id [delete: No Action]
-
-Ref: VerbrauchsausweisWohnen.rechnungen_id > rechnungen.id [delete: No Action]

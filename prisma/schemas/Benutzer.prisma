@@ -2,7 +2,7 @@ import { Anteilshaber } from "./Anteilshaber"
 import { BedarfsausweisWohnen } from "./BedarfsausweisWohnen"
 import { documenttemplates } from "./documenttemplates"
 import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
-import { Rechnungen } from "./Rechnungen"
+import { Rechnung } from "./Rechnung"
 import { tokens } from "./tokens"
 import { VerbrauchsausweisGewerbe } from "./VerbrauchsausweisGewerbe"
 import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
@@ -36,7 +36,7 @@ model Benutzer {
   BedarfsausweisWohnen     BedarfsausweisWohnen[]
   documenttemplates        documenttemplates[]
   gebaeude_stammdaten      GebaeudeStammdaten[]
-  rechnungen               Rechnungen[]
+  rechnungen               Rechnung[]
   tokens                   tokens[]
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]

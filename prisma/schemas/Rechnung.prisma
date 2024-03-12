@@ -1,0 +1,60 @@
+import { Benutzer } from "./Benutzer"
+import { BedarfsausweisWohnen } from "./BedarfsausweisWohnen"
+import { VerbrauchsausweisGewerbe } from "./VerbrauchsausweisGewerbe"
+import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
+import { Service } from "main"
+import { GebaeudeAufnahmeAllgemein } from "./GebaeudeAufnahmeAllgemein"
+
+enum Bezahlmethoden {
+  paypal
+  giropay
+  sofort
+  creditcard
+  rechnung
+}
+
+enum Rechnungsstatus {
+	open
+	canceled
+	pending
+	authorized
+	expired
+	failed
+	paid
+}
+
+model Rechnung {
+  id  Int    @id @default(autoincrement())
+  uid String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  benutzer_id Int
+	gebaeude_aufnahme_allgemein_id Int
+  empfaenger  String? @db.VarChar
+  strasse     String? @db.VarChar
+  plz         String? @db.VarChar
+  ort         String? @db.VarChar
+  zusatzzeile String? @db.VarChar
+  telefon     String? @db.VarChar
+  email       String? @db.VarChar
+
+  abweichende_versand_adresse Boolean? @default(false)
+  versand_empfaenger          String?  @db.VarChar
+  versand_strasse             String?  @db.VarChar
+  versand_plz                 String?  @db.VarChar
+  versand_ort                 String?  @db.VarChar
+  versand_zusatzzeile         String?  @db.VarChar
+
+  bezahlmethode         Bezahlmethoden
+  status                Rechnungsstatus
+  services              Service[]
+  betrag                Float
+  erstellt_am           DateTime        @default(now())
+  bezahlt_am            DateTime?
+  storniert_am          DateTime?
+  transaktions_referenz String?         @unique @db.VarChar
+
+  benutzer                 Benutzer                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeude_aufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+

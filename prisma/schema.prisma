@@ -44,11 +44,8 @@ model BedarfsausweisWohnen {
   id               Int            @id @default(autoincrement())
   uid              String         @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   benutzer_id      Int
-  rechnungen_id    Int?
-  erstellungsdatum DateTime?      @db.Timestamp(6)
   ausstellgrund    Ausstellgrund?
   registriernummer String?        @db.VarChar
-  erledigt         Boolean?
 
   alternative_heizung    Boolean?
   alternative_warmwasser Boolean?
@@ -108,7 +105,6 @@ model BedarfsausweisWohnen {
 
   benutzer                    Benutzer                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeudeaufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  rechnungen                  Rechnungen?               @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 //
@@ -139,7 +135,7 @@ model Benutzer {
   BedarfsausweisWohnen        BedarfsausweisWohnen[]
   documenttemplates           documenttemplates[]
   gebaeude_stammdaten         GebaeudeStammdaten[]
-  rechnungen                  Rechnungen[]
+  rechnungen                  Rechnung[]
   tokens                      tokens[]
   VerbrauchsausweisGewerbe    VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen     VerbrauchsausweisWohnen[]
@@ -259,7 +255,8 @@ model GebaeudeAufnahmeAllgemein {
 
   energieeffizienzklasse String? @db.VarChar(5)
 
-  erstellungsdatum DateTime? @default(now())
+  erstellungsdatum  DateTime? @default(now())
+  ausstellungsdatum DateTime?
 
   zentralheizung                          Boolean?
   solarsystem_warmwasser                  Boolean?
@@ -300,6 +297,7 @@ model GebaeudeAufnahmeAllgemein {
   verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe?
   verbrauchsausweis_wohnen  VerbrauchsausweisWohnen?
   gebaeude_stammdaten       GebaeudeStammdaten        @relation(fields: [gebaeude_stammdaten_id], references: [id])
+  rechnungen                Rechnung[]
 }
 
 //
@@ -449,7 +447,7 @@ model Postleitzahlen {
 }
 
 //
-// Rechnungen.prisma
+// Rechnung.prisma
 //
 
 enum Bezahlmethoden {
@@ -470,18 +468,19 @@ enum Rechnungsstatus {
   paid
 }
 
-model Rechnungen {
+model Rechnung {
   id  Int    @id @default(autoincrement())
   uid String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
-  benutzer_id Int
-  empfaenger  String? @db.VarChar
-  strasse     String? @db.VarChar
-  plz         String? @db.VarChar
-  ort         String? @db.VarChar
-  zusatzzeile String? @db.VarChar
-  telefon     String? @db.VarChar
-  email       String? @db.VarChar
+  benutzer_id                    Int
+  gebaeude_aufnahme_allgemein_id Int
+  empfaenger                     String? @db.VarChar
+  strasse                        String? @db.VarChar
+  plz                            String? @db.VarChar
+  ort                            String? @db.VarChar
+  zusatzzeile                    String? @db.VarChar
+  telefon                        String? @db.VarChar
+  email                          String? @db.VarChar
 
   abweichende_versand_adresse Boolean? @default(false)
   versand_empfaenger          String?  @db.VarChar
@@ -499,12 +498,8 @@ model Rechnungen {
   storniert_am          DateTime?
   transaktions_referenz String?         @unique @db.VarChar
 
-  benutzer                 Benutzer                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  BedarfsausweisWohnen     BedarfsausweisWohnen[]
-  VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
-  VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
-
-  @@map("rechnungen")
+  benutzer                    Benutzer                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeude_aufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 //
@@ -582,11 +577,8 @@ model VerbrauchsausweisGewerbe {
   uid                     String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   gebaeude_stammdaten_id  Int
   benutzer_id             Int
-  rechnungen_id           Int?
-  erstellungsdatum        DateTime?      @db.Timestamp(6)
   ausstellgrund           Ausstellgrund?
   registriernummer        String?        @db.VarChar
-  erledigt                Boolean?
   zusaetzliche_heizquelle Boolean?
   brennstoff_1            String?        @db.VarChar(50)
   einheit_1               String?        @db.VarChar(50)
@@ -632,7 +624,6 @@ model VerbrauchsausweisGewerbe {
 
   benutzer                    Benutzer                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeudeaufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  rechnungen                  Rechnungen?               @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 //
@@ -640,16 +631,12 @@ model VerbrauchsausweisGewerbe {
 //
 
 model VerbrauchsausweisWohnen {
-  id                Int       @id @default(autoincrement())
-  uid               String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  benutzer_id       Int
-  rechnungen_id     Int?
-  erstellungsdatum  DateTime? @default(now()) @db.Timestamp(6)
-  ausstellungsdatum DateTime? @db.Timestamp(6)
+  id          Int    @id @default(autoincrement())
+  uid         String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  benutzer_id Int
 
   ausstellgrund             Ausstellgrund?
   registriernummer          String?        @db.VarChar
-  erledigt                  Boolean?
   zusaetzliche_heizquelle   Boolean?
   einheit_1                 String?        @db.VarChar(50)
   einheit_2                 String?        @db.VarChar(50)
@@ -680,5 +667,4 @@ model VerbrauchsausweisWohnen {
 
   benutzer                    Benutzer                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeudeaufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  rechnungen                  Rechnungen?               @relation(fields: [rechnungen_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

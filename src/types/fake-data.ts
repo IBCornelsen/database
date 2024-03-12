@@ -46,10 +46,8 @@ export function fakeApiRequestsComplete() {
 }
 export function fakeBedarfsausweisWohnen() {
   return {
-    erstellungsdatum: undefined,
     ausstellgrund: undefined,
     registriernummer: undefined,
-    erledigt: undefined,
     alternative_heizung: undefined,
     alternative_warmwasser: undefined,
     alternative_lueftung: undefined,
@@ -109,11 +107,8 @@ export function fakeBedarfsausweisWohnenComplete() {
     id: faker.number.int(),
     uid: '[object Object]',
     benutzer_id: faker.number.int(),
-    rechnungen_id: undefined,
-    erstellungsdatum: undefined,
     ausstellgrund: undefined,
     registriernummer: undefined,
-    erledigt: undefined,
     alternative_heizung: undefined,
     alternative_warmwasser: undefined,
     alternative_lueftung: undefined,
@@ -282,6 +277,7 @@ export function fakeGebaeudeAufnahmeAllgemein() {
     adresse: undefined,
     prueftext: undefined,
     energieeffizienzklasse: undefined,
+    ausstellungsdatum: undefined,
     zentralheizung: undefined,
     solarsystem_warmwasser: undefined,
     warmwasser_rohre_gedaemmt: undefined,
@@ -351,6 +347,7 @@ export function fakeGebaeudeAufnahmeAllgemeinComplete() {
     boxpruefung: false,
     energieeffizienzklasse: undefined,
     erstellungsdatum: new Date(),
+    ausstellungsdatum: undefined,
     zentralheizung: undefined,
     solarsystem_warmwasser: undefined,
     warmwasser_rohre_gedaemmt: undefined,
@@ -462,7 +459,7 @@ export function fakePostleitzahlenComplete() {
     lon: faker.number.float(),
   };
 }
-export function fakeRechnungen() {
+export function fakeRechnung() {
   return {
     empfaenger: undefined,
     strasse: undefined,
@@ -485,11 +482,12 @@ export function fakeRechnungen() {
     transaktions_referenz: undefined,
   };
 }
-export function fakeRechnungenComplete() {
+export function fakeRechnungComplete() {
   return {
     id: faker.number.int(),
     uid: '[object Object]',
     benutzer_id: faker.number.int(),
+    gebaeude_aufnahme_allgemein_id: faker.number.int(),
     empfaenger: undefined,
     strasse: undefined,
     plz: undefined,
@@ -575,10 +573,8 @@ export function faketokensComplete() {
 export function fakeVerbrauchsausweisGewerbe() {
   return {
     gebaeude_stammdaten_id: faker.number.int(),
-    erstellungsdatum: undefined,
     ausstellgrund: undefined,
     registriernummer: undefined,
-    erledigt: undefined,
     zusaetzliche_heizquelle: undefined,
     brennstoff_1: undefined,
     einheit_1: undefined,
@@ -620,11 +616,8 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
     uid: '[object Object]',
     gebaeude_stammdaten_id: faker.number.int(),
     benutzer_id: faker.number.int(),
-    rechnungen_id: undefined,
-    erstellungsdatum: undefined,
     ausstellgrund: undefined,
     registriernummer: undefined,
-    erledigt: undefined,
     zusaetzliche_heizquelle: undefined,
     brennstoff_1: undefined,
     einheit_1: undefined,
@@ -663,10 +656,8 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
 }
 export function fakeVerbrauchsausweisWohnen() {
   return {
-    ausstellungsdatum: undefined,
     ausstellgrund: undefined,
     registriernummer: undefined,
-    erledigt: undefined,
     zusaetzliche_heizquelle: undefined,
     einheit_1: undefined,
     einheit_2: undefined,
@@ -695,12 +686,8 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     id: faker.number.int(),
     uid: '[object Object]',
     benutzer_id: faker.number.int(),
-    rechnungen_id: undefined,
-    erstellungsdatum: new Date(),
-    ausstellungsdatum: undefined,
     ausstellgrund: undefined,
     registriernummer: undefined,
-    erledigt: undefined,
     zusaetzliche_heizquelle: undefined,
     einheit_1: undefined,
     einheit_2: undefined,

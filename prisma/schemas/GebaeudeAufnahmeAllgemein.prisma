@@ -9,6 +9,7 @@ import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
 import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
 import { Event } from "./Event"
 import { Ausweisart, Ausstellgrund } from "main"
+import { Rechnung } from "./Rechnung"
 
 enum Heizungsstatus {
 	BEHEIZT
@@ -59,6 +60,7 @@ model GebaeudeAufnahmeAllgemein {
 	energieeffizienzklasse String? @db.VarChar(5)
 
   erstellungsdatum DateTime? @default(now())
+	ausstellungsdatum DateTime?
 
   zentralheizung                          Boolean?
   solarsystem_warmwasser                  Boolean?
@@ -99,6 +101,7 @@ model GebaeudeAufnahmeAllgemein {
   verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe? 
   verbrauchsausweis_wohnen  VerbrauchsausweisWohnen?	
   gebaeude_stammdaten       GebaeudeStammdaten       @relation(fields: [gebaeude_stammdaten_id], references: [id])
+	rechnungen 									Rechnung[]
 }
 
 
