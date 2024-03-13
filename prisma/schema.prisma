@@ -43,7 +43,7 @@ model ApiRequests {
 model BedarfsausweisWohnen {
   id               Int            @id @default(autoincrement())
   uid              String         @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  benutzer_id      Int
+  benutzer_id      Int?
   ausstellgrund    Ausstellgrund?
   registriernummer String?        @db.VarChar
 
@@ -103,7 +103,7 @@ model BedarfsausweisWohnen {
 
   gebaeudeaufnahme_allgemein_id Int @unique
 
-  benutzer                    Benutzer                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  benutzer                    Benutzer?                 @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeudeaufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
@@ -341,7 +341,7 @@ model GebaeudePlaene {
 model GebaeudeStammdaten {
   id          Int    @id @default(autoincrement())
   uid         String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  benutzer_id Int
+  benutzer_id Int?
 
   latitude  Float?
   longitude Float?
@@ -352,7 +352,7 @@ model GebaeudeStammdaten {
 
   gebaeude_bilder             GebaeudeBilder[]
   gebaeude_plaene             GebaeudePlaene[]
-  benutzer                    Benutzer                    @relation(fields: [benutzer_id], references: [id])
+  benutzer                    Benutzer?                   @relation(fields: [benutzer_id], references: [id])
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein[]
   Anteilshaber                Anteilshaber[]
 }
@@ -575,8 +575,7 @@ model tokens {
 model VerbrauchsausweisGewerbe {
   id                      Int            @id @default(autoincrement())
   uid                     String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  gebaeude_stammdaten_id  Int
-  benutzer_id             Int
+  benutzer_id             Int?
   ausstellgrund           Ausstellgrund?
   registriernummer        String?        @db.VarChar
   zusaetzliche_heizquelle Boolean?
@@ -622,7 +621,7 @@ model VerbrauchsausweisGewerbe {
 
   gebaeudeaufnahme_allgemein_id Int @unique
 
-  benutzer                    Benutzer                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  benutzer                    Benutzer?                 @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeudeaufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
@@ -633,7 +632,7 @@ model VerbrauchsausweisGewerbe {
 model VerbrauchsausweisWohnen {
   id          Int    @id @default(autoincrement())
   uid         String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  benutzer_id Int
+  benutzer_id Int?
 
   ausstellgrund             Ausstellgrund?
   registriernummer          String?        @db.VarChar
@@ -665,6 +664,6 @@ model VerbrauchsausweisWohnen {
 
   gebaeudeaufnahme_allgemein_id Int @unique
 
-  benutzer                    Benutzer                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  benutzer                    Benutzer?                 @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeudeaufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

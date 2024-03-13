@@ -15,7 +15,7 @@ import { Event } from "Event"
 model GebaeudeStammdaten {
   id          Int    @id @default(autoincrement())
   uid         String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  benutzer_id Int
+  benutzer_id Int?
 
   latitude  Float?
   longitude Float?
@@ -26,7 +26,7 @@ model GebaeudeStammdaten {
 
   gebaeude_bilder             GebaeudeBilder[]
   gebaeude_plaene             GebaeudePlaene[]
-  benutzer                    Benutzer                    @relation(fields: [benutzer_id], references: [id])
+  benutzer                    Benutzer?                    @relation(fields: [benutzer_id], references: [id])
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein[]
 }
 

@@ -6,8 +6,7 @@ import { GebaeudeAufnahmeAllgemein } from "GebaeudeAufnahmeAllgemein"
 model VerbrauchsausweisGewerbe {
   id                      Int            @id @default(autoincrement())
   uid                     String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  gebaeude_stammdaten_id  Int
-  benutzer_id             Int
+  benutzer_id             Int?
   ausstellgrund           Ausstellgrund?
   registriernummer        String?        @db.VarChar
   zusaetzliche_heizquelle Boolean?
@@ -53,6 +52,6 @@ model VerbrauchsausweisGewerbe {
 
 	gebaeudeaufnahme_allgemein_id        Int @unique
 
-  benutzer            Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  benutzer            Benutzer?           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeudeaufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

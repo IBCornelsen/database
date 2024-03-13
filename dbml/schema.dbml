@@ -35,7 +35,7 @@ Table ApiRequests {
 Table BedarfsausweisWohnen {
   id Int [pk, increment]
   uid String [not null]
-  benutzer_id Int [not null]
+  benutzer_id Int
   ausstellgrund Ausstellgrund
   registriernummer String
   alternative_heizung Boolean
@@ -91,7 +91,7 @@ Table BedarfsausweisWohnen {
   anteil_zusatzheizung Float
   kollektor_flaeche Float
   gebaeudeaufnahme_allgemein_id Int [unique, not null]
-  benutzer benutzer [not null]
+  benutzer benutzer
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
 }
 
@@ -254,7 +254,7 @@ Table gebaeude_plaene {
 Table GebaeudeStammdaten {
   id Int [pk, increment]
   uid String [unique, not null]
-  benutzer_id Int [not null]
+  benutzer_id Int
   latitude Float
   longitude Float
   plz String
@@ -262,7 +262,7 @@ Table GebaeudeStammdaten {
   adresse String
   gebaeude_bilder gebaeude_bilder [not null]
   gebaeude_plaene gebaeude_plaene [not null]
-  benutzer benutzer [not null]
+  benutzer benutzer
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
   Anteilshaber Anteilshaber [not null]
 }
@@ -360,8 +360,7 @@ Table tokens {
 Table VerbrauchsausweisGewerbe {
   id Int [pk, increment]
   uid String [unique, not null]
-  gebaeude_stammdaten_id Int [not null]
-  benutzer_id Int [not null]
+  benutzer_id Int
   ausstellgrund Ausstellgrund
   registriernummer String
   zusaetzliche_heizquelle Boolean
@@ -398,14 +397,14 @@ Table VerbrauchsausweisGewerbe {
   anteil_warmwasser_1 Float
   anteil_warmwasser_2 Float
   gebaeudeaufnahme_allgemein_id Int [unique, not null]
-  benutzer benutzer [not null]
+  benutzer benutzer
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
 }
 
 Table VerbrauchsausweisWohnen {
   id Int [pk, increment]
   uid String [unique, not null]
-  benutzer_id Int [not null]
+  benutzer_id Int
   ausstellgrund Ausstellgrund
   registriernummer String
   zusaetzliche_heizquelle Boolean
@@ -430,7 +429,7 @@ Table VerbrauchsausweisWohnen {
   anteil_warmwasser_1 Float
   anteil_warmwasser_2 Float
   gebaeudeaufnahme_allgemein_id Int [unique, not null]
-  benutzer benutzer [not null]
+  benutzer benutzer
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
 }
 

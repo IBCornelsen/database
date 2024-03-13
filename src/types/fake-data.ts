@@ -106,7 +106,7 @@ export function fakeBedarfsausweisWohnenComplete() {
   return {
     id: faker.number.int(),
     uid: '[object Object]',
-    benutzer_id: faker.number.int(),
+    benutzer_id: undefined,
     ausstellgrund: undefined,
     registriernummer: undefined,
     alternative_heizung: undefined,
@@ -414,7 +414,7 @@ export function fakeGebaeudeStammdatenComplete() {
   return {
     id: faker.number.int(),
     uid: '[object Object]',
-    benutzer_id: faker.number.int(),
+    benutzer_id: undefined,
     latitude: undefined,
     longitude: undefined,
     plz: undefined,
@@ -572,7 +572,6 @@ export function faketokensComplete() {
 }
 export function fakeVerbrauchsausweisGewerbe() {
   return {
-    gebaeude_stammdaten_id: faker.number.int(),
     ausstellgrund: undefined,
     registriernummer: undefined,
     zusaetzliche_heizquelle: undefined,
@@ -614,8 +613,7 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
   return {
     id: faker.number.int(),
     uid: '[object Object]',
-    gebaeude_stammdaten_id: faker.number.int(),
-    benutzer_id: faker.number.int(),
+    benutzer_id: undefined,
     ausstellgrund: undefined,
     registriernummer: undefined,
     zusaetzliche_heizquelle: undefined,
@@ -685,7 +683,7 @@ export function fakeVerbrauchsausweisWohnenComplete() {
   return {
     id: faker.number.int(),
     uid: '[object Object]',
-    benutzer_id: faker.number.int(),
+    benutzer_id: undefined,
     ausstellgrund: undefined,
     registriernummer: undefined,
     zusaetzliche_heizquelle: undefined,
