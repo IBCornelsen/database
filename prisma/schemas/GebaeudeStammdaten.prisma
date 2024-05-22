@@ -20,9 +20,12 @@ model GebaeudeStammdaten {
   latitude  Float?
   longitude Float?
 
-  plz     String?
-  ort     String?
-  adresse String?
+	/// @zod.describe("Postleitzahl des Gebäudes")
+  plz              String?   @db.VarChar(5)
+	/// @zod.describe("Ort des Gebäudes")
+  ort              String?   @db.VarChar(50)
+	/// @zod.describe("Adresse (Straße und Hausnummer) des Gebäudes")
+  adresse          String?   @db.VarChar(100)
 
   gebaeude_bilder             GebaeudeBilder[]
   gebaeude_plaene             GebaeudePlaene[]

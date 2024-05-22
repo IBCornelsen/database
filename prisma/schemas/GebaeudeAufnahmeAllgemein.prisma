@@ -19,78 +19,139 @@ enum Heizungsstatus {
 
 model GebaeudeAufnahmeAllgemein {
   id               Int             @id @default(autoincrement())
+	/// @zod.describe("UID der Gebäude Aufnahme")
   uid              String          @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   benutzer_id      Int?
+	/// @zod.describe("Art des korrespondierenden Ausweises, wie z.B. VerbrauchsausweisWohnen")
   ausweisart Ausweisart?
+	/// @zod.describe("Art des Gebäudes und seiner primären Nutzungsart")
   gebaeudetyp      String?         @db.VarChar
+	/// @zod.describe("Betrachteter Teil des Gebäudes, z.B. Gesamtgebäude, Wohnteil, Gewerbeteil")
   gebaeudeteil     String?         @db.VarChar
+	/// @zod.describe("Alle Jahre in denen das Gebäude konstruiert oder grundlegend verändert wurde")
   baujahr_gebaeude Int[]
+	/// @zod.describe("Alle Jahre in denen die Heizung eingebaut oder grundlegend verändert wurde")
   baujahr_heizung  Int[]
+	/// @zod.describe("Alle Jahre in denen die Klimaanlage eingebaut oder grundlegend verändert wurde")
   baujahr_klima    Int[]
+	/// @zod.describe("Anzahl der (Wohn)Einheiten im Gebäude")
   einheiten        Int?
+	/// @zod.describe("Wohnfläche bei Wohngebäuden, Nutzfläche bei Gewerbegebäuden")
   flaeche          Int?
+	/// @zod.describe("(energetische) Nutzfläche des Gebäudes. Bei Gewerbegebäuden entspricht Sie der Nutzfläche")
 	nutzflaeche 			Int?
+	/// @zod.describe("Falls das Gebäude energetisch saniert ist, sollte dieser Wert auf true stehen")
   saniert          Boolean?
+	/// @zod.describe("Ob ein Keller vorhanden, beheizt oder unbeheizt ist")
   keller           Heizungsstatus?
+	/// @zod.describe("Ob ein Dachgeschoss vorhanden, beheizt oder unbeheizt ist")
   dachgeschoss     Heizungsstatus?
+	/// @zod.describe("Art der Gebäudelüftung")
   lueftung         String?         @db.VarChar(50)
+	/// @zod.describe("Art der Gebäudekühlung")
   kuehlung         String?         @db.VarChar(50)
+	/// @zod.describe("Prozentualer Leerstand des Gebäudes in einem durchschnittlichen Jahr")
   leerstand        Int?
 
+ /// @zod.describe("Falls der Heizungsverbrauch alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")
   alternative_heizung    Boolean?
+	/// @zod.describe("Falls der Warmwasserverbrauch alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")
   alternative_warmwasser Boolean?
-  alternative_kuehlung   Boolean?
+	/// @zod.describe("Falls die Lüftung alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")
   alternative_lueftung   Boolean?
+	/// @zod.describe("Falls die Kühlung alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")
+  alternative_kuehlung   Boolean?
 
+	/// @zod.describe("Genutzer Brennstoff der primären Energiequelle")
   brennstoff_1 String? @db.VarChar(50)
+	/// @zod.describe("Genutzer Brennstoff der sekundären Energiequelle")
   brennstoff_2 String? @db.VarChar(50)
 
+	/// @zod.describe("Postleitzahl des Gebäudes")
   plz              String?   @db.VarChar(5)
+	/// @zod.describe("Ort des Gebäudes")
   ort              String?   @db.VarChar(50)
+	/// @zod.describe("Adresse (Straße und Hausnummer) des Gebäudes")
   adresse          String?   @db.VarChar(100)
-	// Eigenschaften der Bestellung
+	
+	/// @zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")
 	storniert Boolean? @default(false)
+	/// @zod.describe("Falls der Ausweis erledigt ist, sollte dieser Wert auf true stehen")
   erledigt         Boolean?  @default(false)
+	/// @zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")
 	bestellt					Boolean?  @default(false)
+	/// @zod.describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")
 	zurueckgestellt Boolean?  @default(false)
+	/// @zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")
 	prueftext String? @db.VarChar(1000)
 
 	boxpruefung Boolean? @default(false)
 
+	/// @zod.describe("Die aus der Berechnung hervorgehende Energieeffizienzklasse des Gebäudes")
 	energieeffizienzklasse String? @db.VarChar(5)
 
+	/// @zod.describe("Datum an dem der Kunde den Ausweis erstellt hat")
   erstellungsdatum DateTime? @default(now())
+	/// @zod.describe("Datum an dem der Aussteller den Ausweis ausgestellt hat")
 	ausstellungsdatum DateTime?
 
+	/// @zod.describe("Falls das Gebäude über eine Zentralbeheizung verfügt, sollte dieser Wert auf true stehen")
   zentralheizung                          Boolean?
+	/// @zod.describe("Falls das Gebäude über ein Solarsystem für Warmwasser verfügt, sollte dieser Wert auf true stehen")
   solarsystem_warmwasser                  Boolean?
+	/// @zod.describe("Falls die Warmwasserrohre des Gebäudes gedämmt sind, sollte dieser Wert auf true stehen")
   warmwasser_rohre_gedaemmt               Boolean?
+	/// @zod.describe("Falls das Gebäude über einen Niedertemperaturkessel verfügt, sollte dieser Wert auf true stehen")
   niedertemperatur_kessel                 Boolean?
+	/// @zod.describe("Falls das Gebäude über einen Brennwertkessel verfügt, sollte dieser Wert auf true stehen")
   brennwert_kessel                        Boolean?
+	/// @zod.describe("Falls die Heizungsrohre des Gebäudes gedämmt sind, sollte dieser Wert auf true stehen")
   heizungsrohre_gedaemmt                  Boolean?
   standard_kessel                         Boolean?
+	/// @zod.describe("Falls das Gebäude über eine Wärmepumpe verfügt, sollte dieser Wert auf true stehen")
   waermepumpe                             Boolean?
+	/// @zod.describe("Falls das Gebäude über einen Raumtemperaturregler verfügt, sollte dieser Wert auf true stehen")
   raum_temperatur_regler                  Boolean?
+	/// @zod.describe("Falls das Gebäude über eine Photovoltaikanlage verfügt, sollte dieser Wert auf true stehen")
   photovoltaik                            Boolean?
+	/// @zod.describe("Falls das Gebäude über einen Durchlauferhitzer verfügt, sollte dieser Wert auf true stehen")
   durchlauf_erhitzer                      Boolean?
   einzelofen                              Boolean?
+	/// @zod.describe("Falls das Gebäude über eine Zirkulationspumpe verfügt, sollte dieser Wert auf true stehen")
   zirkulation                             Boolean?
+	/// @zod.describe("Falls die Fenster des Gebäudes einfach gedämmt sind, sollte dieser Wert auf true stehen")
   einfach_verglasung                      Boolean?
+	/// @zod.describe("Falls die Fenster des Gebäudes dreifach gedämmt sind, sollte dieser Wert auf true stehen")
   dreifach_verglasung                     Boolean?
+	/// @zod.describe("Falls die Fenster des Gebäudes teilweise undicht sind, sollte dieser Wert auf true stehen")
   fenster_teilweise_undicht               Boolean?
+	/// @zod.describe("Falls die Fenster des Gebäudes doppelt gedämmt sind, sollte dieser Wert auf true stehen")
   doppel_verglasung                       Boolean?
+	/// @zod.describe("Falls die Fenster des Gebäudes dicht sind, sollte dieser Wert auf true stehen")
   fenster_dicht                           Boolean?
+	/// @zod.describe("Falls das Gebäude über gedämmte Rolllädenkästen verfügt, sollte dieser Wert auf true stehen")
   rolllaeden_kaesten_gedaemmt             Boolean?
+	/// @zod.describe("Falls die Fenster des Gebäudes isolier Verglasung haben, sollte dieser Wert auf true stehen")
   isolier_verglasung                      Boolean?
+	/// @zod.describe("Falls die Türen des Gebäudes undicht sind, sollte dieser Wert auf true stehen")
   tueren_undicht                          Boolean?
+	/// @zod.describe("Falls die Türen des Gebäudes dicht sind, sollte dieser Wert auf true stehen")
   tueren_dicht                            Boolean?
+	/// @zod.describe("Falls das Dachgeschoss des Gebäudes gedämmt ist, sollte dieser Wert auf true stehen")
   dachgeschoss_gedaemmt                   Boolean?
+	/// @zod.describe("Falls die Kellerdecke des Gebäudes gedämmt ist, sollte dieser Wert auf true stehen")
   keller_decke_gedaemmt                   Boolean?
+	/// @zod.describe("Falls die Kellerwände des Gebäudes gedämmt sind, sollte dieser Wert auf true stehen")
   keller_wand_gedaemmt                    Boolean?
+	/// @zod.describe("Falls die Außenwände des Gebäudes gedämmt sind, sollte dieser Wert auf true stehen")
   aussenwand_gedaemmt                     Boolean?
+	/// @zod.describe("Falls die oberste Geschossdecke des Gebäudes gedämmt ist, sollte dieser Wert auf true stehen")
   oberste_geschossdecke_gedaemmt          Boolean?
+	/// @zod.describe("Falls die Außenwände des Gebäudes mindestens 12cm gedämmt sind, sollte dieser Wert auf true stehen")
   aussenwand_min_12cm_gedaemmt            Boolean?
+	/// @zod.describe("Falls das Dachgeschoss des Gebäudes mindestens 12cm gedämmt ist, sollte dieser Wert auf true stehen")
   dachgeschoss_min_12cm_gedaemmt          Boolean?
+	/// @zod.describe("Falls die oberste Geschossdecke des Gebäudes mindestens 12cm gedämmt ist, sollte dieser Wert auf true stehen")
   oberste_geschossdecke_min_12cm_gedaemmt Boolean?
 
   gebaeude_stammdaten_id Int
