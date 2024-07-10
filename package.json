@@ -7,25 +7,26 @@
   "type": "module",
   "scripts": {
     "postinstall": "bunx prisma generate",
+		"postyalcpublish": "bunx prisma generate",
     "db:introspect": "dotenv -- prisma introspect",
     "db:generate": "dotenv -- prisma generate",
     "prisma:merge": "bunx prisma-import --schemas=./prisma/schemas/* --output=./prisma/schema.prisma --force",
     "prisma:generate": "bun run prisma:merge && bunx prisma generate"
   },
   "devDependencies": {
-    "bun-types": "^1.1.18",
-    "moment": "^2.30.1",
-    "prisma": "^5.7.0",
-    "prisma-dbml-generator": "^0.10.0",
-    "prisma-generator-fake-data": "^0.14.2",
-    "prisma-import": "^1.0.5",
-    "zod-prisma": "^0.5.4"
+    "bun-types": "^1.1.18"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@prisma/client": "5.7.0"
+    "@prisma/client": "5.7.0",
+		"moment": "^2.30.1",
+    "prisma": "^5.7.0",
+    "prisma-dbml-generator": "^0.10.0",
+    "prisma-generator-fake-data": "^0.14.2",
+    "prisma-import": "^1.0.5",
+    "zod-prisma": "^0.5.4"
   },
   "prisma": {
     "seed": "bun prisma/seed.ts"
