@@ -14,7 +14,7 @@ DB_VOLUME="postgres_data"
 # Build Skript sich die Änderungen am build Skript holen würde...
 
 # Als erstes linken wir das package mit yalc, damit wir z.B. in online-energieausweis darauf zugreifen können.
-bunx yalc push
+bunx yalc push --scripts
 # Dann installieren wir noch einmal alle dependencies, das ist besonders wichtig
 # falls wir lokal verlinkte Projekte haben, sonst werden die nicht in unser
 # docker image übernommen
