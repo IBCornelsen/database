@@ -168,6 +168,3 @@ dist
 .DS_Store
 
 bun.lockb
-
-src/generated
-src/types/fake-data.ts
