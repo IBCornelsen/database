@@ -6,7 +6,6 @@
   "types": "./src/index.ts",
   "type": "module",
   "scripts": {
-    "postinstall": "bunx prisma generate",
 		"postyalcpublish": "bunx prisma generate",
     "db:introspect": "dotenv -- prisma introspect",
     "db:generate": "dotenv -- prisma generate",
