@@ -96,6 +96,19 @@ await prisma.benutzer.create({
 	},
 });
 
+// Test Benutzer erstellen
+await prisma.benutzer.create({
+	data: {
+		email: "user@ib-cornelsen.de",
+		passwort: hashPassword("passwort"),
+		rolle: "USER",
+		name: "User",
+		vorname: "User",
+		adresse: "Userstraße 1",
+		plz: "12345",
+	},
+});
+
 // Benutzer erstellen
 
 for (let i = 0; i < 10; i++) {
