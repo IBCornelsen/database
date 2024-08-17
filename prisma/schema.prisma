@@ -468,12 +468,12 @@ generator client {
 }
 
 generator faker {
-  provider = "prisma-generator-fake-data"
+  provider = "bunx prisma-generator-fake-data"
   output   = "../src/types/fake-data.ts"
 }
 
 generator zod {
-  provider              = "zod-prisma"
+  provider              = "bunx zod-prisma"
   output                = "../src/generated/zod"
   relationModel         = false
   modelCase             = "PascalCase"
@@ -484,7 +484,7 @@ generator zod {
 }
 
 generator dbml {
-  provider            = "prisma-dbml-generator"
+  provider            = "bunx prisma-dbml-generator"
   output              = "../dbml"
   outputName          = "schema.dbml"
   projectName         = "IBCornelsen Database"
