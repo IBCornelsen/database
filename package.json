@@ -10,12 +10,11 @@
 		"./server": "./src/server.ts"
 	},
   "scripts": {
-    "postinstall": "bun run prisma:merge && bunx prisma generate",
+    "postinstall": "bunx prisma generate",
     "postyalcpublish": "bunx prisma generate",
     "db:introspect": "dotenv -- prisma introspect",
     "db:generate": "dotenv -- prisma generate",
-    "prisma:merge": "bunx prisma-import --schemas=./prisma/schemas/* --output=./prisma/schema.prisma --force",
-    "prisma:generate": "bun run prisma:merge && bunx prisma generate"
+    "prisma:generate": "bunx prisma generate"
   },
   "devDependencies": {
     "bun-types": "^1.1.18"

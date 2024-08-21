@@ -124,29 +124,6 @@ Table benutzer {
   events Event [not null]
 }
 
-Table documenttemplates {
-  id Int [pk, increment]
-  name String [not null]
-  shortdescription String [not null]
-  longdescription String [not null]
-  user_id Int [not null]
-  is_private Boolean [not null, default: true]
-  documenttype Int [not null]
-  filename String [not null]
-  created_at DateTime [default: `now()`, not null]
-  updated_at DateTime [default: `now()`, not null]
-  benutzer benutzer [not null]
-  documenttypes documenttypes [not null]
-}
-
-Table documenttypes {
-  id Int [pk, increment]
-  name String [not null]
-  shortdescription String [not null]
-  longdescription String [not null]
-  documenttemplates documenttemplates [not null]
-}
-
 Table Event {
   id Int [pk, increment]
   uid String [unique, not null]
@@ -346,17 +323,6 @@ Table Tickets {
   bearbeiter benutzer
 }
 
-Table tokens {
-  id Int [pk, increment]
-  token String [not null]
-  user_id Int [not null]
-  date_created DateTime [default: `now()`, not null]
-  last_used DateTime [default: `now()`, not null]
-  times_used Int [not null, default: 0]
-  permissions Int [not null, default: 0]
-  benutzer benutzer [not null]
-}
-
 Table VerbrauchsausweisGewerbe {
   id Int [pk, increment]
   uid String [unique, not null]
@@ -433,6 +399,40 @@ Table VerbrauchsausweisWohnen {
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
 }
 
+Table documenttemplates {
+  id Int [pk, increment]
+  name String [not null]
+  shortdescription String [not null]
+  longdescription String [not null]
+  user_id Int [not null]
+  is_private Boolean [not null, default: true]
+  documenttype Int [not null]
+  filename String [not null]
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [default: `now()`, not null]
+  benutzer benutzer [not null]
+  documenttypes documenttypes [not null]
+}
+
+Table documenttypes {
+  id Int [pk, increment]
+  name String [not null]
+  shortdescription String [not null]
+  longdescription String [not null]
+  documenttemplates documenttemplates [not null]
+}
+
+Table tokens {
+  id Int [pk, increment]
+  token String [not null]
+  user_id Int [not null]
+  date_created DateTime [default: `now()`, not null]
+  last_used DateTime [default: `now()`, not null]
+  times_used Int [not null, default: 0]
+  permissions Int [not null, default: 0]
+  benutzer benutzer [not null]
+}
+
 Enum BenutzerRolle {
   USER
   ADMIN
@@ -449,27 +449,6 @@ Enum BilderKategorie {
   Fenster
   Gebaeude
   Daemmung
-}
-
-Enum Ausstellgrund {
-  Neubau
-  Vermietung
-  Verkauf
-  Modernisierung
-  Sonstiges
-}
-
-Enum Ausweisart {
-  VerbrauchsausweisWohnen
-  VerbrauchsausweisGewerbe
-  BedarfsausweisWohnen
-}
-
-Enum Service {
-  Telefonberatung
-  Aushang
-  Qualitaetsdruck
-  SameDay
 }
 
 Enum Bezahlmethoden {
@@ -498,6 +477,27 @@ Enum TicketStatus {
   GELOEST
 }
 
+Enum Ausstellgrund {
+  Neubau
+  Vermietung
+  Verkauf
+  Modernisierung
+  Sonstiges
+}
+
+Enum Ausweisart {
+  VerbrauchsausweisWohnen
+  VerbrauchsausweisGewerbe
+  BedarfsausweisWohnen
+}
+
+Enum Service {
+  Telefonberatung
+  Aushang
+  Qualitaetsdruck
+  SameDay
+}
+
 Ref: Anteilshaber.benutzer_id - benutzer.id [delete: No Action]
 
 Ref: Anteilshaber.gebaeude_id > GebaeudeStammdaten.id [delete: No Action]
@@ -507,10 +507,6 @@ Ref: ApiRequests.user_id > benutzer.id [delete: No Action]
 Ref: BedarfsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: BedarfsausweisWohnen.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAllgemein.id [delete: No Action]
-
-Ref: documenttemplates.user_id > benutzer.id [delete: Cascade]
-
-Ref: documenttemplates.documenttype > documenttypes.id [delete: Cascade]
 
 Ref: Event.gebaeude_aufnahme_allgemein_id > GebaeudeAufnahmeAllgemein.id [delete: No Action]
 
@@ -536,8 +532,6 @@ Ref: Tickets.benutzer_id > benutzer.id
 
 Ref: Tickets.bearbeiter_id > benutzer.id
 
-Ref: tokens.user_id > benutzer.id [delete: No Action]
-
 Ref: VerbrauchsausweisGewerbe.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: VerbrauchsausweisGewerbe.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAllgemein.id [delete: No Action]
@@ -545,3 +539,9 @@ Ref: VerbrauchsausweisGewerbe.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAl
 Ref: VerbrauchsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: VerbrauchsausweisWohnen.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAllgemein.id [delete: No Action]
+
+Ref: documenttemplates.user_id > benutzer.id [delete: Cascade]
+
+Ref: documenttemplates.documenttype > documenttypes.id [delete: Cascade]
+
+Ref: tokens.user_id > benutzer.id [delete: No Action]

@@ -1,4 +1,3 @@
-import { documenttemplates } from "./documenttemplates"
 
 model documenttypes {
   id                Int                 @id(map: "PK_DOCUMENTTYPES") @default(autoincrement())

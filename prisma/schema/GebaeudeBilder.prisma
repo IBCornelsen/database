@@ -1,10 +1,17 @@
-import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
 
-model GebaeudePlaene {
+enum BilderKategorie {
+	Heizung
+	Fenster
+	Gebaeude
+	Daemmung
+}
+
+model GebaeudeBilder {
   id                     Int                @id @default(autoincrement())
   gebaeude_stammdaten_id Int
+  kategorie              BilderKategorie           
   uid                    String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   gebaeude_stammdaten    GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@map("gebaeude_plaene")
+  @@map("gebaeude_bilder")
 }

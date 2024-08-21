@@ -1,15 +1,3 @@
-import { Benutzer } from "./Benutzer"
-import { Anteilshaber } from "./Anteilshaber"
-import { BedarfsausweisWohnen } from "./BedarfsausweisWohnen"
-import { GebaeudeBilder } from "./GebaeudeBilder"
-import { GebaeudePlaene } from "./GebaeudePlaene"
-import { VerbrauchsausweisGewerbe } from "./VerbrauchsausweisGewerbe"
-import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
-import { GebaeudeBilder } from "GebaeudeBilder"
-import { GebaeudePlaene } from "GebaeudePlaene"
-import { Benutzer } from "Benutzer"
-import { GebaeudeAufnahmeAllgemein } from "GebaeudeAufnahmeAllgemein"
-import { Event } from "Event"
 
 
 model GebaeudeStammdaten {
@@ -31,6 +19,8 @@ model GebaeudeStammdaten {
   gebaeude_plaene             GebaeudePlaene[]
   benutzer                    Benutzer?                    @relation(fields: [benutzer_id], references: [id])
   gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein[]
+
+  Anteilshaber Anteilshaber[]
 }
 
 

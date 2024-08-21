@@ -1,15 +1,3 @@
-import { Benutzer } from "./Benutzer"
-import { Ausweisart } from "main"
-import { Anteilshaber } from "./Anteilshaber"
-import { BedarfsausweisWohnen } from "./BedarfsausweisWohnen"
-import { GebaeudeBilder } from "./GebaeudeBilder"
-import { GebaeudePlaene } from "./GebaeudePlaene"
-import { VerbrauchsausweisGewerbe } from "./VerbrauchsausweisGewerbe"
-import { VerbrauchsausweisWohnen } from "./VerbrauchsausweisWohnen"
-import { GebaeudeStammdaten } from "./GebaeudeStammdaten"
-import { Event } from "./Event"
-import { Ausweisart, Ausstellgrund } from "main"
-import { Rechnung } from "./Rechnung"
 
 enum Heizungsstatus {
 	BEHEIZT

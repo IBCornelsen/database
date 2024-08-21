@@ -1,0 +1,57 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+	previewFeatures = ["prismaSchemaFolder"]
+}
+
+generator faker {
+  provider = "bunx prisma-generator-fake-data"
+  output   = "../../src/types/fake-data.ts"
+}
+
+generator zod {
+  provider = "bunx zod-prisma"
+  output   = "../../src/generated/zod"
+  relationModel = false
+  modelCase = "PascalCase"
+  modelSuffix = "Schema"
+  useDecimalJs = true
+  imports = null
+  prismaJsonNullability = true
+}
+
+generator dbml {
+  provider   = "bunx prisma-dbml-generator"
+  output     = "../../dbml"
+  outputName = "schema.dbml"
+  projectName = "IBCornelsen Database"
+  projectDatabaseType = "PostgreSQL"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_DATABASE_URL")
+}
+
+enum Ausstellgrund {
+  Neubau
+  Vermietung
+  Verkauf
+  Modernisierung
+  Sonstiges
+}
+
+
+enum Ausweisart {
+  VerbrauchsausweisWohnen
+  VerbrauchsausweisGewerbe
+  BedarfsausweisWohnen
+}
+
+
+enum Service {
+	Telefonberatung
+	Aushang
+	Qualitaetsdruck
+	SameDay
+}

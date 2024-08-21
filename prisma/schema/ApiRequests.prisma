@@ -1,4 +1,3 @@
-import { Benutzer } from "./Benutzer"
 
 model ApiRequests {
   id           Int       @id @default(autoincrement())

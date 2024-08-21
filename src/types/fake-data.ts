@@ -1,4 +1,4 @@
-import { BenutzerRolle, Heizungsstatus, BilderKategorie, Ausstellgrund, Ausweisart, Service, Bezahlmethoden, Rechnungsstatus, TicketStatus } from '@prisma/client';
+import { BenutzerRolle, Heizungsstatus, BilderKategorie, Bezahlmethoden, Rechnungsstatus, TicketStatus, Ausstellgrund, Ausweisart, Service } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import Decimal from 'decimal.js';
 
@@ -194,43 +194,6 @@ export function fakeBenutzerComplete() {
     telefon: undefined,
     anrede: undefined,
     rolle: BenutzerRolle.USER,
-  };
-}
-export function fakedocumenttemplates() {
-  return {
-    name: faker.person.fullName(),
-    shortdescription: faker.lorem.words(5),
-    longdescription: faker.lorem.words(5),
-    filename: faker.lorem.words(5),
-  };
-}
-export function fakedocumenttemplatesComplete() {
-  return {
-    id: faker.number.int(),
-    name: faker.person.fullName(),
-    shortdescription: faker.lorem.words(5),
-    longdescription: faker.lorem.words(5),
-    user_id: faker.number.int(),
-    is_private: true,
-    documenttype: faker.number.int(),
-    filename: faker.lorem.words(5),
-    created_at: new Date(),
-    updated_at: new Date(),
-  };
-}
-export function fakedocumenttypes() {
-  return {
-    name: faker.person.fullName(),
-    shortdescription: faker.lorem.words(5),
-    longdescription: faker.lorem.words(5),
-  };
-}
-export function fakedocumenttypesComplete() {
-  return {
-    id: faker.number.int(),
-    name: faker.person.fullName(),
-    shortdescription: faker.lorem.words(5),
-    longdescription: faker.lorem.words(5),
   };
 }
 export function fakeEvent() {
@@ -555,22 +518,6 @@ export function fakeTicketsComplete() {
     prioritaet: 0,
   };
 }
-export function faketokens() {
-  return {
-    token: faker.lorem.words(5),
-  };
-}
-export function faketokensComplete() {
-  return {
-    id: faker.number.int(),
-    token: faker.lorem.words(5),
-    user_id: faker.number.int(),
-    date_created: new Date(),
-    last_used: new Date(),
-    times_used: 0,
-    permissions: 0,
-  };
-}
 export function fakeVerbrauchsausweisGewerbe() {
   return {
     ausstellgrund: undefined,
@@ -709,5 +656,58 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     anteil_warmwasser_1: undefined,
     anteil_warmwasser_2: undefined,
     gebaeudeaufnahme_allgemein_id: faker.number.int(),
+  };
+}
+export function fakedocumenttemplates() {
+  return {
+    name: faker.person.fullName(),
+    shortdescription: faker.lorem.words(5),
+    longdescription: faker.lorem.words(5),
+    filename: faker.lorem.words(5),
+  };
+}
+export function fakedocumenttemplatesComplete() {
+  return {
+    id: faker.number.int(),
+    name: faker.person.fullName(),
+    shortdescription: faker.lorem.words(5),
+    longdescription: faker.lorem.words(5),
+    user_id: faker.number.int(),
+    is_private: true,
+    documenttype: faker.number.int(),
+    filename: faker.lorem.words(5),
+    created_at: new Date(),
+    updated_at: new Date(),
+  };
+}
+export function fakedocumenttypes() {
+  return {
+    name: faker.person.fullName(),
+    shortdescription: faker.lorem.words(5),
+    longdescription: faker.lorem.words(5),
+  };
+}
+export function fakedocumenttypesComplete() {
+  return {
+    id: faker.number.int(),
+    name: faker.person.fullName(),
+    shortdescription: faker.lorem.words(5),
+    longdescription: faker.lorem.words(5),
+  };
+}
+export function faketokens() {
+  return {
+    token: faker.lorem.words(5),
+  };
+}
+export function faketokensComplete() {
+  return {
+    id: faker.number.int(),
+    token: faker.lorem.words(5),
+    user_id: faker.number.int(),
+    date_created: new Date(),
+    last_used: new Date(),
+    times_used: 0,
+    permissions: 0,
   };
 }
