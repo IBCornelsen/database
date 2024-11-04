@@ -12,7 +12,7 @@ export function fakeAnteilshaber() {
 }
 export function fakeAnteilshaberComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     benutzer_id: faker.number.int(),
     gebaeude_id: faker.number.int(),
     rolle: undefined,
@@ -33,7 +33,7 @@ export function fakeApiRequests() {
 }
 export function fakeApiRequestsComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     date: new Date(),
     ip: faker.lorem.words(5),
     method: faker.lorem.words(5),
@@ -105,7 +105,7 @@ export function fakeBedarfsausweisWohnen() {
 }
 export function fakeBedarfsausweisWohnenComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     uid: '[object Object]',
     benutzer_id: undefined,
     ausstellgrund: undefined,
@@ -181,7 +181,7 @@ export function fakeBenutzer() {
 }
 export function fakeBenutzerComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     uid: '[object Object]',
     name: undefined,
     vorname: undefined,
@@ -204,7 +204,7 @@ export function fakeEvent() {
 }
 export function fakeEventComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     uid: '[object Object]',
     date: new Date(),
     title: faker.lorem.words(5),
@@ -218,9 +218,9 @@ export function fakeGebaeudeAufnahmeAllgemein() {
     ausweisart: undefined,
     gebaeudetyp: undefined,
     gebaeudeteil: undefined,
-    baujahr_gebaeude: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
-    baujahr_heizung: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
-    baujahr_klima: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
+    baujahr_gebaeude: [faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 })],
+    baujahr_heizung: [faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 })],
+    baujahr_klima: [faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 })],
     einheiten: undefined,
     flaeche: undefined,
     nutzflaeche: undefined,
@@ -276,15 +276,15 @@ export function fakeGebaeudeAufnahmeAllgemein() {
 }
 export function fakeGebaeudeAufnahmeAllgemeinComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     uid: '[object Object]',
     benutzer_id: undefined,
     ausweisart: undefined,
     gebaeudetyp: undefined,
     gebaeudeteil: undefined,
-    baujahr_gebaeude: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
-    baujahr_heizung: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
-    baujahr_klima: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
+    baujahr_gebaeude: [faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 })],
+    baujahr_heizung: [faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 })],
+    baujahr_klima: [faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 }),faker.number.int({ max: 2147483647 })],
     einheiten: undefined,
     flaeche: undefined,
     nutzflaeche: undefined,
@@ -352,7 +352,7 @@ export function fakeGebaeudeBilder() {
 }
 export function fakeGebaeudeBilderComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     gebaeude_stammdaten_id: faker.number.int(),
     kategorie: faker.helpers.arrayElement([BilderKategorie.Heizung, BilderKategorie.Fenster, BilderKategorie.Gebaeude, BilderKategorie.Daemmung] as const),
     uid: '[object Object]',
@@ -360,7 +360,7 @@ export function fakeGebaeudeBilderComplete() {
 }
 export function fakeGebaeudePlaeneComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     gebaeude_stammdaten_id: faker.number.int(),
     uid: '[object Object]',
   };
@@ -376,7 +376,7 @@ export function fakeGebaeudeStammdaten() {
 }
 export function fakeGebaeudeStammdatenComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     uid: '[object Object]',
     benutzer_id: undefined,
     latitude: undefined,
@@ -395,7 +395,7 @@ export function fakeKlimafaktoren() {
 }
 export function fakeKlimafaktorenComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     plz: faker.lorem.words(5),
     month: faker.number.int(),
     year: faker.number.int(),
@@ -414,7 +414,7 @@ export function fakePostleitzahlen() {
 }
 export function fakePostleitzahlenComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     plz: faker.lorem.words(5),
     stadt: faker.lorem.words(5),
     bundesland: faker.lorem.words(5),
@@ -448,7 +448,7 @@ export function fakeRechnung() {
 }
 export function fakeRechnungComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     uid: '[object Object]',
     benutzer_id: faker.number.int(),
     gebaeude_aufnahme_allgemein_id: faker.number.int(),
@@ -484,7 +484,7 @@ export function fakeRefreshTokens() {
 }
 export function fakeRefreshTokensComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     benutzer_id: faker.number.int(),
     token: faker.lorem.words(5),
     ip: faker.lorem.words(5),
@@ -503,7 +503,7 @@ export function fakeTickets() {
 }
 export function fakeTicketsComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     uid: '[object Object]',
     benutzer_id: undefined,
     created_at: new Date(),
@@ -559,7 +559,7 @@ export function fakeVerbrauchsausweisGewerbe() {
 }
 export function fakeVerbrauchsausweisGewerbeComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     uid: '[object Object]',
     benutzer_id: undefined,
     ausstellgrund: undefined,
@@ -629,7 +629,7 @@ export function fakeVerbrauchsausweisWohnen() {
 }
 export function fakeVerbrauchsausweisWohnenComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     uid: '[object Object]',
     benutzer_id: undefined,
     ausstellgrund: undefined,
@@ -668,7 +668,7 @@ export function fakedocumenttemplates() {
 }
 export function fakedocumenttemplatesComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     name: faker.person.fullName(),
     shortdescription: faker.lorem.words(5),
     longdescription: faker.lorem.words(5),
@@ -689,7 +689,7 @@ export function fakedocumenttypes() {
 }
 export function fakedocumenttypesComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     name: faker.person.fullName(),
     shortdescription: faker.lorem.words(5),
     longdescription: faker.lorem.words(5),
@@ -702,7 +702,7 @@ export function faketokens() {
 }
 export function faketokensComplete() {
   return {
-    id: faker.number.int(),
+    id: faker.number.int({ max: 2147483647 }),
     token: faker.lorem.words(5),
     user_id: faker.number.int(),
     date_created: new Date(),

@@ -41,7 +41,6 @@ enum Ausstellgrund {
   Sonstiges
 }
 
-
 enum Ausweisart {
   VerbrauchsausweisWohnen
   VerbrauchsausweisGewerbe
