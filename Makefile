@@ -1,4 +1,4 @@
-.PHONY: backup run_database build_database install_dependencies wait_for_database prod
+.PHONY: backup run_database build_database install_dependencies wait_for_database prod dev
 
 # Environment variables
 DB_CONTAINER_NAME := database
@@ -9,6 +9,9 @@ DB_PORT := 5432
 DB_VOLUME := postgres_data
 PERSISTENT_DIR := $(HOME)/persistent/$(APP_NAME)
 BACKUP_FILENAME := $(HOME)/backups/$(shell date +"%Y-%m-%d_%H-%M-%S").sql.gz
+
+dev:
+	docker compose up
 
 prod: install_dependencies backup run_database wait_for_database
 
