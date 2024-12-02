@@ -34,7 +34,7 @@ Table ApiRequests {
 
 Table BedarfsausweisWohnen {
   id Int [pk, increment]
-  uid String [not null]
+  uid String [unique, not null]
   benutzer_id Int
   ausstellgrund Ausstellgrund
   registriernummer String
