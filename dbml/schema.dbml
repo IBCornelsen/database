@@ -489,6 +489,7 @@ Enum Ausweisart {
   VerbrauchsausweisWohnen
   VerbrauchsausweisGewerbe
   BedarfsausweisWohnen
+  BedarfsausweisGewerbe
 }
 
 Enum Service {
