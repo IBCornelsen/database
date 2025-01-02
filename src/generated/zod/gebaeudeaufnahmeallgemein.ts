@@ -1,6 +1,6 @@
 import * as z from "zod"
 import * as imports from "../../../prisma/null"
-import { Ausweisart, Heizungsstatus, Heizungsstatus } from "@prisma/client"
+import { Ausweisart, Heizungsstatus, Heizungsstatus, Lueftungskonzept } from "@prisma/client"
 
 export const GebaeudeAufnahmeAllgemeinSchema = z.object({
   id: z.number().int(),
@@ -18,7 +18,7 @@ export const GebaeudeAufnahmeAllgemeinSchema = z.object({
   saniert: z.boolean().describe("Falls das Gebäude energetisch saniert ist, sollte dieser Wert auf true stehen").nullish(),
   keller: z.nativeEnum(Heizungsstatus).describe("Ob ein Keller vorhanden, beheizt oder unbeheizt ist").nullish(),
   dachgeschoss: z.nativeEnum(Heizungsstatus).describe("Ob ein Dachgeschoss vorhanden, beheizt oder unbeheizt ist").nullish(),
-  lueftung: z.string().describe("Art der Gebäudelüftung").nullish(),
+  lueftung: z.nativeEnum(Lueftungskonzept).describe("Art der Gebäudelüftung").nullish(),
   kuehlung: z.string().describe("Art der Gebäudekühlung").nullish(),
   leerstand: z.number().int().describe("Prozentualer Leerstand des Gebäudes in einem durchschnittlichen Jahr").nullish(),
   alternative_heizung: z.boolean().describe("Falls der Heizungsverbrauch alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen").nullish(),

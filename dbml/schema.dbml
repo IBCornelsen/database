@@ -152,7 +152,7 @@ Table GebaeudeAufnahmeAllgemein {
   saniert Boolean [note: '@zod.describe("Falls das Gebäude energetisch saniert ist, sollte dieser Wert auf true stehen")']
   keller Heizungsstatus [note: '@zod.describe("Ob ein Keller vorhanden, beheizt oder unbeheizt ist")']
   dachgeschoss Heizungsstatus [note: '@zod.describe("Ob ein Dachgeschoss vorhanden, beheizt oder unbeheizt ist")']
-  lueftung String [note: '@zod.describe("Art der Gebäudelüftung")']
+  lueftung Lueftungskonzept [note: '@zod.describe("Art der Gebäudelüftung")']
   kuehlung String [note: '@zod.describe("Art der Gebäudekühlung")']
   leerstand Int [note: '@zod.describe("Prozentualer Leerstand des Gebäudes in einem durchschnittlichen Jahr")']
   alternative_heizung Boolean [note: '@zod.describe("Falls der Heizungsverbrauch alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")']
@@ -442,6 +442,13 @@ Enum Heizungsstatus {
   BEHEIZT
   UNBEHEIZT
   NICHT_VORHANDEN
+}
+
+Enum Lueftungskonzept {
+  Fensterlueftung
+  Schachtlueftung
+  LueftungsanlageMitWaermerueckgewinnung
+  LueftungsanlageOhneWaermerueckgewinnung
 }
 
 Enum BilderKategorie {

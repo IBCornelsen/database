@@ -5,6 +5,13 @@ enum Heizungsstatus {
 	NICHT_VORHANDEN
 }
 
+enum Lueftungskonzept {
+	Fensterlueftung
+	Schachtlueftung
+	LueftungsanlageMitWaermerueckgewinnung
+	LueftungsanlageOhneWaermerueckgewinnung
+}
+
 model GebaeudeAufnahmeAllgemein {
   id               Int             @id @default(autoincrement())
 	/// @zod.describe("UID der Gebäude Aufnahme")
@@ -35,7 +42,7 @@ model GebaeudeAufnahmeAllgemein {
 	/// @zod.describe("Ob ein Dachgeschoss vorhanden, beheizt oder unbeheizt ist")
   dachgeschoss     Heizungsstatus?
 	/// @zod.describe("Art der Gebäudelüftung")
-  lueftung         String?         @db.VarChar(50)
+  lueftung         Lueftungskonzept?
 	/// @zod.describe("Art der Gebäudekühlung")
   kuehlung         String?         @db.VarChar(50)
 	/// @zod.describe("Prozentualer Leerstand des Gebäudes in einem durchschnittlichen Jahr")

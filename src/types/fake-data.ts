@@ -1,4 +1,4 @@
-import { BenutzerRolle, Heizungsstatus, BilderKategorie, Bezahlmethoden, Rechnungsstatus, TicketStatus, Ausstellgrund, Ausweisart, Service } from '@prisma/client';
+import { BenutzerRolle, Heizungsstatus, Lueftungskonzept, BilderKategorie, Bezahlmethoden, Rechnungsstatus, TicketStatus, Ausstellgrund, Ausweisart, Service } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import Decimal from 'decimal.js';
 
