@@ -15,9 +15,10 @@ generator zod {
   relationModel = false
   modelCase = "PascalCase"
   modelSuffix = "Schema"
-  useDecimalJs = true
-  imports = null
+  useDecimalJs = false
+  imports = ""
   prismaJsonNullability = true
+	useNullish = false
 }
 
 generator dbml {

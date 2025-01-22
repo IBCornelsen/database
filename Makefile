@@ -20,7 +20,7 @@ install_dependencies:
 
 backup:
 	mkdir -p $(PERSISTENT_DIR)
-	docker exec -t $(DB_CONTAINER_NAME) pg_dump --data-only -U $(DB_USER) $(DB_NAME) | gzip > $(BACKUP_FILENAME)
+	- docker exec -t $(DB_CONTAINER_NAME) pg_dump --data-only -U $(DB_USER) $(DB_NAME) | gzip > $(BACKUP_FILENAME)
 
 run_database: stop_database
 	docker volume rm -f $(DB_VOLUME)

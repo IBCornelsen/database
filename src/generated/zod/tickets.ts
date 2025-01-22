@@ -1,5 +1,4 @@
 import * as z from "zod"
-import * as imports from "../../../prisma/null"
 import { TicketStatus } from "@prisma/client"
 
 // Helper schema for JSON fields
@@ -11,15 +10,15 @@ const jsonSchema: z.ZodSchema<Json> = z.lazy(() => z.union([literalSchema, z.arr
 export const TicketsSchema = z.object({
   id: z.number().int(),
   uid: z.string(),
-  benutzer_id: z.number().int().nullish(),
+  benutzer_id: z.number().int().nullable(),
   created_at: z.date(),
-  updated_at: z.date().nullish(),
-  deleted_at: z.date().nullish(),
+  updated_at: z.date().nullable(),
+  deleted_at: z.date().nullable(),
   status: z.nativeEnum(TicketStatus),
   titel: z.string(),
   beschreibung: z.string(),
   metadata: jsonSchema,
   email: z.string(),
-  bearbeiter_id: z.number().int().nullish(),
-  prioritaet: z.number().int().nullish(),
+  bearbeiter_id: z.number().int().nullable(),
+  prioritaet: z.number().int().nullable(),
 })

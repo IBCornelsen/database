@@ -12,8 +12,8 @@ model Event {
 
 
 	// Verlinkung des Gebäudes
-	gebaeude_aufnahme_allgemein_id Int?
-	gebaeude_aufnahme_allgemein    GebaeudeAufnahmeAllgemein? @relation(fields: [gebaeude_aufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+	aufnahme_id        Int
+  aufnahme           Aufnahme @relation(fields: [aufnahme_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 	// Verlinkung des Benutzers
   benutzer_id      Int?
   benutzer         Benutzer? @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

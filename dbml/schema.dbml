@@ -10,12 +10,12 @@ Project "IBCornelsen Database" {
 Table Anteilshaber {
   id Int [pk, increment]
   benutzer_id Int [not null]
-  gebaeude_id Int [not null]
   rolle String
   privilegien BigInt
   uid String [unique, not null]
   benutzer benutzer [not null]
-  gebaeude_stammdaten GebaeudeStammdaten [not null]
+  objekt_id Int [not null]
+  objekt Objekt [not null]
 }
 
 Table ApiRequests {
@@ -30,6 +30,80 @@ Table ApiRequests {
   userAgent String [not null]
   user_id Int
   user benutzer
+}
+
+Table Aufnahme {
+  id Int [pk, increment]
+  uid String [unique, not null, note: '@zod.describe("UID der Gebäude Aufnahme")']
+  benutzer_id Int
+  ausweisart Ausweisart [note: '@zod.describe("Art des korrespondierenden Ausweises, wie z.B. VerbrauchsausweisWohnen")']
+  gebaeudetyp String [note: '@zod.describe("Art des Gebäudes und seiner primären Nutzungsart")']
+  gebaeudeteil String [note: '@zod.describe("Betrachteter Teil des Gebäudes, z.B. Gesamtgebäude, Wohnteil, Gewerbeteil")']
+  baujahr_gebaeude Int[] [not null, note: '@zod.describe("Alle Jahre in denen das Gebäude konstruiert oder grundlegend verändert wurde")']
+  baujahr_heizung Int[] [not null, note: '@zod.describe("Alle Jahre in denen die Heizung eingebaut oder grundlegend verändert wurde")']
+  baujahr_klima Int[] [not null, note: '@zod.describe("Alle Jahre in denen die Klimaanlage eingebaut oder grundlegend verändert wurde")']
+  einheiten Int [note: '@zod.describe("Anzahl der (Wohn)Einheiten im Gebäude")']
+  flaeche Int [note: '@zod.describe("Wohnfläche bei Wohngebäuden, Nutzfläche bei Gewerbegebäuden")']
+  nutzflaeche Int [note: '@zod.describe("(energetische) Nutzfläche des Gebäudes. Bei Gewerbegebäuden entspricht Sie der Nutzfläche")']
+  saniert Boolean [note: '@zod.describe("Falls das Gebäude energetisch saniert ist, sollte dieser Wert auf true stehen")']
+  keller Heizungsstatus [note: '@zod.describe("Ob ein Keller vorhanden, beheizt oder unbeheizt ist")']
+  dachgeschoss Heizungsstatus [note: '@zod.describe("Ob ein Dachgeschoss vorhanden, beheizt oder unbeheizt ist")']
+  lueftung Lueftungskonzept [note: '@zod.describe("Art der Gebäudelüftung")']
+  kuehlung String [note: '@zod.describe("Art der Gebäudekühlung")']
+  leerstand Int [note: '@zod.describe("Prozentualer Leerstand des Gebäudes in einem durchschnittlichen Jahr")']
+  alternative_heizung Boolean [note: '@zod.describe("Falls der Heizungsverbrauch alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")']
+  alternative_warmwasser Boolean [note: '@zod.describe("Falls der Warmwasserverbrauch alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")']
+  alternative_lueftung Boolean [note: '@zod.describe("Falls die Lüftung alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")']
+  alternative_kuehlung Boolean [note: '@zod.describe("Falls die Kühlung alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")']
+  brennstoff_1 String [note: '@zod.describe("Genutzer Brennstoff der primären Energiequelle")']
+  brennstoff_2 String [note: '@zod.describe("Genutzer Brennstoff der sekundären Energiequelle")']
+  storniert Boolean [default: false, note: '@zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")']
+  erledigt Boolean [default: false, note: '@zod.describe("Falls der Ausweis erledigt ist, sollte dieser Wert auf true stehen")']
+  bestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")']
+  zurueckgestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")']
+  prueftext String [note: '@zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")']
+  boxpruefung Boolean [default: false]
+  energieeffizienzklasse String [note: '@zod.describe("Die aus der Berechnung hervorgehende Energieeffizienzklasse des Gebäudes")']
+  erstellungsdatum DateTime [default: `now()`, note: '@zod.describe("Datum an dem der Kunde den Ausweis erstellt hat")']
+  ausstellungsdatum DateTime [note: '@zod.describe("Datum an dem der Aussteller den Ausweis ausgestellt hat")']
+  zentralheizung Boolean [note: '@zod.describe("Falls das Gebäude über eine Zentralbeheizung verfügt, sollte dieser Wert auf true stehen")']
+  solarsystem_warmwasser Boolean [note: '@zod.describe("Falls das Gebäude über ein Solarsystem für Warmwasser verfügt, sollte dieser Wert auf true stehen")']
+  warmwasser_rohre_gedaemmt Boolean [note: '@zod.describe("Falls die Warmwasserrohre des Gebäudes gedämmt sind, sollte dieser Wert auf true stehen")']
+  niedertemperatur_kessel Boolean [note: '@zod.describe("Falls das Gebäude über einen Niedertemperaturkessel verfügt, sollte dieser Wert auf true stehen")']
+  brennwert_kessel Boolean [note: '@zod.describe("Falls das Gebäude über einen Brennwertkessel verfügt, sollte dieser Wert auf true stehen")']
+  heizungsrohre_gedaemmt Boolean [note: '@zod.describe("Falls die Heizungsrohre des Gebäudes gedämmt sind, sollte dieser Wert auf true stehen")']
+  standard_kessel Boolean
+  waermepumpe Boolean [note: '@zod.describe("Falls das Gebäude über eine Wärmepumpe verfügt, sollte dieser Wert auf true stehen")']
+  raum_temperatur_regler Boolean [note: '@zod.describe("Falls das Gebäude über einen Raumtemperaturregler verfügt, sollte dieser Wert auf true stehen")']
+  photovoltaik Boolean [note: '@zod.describe("Falls das Gebäude über eine Photovoltaikanlage verfügt, sollte dieser Wert auf true stehen")']
+  durchlauf_erhitzer Boolean [note: '@zod.describe("Falls das Gebäude über einen Durchlauferhitzer verfügt, sollte dieser Wert auf true stehen")']
+  einzelofen Boolean
+  zirkulation Boolean [note: '@zod.describe("Falls das Gebäude über eine Zirkulationspumpe verfügt, sollte dieser Wert auf true stehen")']
+  einfach_verglasung Boolean [note: '@zod.describe("Falls die Fenster des Gebäudes einfach gedämmt sind, sollte dieser Wert auf true stehen")']
+  dreifach_verglasung Boolean [note: '@zod.describe("Falls die Fenster des Gebäudes dreifach gedämmt sind, sollte dieser Wert auf true stehen")']
+  fenster_teilweise_undicht Boolean [note: '@zod.describe("Falls die Fenster des Gebäudes teilweise undicht sind, sollte dieser Wert auf true stehen")']
+  doppel_verglasung Boolean [note: '@zod.describe("Falls die Fenster des Gebäudes doppelt gedämmt sind, sollte dieser Wert auf true stehen")']
+  fenster_dicht Boolean [note: '@zod.describe("Falls die Fenster des Gebäudes dicht sind, sollte dieser Wert auf true stehen")']
+  rolllaeden_kaesten_gedaemmt Boolean [note: '@zod.describe("Falls das Gebäude über gedämmte Rolllädenkästen verfügt, sollte dieser Wert auf true stehen")']
+  isolier_verglasung Boolean [note: '@zod.describe("Falls die Fenster des Gebäudes isolier Verglasung haben, sollte dieser Wert auf true stehen")']
+  tueren_undicht Boolean [note: '@zod.describe("Falls die Türen des Gebäudes undicht sind, sollte dieser Wert auf true stehen")']
+  tueren_dicht Boolean [note: '@zod.describe("Falls die Türen des Gebäudes dicht sind, sollte dieser Wert auf true stehen")']
+  dachgeschoss_gedaemmt Boolean [note: '@zod.describe("Falls das Dachgeschoss des Gebäudes gedämmt ist, sollte dieser Wert auf true stehen")']
+  keller_decke_gedaemmt Boolean [note: '@zod.describe("Falls die Kellerdecke des Gebäudes gedämmt ist, sollte dieser Wert auf true stehen")']
+  keller_wand_gedaemmt Boolean [note: '@zod.describe("Falls die Kellerwände des Gebäudes gedämmt sind, sollte dieser Wert auf true stehen")']
+  aussenwand_gedaemmt Boolean [note: '@zod.describe("Falls die Außenwände des Gebäudes gedämmt sind, sollte dieser Wert auf true stehen")']
+  oberste_geschossdecke_gedaemmt Boolean [note: '@zod.describe("Falls die oberste Geschossdecke des Gebäudes gedämmt ist, sollte dieser Wert auf true stehen")']
+  aussenwand_min_12cm_gedaemmt Boolean [note: '@zod.describe("Falls die Außenwände des Gebäudes mindestens 12cm gedämmt sind, sollte dieser Wert auf true stehen")']
+  dachgeschoss_min_12cm_gedaemmt Boolean [note: '@zod.describe("Falls das Dachgeschoss des Gebäudes mindestens 12cm gedämmt ist, sollte dieser Wert auf true stehen")']
+  oberste_geschossdecke_min_12cm_gedaemmt Boolean [note: '@zod.describe("Falls die oberste Geschossdecke des Gebäudes mindestens 12cm gedämmt ist, sollte dieser Wert auf true stehen")']
+  events Event [not null]
+  bedarfsausweis_wohnen BedarfsausweisWohnen
+  benutzer benutzer
+  verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe
+  verbrauchsausweis_wohnen VerbrauchsausweisWohnen
+  objekt_id Int [not null]
+  objekt Objekt [not null]
+  rechnungen Rechnung [not null]
 }
 
 Table BedarfsausweisWohnen {
@@ -90,9 +164,9 @@ Table BedarfsausweisWohnen {
   waerme_erzeugung_heizung String
   anteil_zusatzheizung Float
   kollektor_flaeche Float
-  gebaeudeaufnahme_allgemein_id Int [unique, not null]
   benutzer benutzer
-  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
+  aufnahme_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
+  aufnahme Aufnahme [not null]
 }
 
 Table benutzer {
@@ -111,14 +185,14 @@ Table benutzer {
   rolle BenutzerRolle [not null, default: 'USER']
   BedarfsausweisWohnen BedarfsausweisWohnen [not null]
   documenttemplates documenttemplates [not null]
-  gebaeude_stammdaten GebaeudeStammdaten [not null]
+  objekte Objekt [not null]
   rechnungen Rechnung [not null]
   tokens tokens [not null]
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe [not null]
   VerbrauchsausweisWohnen VerbrauchsausweisWohnen [not null]
   ApiRequests ApiRequests [not null]
   RefreshTokens RefreshTokens [not null]
-  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
+  aufnahmen Aufnahme [not null]
   ErstellteTickets Tickets [not null]
   BearbeiteteTickets Tickets [not null]
   events Event [not null]
@@ -130,105 +204,28 @@ Table Event {
   date DateTime [default: `now()`, not null]
   title String [not null]
   description String
-  gebaeude_aufnahme_allgemein_id Int
-  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein
+  aufnahme_id Int [not null]
+  aufnahme Aufnahme [not null]
   benutzer_id Int
   benutzer benutzer
-}
-
-Table GebaeudeAufnahmeAllgemein {
-  id Int [pk, increment]
-  uid String [unique, not null, note: '@zod.describe("UID der Gebäude Aufnahme")']
-  benutzer_id Int
-  ausweisart Ausweisart [note: '@zod.describe("Art des korrespondierenden Ausweises, wie z.B. VerbrauchsausweisWohnen")']
-  gebaeudetyp String [note: '@zod.describe("Art des Gebäudes und seiner primären Nutzungsart")']
-  gebaeudeteil String [note: '@zod.describe("Betrachteter Teil des Gebäudes, z.B. Gesamtgebäude, Wohnteil, Gewerbeteil")']
-  baujahr_gebaeude Int[] [not null, note: '@zod.describe("Alle Jahre in denen das Gebäude konstruiert oder grundlegend verändert wurde")']
-  baujahr_heizung Int[] [not null, note: '@zod.describe("Alle Jahre in denen die Heizung eingebaut oder grundlegend verändert wurde")']
-  baujahr_klima Int[] [not null, note: '@zod.describe("Alle Jahre in denen die Klimaanlage eingebaut oder grundlegend verändert wurde")']
-  einheiten Int [note: '@zod.describe("Anzahl der (Wohn)Einheiten im Gebäude")']
-  flaeche Int [note: '@zod.describe("Wohnfläche bei Wohngebäuden, Nutzfläche bei Gewerbegebäuden")']
-  nutzflaeche Int [note: '@zod.describe("(energetische) Nutzfläche des Gebäudes. Bei Gewerbegebäuden entspricht Sie der Nutzfläche")']
-  saniert Boolean [note: '@zod.describe("Falls das Gebäude energetisch saniert ist, sollte dieser Wert auf true stehen")']
-  keller Heizungsstatus [note: '@zod.describe("Ob ein Keller vorhanden, beheizt oder unbeheizt ist")']
-  dachgeschoss Heizungsstatus [note: '@zod.describe("Ob ein Dachgeschoss vorhanden, beheizt oder unbeheizt ist")']
-  lueftung Lueftungskonzept [note: '@zod.describe("Art der Gebäudelüftung")']
-  kuehlung String [note: '@zod.describe("Art der Gebäudekühlung")']
-  leerstand Int [note: '@zod.describe("Prozentualer Leerstand des Gebäudes in einem durchschnittlichen Jahr")']
-  alternative_heizung Boolean [note: '@zod.describe("Falls der Heizungsverbrauch alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")']
-  alternative_warmwasser Boolean [note: '@zod.describe("Falls der Warmwasserverbrauch alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")']
-  alternative_lueftung Boolean [note: '@zod.describe("Falls die Lüftung alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")']
-  alternative_kuehlung Boolean [note: '@zod.describe("Falls die Kühlung alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")']
-  brennstoff_1 String [note: '@zod.describe("Genutzer Brennstoff der primären Energiequelle")']
-  brennstoff_2 String [note: '@zod.describe("Genutzer Brennstoff der sekundären Energiequelle")']
-  plz String [note: '@zod.describe("Postleitzahl des Gebäudes")']
-  ort String [note: '@zod.describe("Ort des Gebäudes")']
-  adresse String [note: '@zod.describe("Adresse (Straße und Hausnummer) des Gebäudes")']
-  storniert Boolean [default: false, note: '@zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")']
-  erledigt Boolean [default: false, note: '@zod.describe("Falls der Ausweis erledigt ist, sollte dieser Wert auf true stehen")']
-  bestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")']
-  zurueckgestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")']
-  prueftext String [note: '@zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")']
-  boxpruefung Boolean [default: false]
-  energieeffizienzklasse String [note: '@zod.describe("Die aus der Berechnung hervorgehende Energieeffizienzklasse des Gebäudes")']
-  erstellungsdatum DateTime [default: `now()`, note: '@zod.describe("Datum an dem der Kunde den Ausweis erstellt hat")']
-  ausstellungsdatum DateTime [note: '@zod.describe("Datum an dem der Aussteller den Ausweis ausgestellt hat")']
-  zentralheizung Boolean [note: '@zod.describe("Falls das Gebäude über eine Zentralbeheizung verfügt, sollte dieser Wert auf true stehen")']
-  solarsystem_warmwasser Boolean [note: '@zod.describe("Falls das Gebäude über ein Solarsystem für Warmwasser verfügt, sollte dieser Wert auf true stehen")']
-  warmwasser_rohre_gedaemmt Boolean [note: '@zod.describe("Falls die Warmwasserrohre des Gebäudes gedämmt sind, sollte dieser Wert auf true stehen")']
-  niedertemperatur_kessel Boolean [note: '@zod.describe("Falls das Gebäude über einen Niedertemperaturkessel verfügt, sollte dieser Wert auf true stehen")']
-  brennwert_kessel Boolean [note: '@zod.describe("Falls das Gebäude über einen Brennwertkessel verfügt, sollte dieser Wert auf true stehen")']
-  heizungsrohre_gedaemmt Boolean [note: '@zod.describe("Falls die Heizungsrohre des Gebäudes gedämmt sind, sollte dieser Wert auf true stehen")']
-  standard_kessel Boolean
-  waermepumpe Boolean [note: '@zod.describe("Falls das Gebäude über eine Wärmepumpe verfügt, sollte dieser Wert auf true stehen")']
-  raum_temperatur_regler Boolean [note: '@zod.describe("Falls das Gebäude über einen Raumtemperaturregler verfügt, sollte dieser Wert auf true stehen")']
-  photovoltaik Boolean [note: '@zod.describe("Falls das Gebäude über eine Photovoltaikanlage verfügt, sollte dieser Wert auf true stehen")']
-  durchlauf_erhitzer Boolean [note: '@zod.describe("Falls das Gebäude über einen Durchlauferhitzer verfügt, sollte dieser Wert auf true stehen")']
-  einzelofen Boolean
-  zirkulation Boolean [note: '@zod.describe("Falls das Gebäude über eine Zirkulationspumpe verfügt, sollte dieser Wert auf true stehen")']
-  einfach_verglasung Boolean [note: '@zod.describe("Falls die Fenster des Gebäudes einfach gedämmt sind, sollte dieser Wert auf true stehen")']
-  dreifach_verglasung Boolean [note: '@zod.describe("Falls die Fenster des Gebäudes dreifach gedämmt sind, sollte dieser Wert auf true stehen")']
-  fenster_teilweise_undicht Boolean [note: '@zod.describe("Falls die Fenster des Gebäudes teilweise undicht sind, sollte dieser Wert auf true stehen")']
-  doppel_verglasung Boolean [note: '@zod.describe("Falls die Fenster des Gebäudes doppelt gedämmt sind, sollte dieser Wert auf true stehen")']
-  fenster_dicht Boolean [note: '@zod.describe("Falls die Fenster des Gebäudes dicht sind, sollte dieser Wert auf true stehen")']
-  rolllaeden_kaesten_gedaemmt Boolean [note: '@zod.describe("Falls das Gebäude über gedämmte Rolllädenkästen verfügt, sollte dieser Wert auf true stehen")']
-  isolier_verglasung Boolean [note: '@zod.describe("Falls die Fenster des Gebäudes isolier Verglasung haben, sollte dieser Wert auf true stehen")']
-  tueren_undicht Boolean [note: '@zod.describe("Falls die Türen des Gebäudes undicht sind, sollte dieser Wert auf true stehen")']
-  tueren_dicht Boolean [note: '@zod.describe("Falls die Türen des Gebäudes dicht sind, sollte dieser Wert auf true stehen")']
-  dachgeschoss_gedaemmt Boolean [note: '@zod.describe("Falls das Dachgeschoss des Gebäudes gedämmt ist, sollte dieser Wert auf true stehen")']
-  keller_decke_gedaemmt Boolean [note: '@zod.describe("Falls die Kellerdecke des Gebäudes gedämmt ist, sollte dieser Wert auf true stehen")']
-  keller_wand_gedaemmt Boolean [note: '@zod.describe("Falls die Kellerwände des Gebäudes gedämmt sind, sollte dieser Wert auf true stehen")']
-  aussenwand_gedaemmt Boolean [note: '@zod.describe("Falls die Außenwände des Gebäudes gedämmt sind, sollte dieser Wert auf true stehen")']
-  oberste_geschossdecke_gedaemmt Boolean [note: '@zod.describe("Falls die oberste Geschossdecke des Gebäudes gedämmt ist, sollte dieser Wert auf true stehen")']
-  aussenwand_min_12cm_gedaemmt Boolean [note: '@zod.describe("Falls die Außenwände des Gebäudes mindestens 12cm gedämmt sind, sollte dieser Wert auf true stehen")']
-  dachgeschoss_min_12cm_gedaemmt Boolean [note: '@zod.describe("Falls das Dachgeschoss des Gebäudes mindestens 12cm gedämmt ist, sollte dieser Wert auf true stehen")']
-  oberste_geschossdecke_min_12cm_gedaemmt Boolean [note: '@zod.describe("Falls die oberste Geschossdecke des Gebäudes mindestens 12cm gedämmt ist, sollte dieser Wert auf true stehen")']
-  gebaeude_stammdaten_id Int [not null]
-  events Event [not null]
-  bedarfsausweis_wohnen BedarfsausweisWohnen
-  benutzer benutzer
-  verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe
-  verbrauchsausweis_wohnen VerbrauchsausweisWohnen
-  gebaeude_stammdaten GebaeudeStammdaten [not null]
-  rechnungen Rechnung [not null]
 }
 
 Table gebaeude_bilder {
   id Int [pk, increment]
-  gebaeude_stammdaten_id Int [not null]
   kategorie BilderKategorie [not null]
   uid String [unique, not null]
-  gebaeude_stammdaten GebaeudeStammdaten [not null]
+  objekt_id Int [not null]
+  objekt Objekt [not null]
 }
 
-Table gebaeude_plaene {
+Table GebaeudePlaene {
   id Int [pk, increment]
-  gebaeude_stammdaten_id Int [not null]
   uid String [unique, not null]
-  gebaeude_stammdaten GebaeudeStammdaten [not null]
+  objekt_id Int [not null]
+  objekt Objekt [not null]
 }
 
-Table GebaeudeStammdaten {
+Table Objekt {
   id Int [pk, increment]
   uid String [unique, not null]
   benutzer_id Int
@@ -238,10 +235,10 @@ Table GebaeudeStammdaten {
   ort String [note: '@zod.describe("Ort des Gebäudes")']
   adresse String [note: '@zod.describe("Adresse (Straße und Hausnummer) des Gebäudes")']
   gebaeude_bilder gebaeude_bilder [not null]
-  gebaeude_plaene gebaeude_plaene [not null]
+  gebaeude_plaene GebaeudePlaene [not null]
   benutzer benutzer
-  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
-  Anteilshaber Anteilshaber [not null]
+  aufnahmen Aufnahme [not null]
+  anteilshaber Anteilshaber [not null]
 }
 
 Table Klimafaktoren {
@@ -270,7 +267,6 @@ Table Rechnung {
   id Int [pk, increment]
   uid String [unique, not null]
   benutzer_id Int [not null]
-  gebaeude_aufnahme_allgemein_id Int [not null]
   empfaenger String
   strasse String
   plz String
@@ -293,7 +289,8 @@ Table Rechnung {
   storniert_am DateTime
   transaktions_referenz String [unique]
   benutzer benutzer [not null]
-  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
+  aufnahme_id Int [not null]
+  aufnahme Aufnahme [not null]
 }
 
 Table RefreshTokens {
@@ -362,9 +359,9 @@ Table VerbrauchsausweisGewerbe {
   warmwasser_enthalten Boolean
   anteil_warmwasser_1 Float
   anteil_warmwasser_2 Float
-  gebaeudeaufnahme_allgemein_id Int [unique, not null]
   benutzer benutzer
-  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
+  aufnahme_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
+  aufnahme Aufnahme [not null]
 }
 
 Table VerbrauchsausweisWohnen {
@@ -394,9 +391,9 @@ Table VerbrauchsausweisWohnen {
   alternative_kuehlung Boolean [note: '@zod.describe("Falls die Kühlung alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen.")']
   anteil_warmwasser_1 Float [note: '@zod.describe("Anteil des Warmwassers am Gesamtverbrauch der primären Energiequelle in Prozent")']
   anteil_warmwasser_2 Float [note: '@zod.describe("Anteil des Warmwassers am Gesamtverbrauch der sekundären Energiequelle in Prozent")']
-  gebaeudeaufnahme_allgemein_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
   benutzer benutzer
-  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein [not null]
+  aufnahme_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
+  aufnahme Aufnahme [not null]
 }
 
 Table documenttemplates {
@@ -433,11 +430,6 @@ Table tokens {
   benutzer benutzer [not null]
 }
 
-Enum BenutzerRolle {
-  USER
-  ADMIN
-}
-
 Enum Heizungsstatus {
   BEHEIZT
   UNBEHEIZT
@@ -449,6 +441,11 @@ Enum Lueftungskonzept {
   Schachtlueftung
   LueftungsanlageMitWaermerueckgewinnung
   LueftungsanlageOhneWaermerueckgewinnung
+}
+
+Enum BenutzerRolle {
+  USER
+  ADMIN
 }
 
 Enum BilderKategorie {
@@ -508,31 +505,31 @@ Enum Service {
 
 Ref: Anteilshaber.benutzer_id - benutzer.id [delete: No Action]
 
-Ref: Anteilshaber.gebaeude_id > GebaeudeStammdaten.id [delete: No Action]
+Ref: Anteilshaber.objekt_id > Objekt.id [delete: No Action]
 
 Ref: ApiRequests.user_id > benutzer.id [delete: No Action]
 
+Ref: Aufnahme.benutzer_id > benutzer.id [delete: No Action]
+
+Ref: Aufnahme.objekt_id > Objekt.id [delete: No Action]
+
 Ref: BedarfsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: BedarfsausweisWohnen.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAllgemein.id [delete: No Action]
+Ref: BedarfsausweisWohnen.aufnahme_id - Aufnahme.id [delete: No Action]
 
-Ref: Event.gebaeude_aufnahme_allgemein_id > GebaeudeAufnahmeAllgemein.id [delete: No Action]
+Ref: Event.aufnahme_id > Aufnahme.id [delete: No Action]
 
 Ref: Event.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: GebaeudeAufnahmeAllgemein.benutzer_id > benutzer.id [delete: No Action]
+Ref: gebaeude_bilder.objekt_id > Objekt.id [delete: No Action]
 
-Ref: GebaeudeAufnahmeAllgemein.gebaeude_stammdaten_id > GebaeudeStammdaten.id
+Ref: GebaeudePlaene.objekt_id > Objekt.id [delete: No Action]
 
-Ref: gebaeude_bilder.gebaeude_stammdaten_id > GebaeudeStammdaten.id [delete: No Action]
-
-Ref: gebaeude_plaene.gebaeude_stammdaten_id > GebaeudeStammdaten.id [delete: No Action]
-
-Ref: GebaeudeStammdaten.benutzer_id > benutzer.id
+Ref: Objekt.benutzer_id > benutzer.id
 
 Ref: Rechnung.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: Rechnung.gebaeude_aufnahme_allgemein_id > GebaeudeAufnahmeAllgemein.id [delete: No Action]
+Ref: Rechnung.aufnahme_id > Aufnahme.id [delete: No Action]
 
 Ref: RefreshTokens.benutzer_id > benutzer.id [delete: Cascade]
 
@@ -542,11 +539,11 @@ Ref: Tickets.bearbeiter_id > benutzer.id
 
 Ref: VerbrauchsausweisGewerbe.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: VerbrauchsausweisGewerbe.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAllgemein.id [delete: No Action]
+Ref: VerbrauchsausweisGewerbe.aufnahme_id - Aufnahme.id [delete: No Action]
 
 Ref: VerbrauchsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: VerbrauchsausweisWohnen.gebaeudeaufnahme_allgemein_id - GebaeudeAufnahmeAllgemein.id [delete: No Action]
+Ref: VerbrauchsausweisWohnen.aufnahme_id - Aufnahme.id [delete: No Action]
 
 Ref: documenttemplates.user_id > benutzer.id [delete: Cascade]
 

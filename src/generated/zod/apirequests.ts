@@ -1,5 +1,4 @@
 import * as z from "zod"
-import * as imports from "../../../prisma/null"
 
 export const ApiRequestsSchema = z.object({
   id: z.number().int(),
@@ -11,5 +10,5 @@ export const ApiRequestsSchema = z.object({
   responseTime: z.number(),
   responseSize: z.number().int(),
   userAgent: z.string(),
-  user_id: z.number().int().nullish(),
+  user_id: z.number().int().nullable(),
 })

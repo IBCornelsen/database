@@ -22,14 +22,14 @@ model Benutzer {
   Anteilshaber             Anteilshaber[]             @ignore
   BedarfsausweisWohnen     BedarfsausweisWohnen[]
   documenttemplates        documenttemplates[]
-  gebaeude_stammdaten      GebaeudeStammdaten[]
+  objekte      Objekt[]
   rechnungen               Rechnung[]
   tokens                   tokens[]
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
   ApiRequests              ApiRequests[]
   RefreshTokens            RefreshTokens[]
-	gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein[]
+	aufnahmen Aufnahme[]
   ErstellteTickets         Tickets[]                  @relation("ErstellteTickets")
   BearbeiteteTickets       Tickets[]                  @relation("BearbeiteteTickets")
 	events Event[]

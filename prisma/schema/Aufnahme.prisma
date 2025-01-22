@@ -12,7 +12,7 @@ enum Lueftungskonzept {
 	LueftungsanlageOhneWaermerueckgewinnung
 }
 
-model GebaeudeAufnahmeAllgemein {
+model Aufnahme {
   id               Int             @id @default(autoincrement())
 	/// @zod.describe("UID der Gebäude Aufnahme")
   uid              String          @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
@@ -61,13 +61,6 @@ model GebaeudeAufnahmeAllgemein {
   brennstoff_1 String? @db.VarChar(50)
 	/// @zod.describe("Genutzer Brennstoff der sekundären Energiequelle")
   brennstoff_2 String? @db.VarChar(50)
-
-	/// @zod.describe("Postleitzahl des Gebäudes")
-  plz              String?   @db.VarChar(5)
-	/// @zod.describe("Ort des Gebäudes")
-  ort              String?   @db.VarChar(50)
-	/// @zod.describe("Adresse (Straße und Hausnummer) des Gebäudes")
-  adresse          String?   @db.VarChar(100)
 	
 	/// @zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")
 	storniert Boolean? @default(false)
@@ -148,15 +141,14 @@ model GebaeudeAufnahmeAllgemein {
   dachgeschoss_min_12cm_gedaemmt          Boolean?
 	/// @zod.describe("Falls die oberste Geschossdecke des Gebäudes mindestens 12cm gedämmt ist, sollte dieser Wert auf true stehen")
   oberste_geschossdecke_min_12cm_gedaemmt Boolean?
-
-  gebaeude_stammdaten_id Int
 	
 	events Event[]
   bedarfsausweis_wohnen     BedarfsausweisWohnen?			
   benutzer                 Benutzer?                @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe? 
   verbrauchsausweis_wohnen  VerbrauchsausweisWohnen?	
-  gebaeude_stammdaten       GebaeudeStammdaten       @relation(fields: [gebaeude_stammdaten_id], references: [id])
+  objekt_id Int
+  objekt    Objekt @relation(fields: [objekt_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 	rechnungen 									Rechnung[]
 }
 

@@ -46,8 +46,9 @@ model VerbrauchsausweisGewerbe {
   anteil_warmwasser_1  Float?
   anteil_warmwasser_2  Float?
 
-	gebaeudeaufnahme_allgemein_id        Int @unique
-
   benutzer            Benutzer?           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeudeaufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+	/// @zod.describe("ID der korrespondierenden Gebäudeaufnahme")
+	aufnahme_id        Int @unique
+  aufnahme           Aufnahme @relation(fields: [aufnahme_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

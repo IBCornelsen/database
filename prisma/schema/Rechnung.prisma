@@ -22,7 +22,6 @@ model Rechnung {
   uid String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
   benutzer_id Int
-	gebaeude_aufnahme_allgemein_id Int
   empfaenger  String? @db.VarChar
   strasse     String? @db.VarChar
   plz         String? @db.VarChar
@@ -48,7 +47,9 @@ model Rechnung {
   transaktions_referenz String?         @unique @db.VarChar
 
   benutzer                 Benutzer                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeude_aufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+	aufnahme_id        Int
+  aufnahme           Aufnahme @relation(fields: [aufnahme_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 
