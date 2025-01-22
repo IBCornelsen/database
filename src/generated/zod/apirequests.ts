@@ -10,5 +10,5 @@ export const ApiRequestsSchema = z.object({
   responseTime: z.number(),
   responseSize: z.number().int(),
   userAgent: z.string(),
-  user_id: z.number().int().nullable(),
+  user_id: z.number().int().nullish(),
 })

@@ -359,6 +359,22 @@ export function fakeGebaeudePlaeneComplete() {
     objekt_id: faker.number.int(),
   };
 }
+export function fakeKlimafaktoren() {
+  return {
+    plz: faker.lorem.words(5),
+    month: faker.number.int(),
+    year: faker.number.int(),
+  };
+}
+export function fakeKlimafaktorenComplete() {
+  return {
+    id: faker.number.int({ max: 2147483647 }),
+    plz: faker.lorem.words(5),
+    month: faker.number.int(),
+    year: faker.number.int(),
+    klimafaktor: 1,
+  };
+}
 export function fakeObjekt() {
   return {
     latitude: undefined,
@@ -378,22 +394,6 @@ export function fakeObjektComplete() {
     plz: undefined,
     ort: undefined,
     adresse: undefined,
-  };
-}
-export function fakeKlimafaktoren() {
-  return {
-    plz: faker.lorem.words(5),
-    month: faker.number.int(),
-    year: faker.number.int(),
-  };
-}
-export function fakeKlimafaktorenComplete() {
-  return {
-    id: faker.number.int({ max: 2147483647 }),
-    plz: faker.lorem.words(5),
-    month: faker.number.int(),
-    year: faker.number.int(),
-    klimafaktor: 1,
   };
 }
 export function fakePostleitzahlen() {

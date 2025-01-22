@@ -18,7 +18,7 @@ generator zod {
   useDecimalJs = false
   imports = ""
   prismaJsonNullability = true
-	useNullish = false
+	useNullish = true
 }
 
 generator dbml {

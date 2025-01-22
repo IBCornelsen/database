@@ -5,7 +5,7 @@ export const EventSchema = z.object({
   uid: z.string(),
   date: z.date(),
   title: z.string(),
-  description: z.string().nullable(),
+  description: z.string().nullish(),
   aufnahme_id: z.number().int(),
-  benutzer_id: z.number().int().nullable(),
+  benutzer_id: z.number().int().nullish(),
 })

@@ -225,6 +225,18 @@ Table GebaeudePlaene {
   objekt Objekt [not null]
 }
 
+Table Klimafaktoren {
+  id Int [pk, increment]
+  plz String [not null]
+  month Int [not null]
+  year Int [not null]
+  klimafaktor Float [not null, default: 1]
+
+  indexes {
+    (plz, month, year) [unique]
+  }
+}
+
 Table Objekt {
   id Int [pk, increment]
   uid String [unique, not null]
@@ -239,18 +251,6 @@ Table Objekt {
   benutzer benutzer
   aufnahmen Aufnahme [not null]
   anteilshaber Anteilshaber [not null]
-}
-
-Table Klimafaktoren {
-  id Int [pk, increment]
-  plz String [not null]
-  month Int [not null]
-  year Int [not null]
-  klimafaktor Float [not null, default: 1]
-
-  indexes {
-    (plz, month, year) [unique]
-  }
 }
 
 Table Postleitzahlen {
