@@ -1,6 +1,6 @@
 model Objekt {
   id          Int    @id @default(autoincrement())
-  uid         String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uid         String @unique @default(dbgenerated("'obj-' || gen_random_uuid()"))
   benutzer_id Int?
 
   latitude  Float?

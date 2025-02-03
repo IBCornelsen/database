@@ -1,7 +1,7 @@
 
 model BedarfsausweisWohnen {
   id                            Int                @id @default(autoincrement())
-  uid                           String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uid                           String             @unique @default(dbgenerated("'baw-' || gen_random_uuid()"))
   benutzer_id                   Int?
   ausstellgrund						Ausstellgrund?
   registriernummer              String?            @db.VarChar

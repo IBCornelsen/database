@@ -1,7 +1,7 @@
 
 model GebaeudePlaene {
   id                     Int                @id @default(autoincrement())
-  uid                    String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uid                    String             @unique @default(dbgenerated("'pln-' || gen_random_uuid()"))
 
   objekt_id Int
   objekt    Objekt @relation(fields: [objekt_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

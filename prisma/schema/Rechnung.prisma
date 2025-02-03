@@ -19,7 +19,7 @@ enum Rechnungsstatus {
 
 model Rechnung {
   id  Int    @id @default(autoincrement())
-  uid String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uid String @unique @default(dbgenerated("'inv-' || gen_random_uuid()"))
 
   benutzer_id Int
   empfaenger  String? @db.VarChar

@@ -9,7 +9,7 @@ enum TicketStatus {
 
 model Tickets {
   id           Int          @id @default(autoincrement())
-  uid          String       @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uid          String       @unique @default(dbgenerated("'tkt-' || gen_random_uuid()"))
   benutzer_id  Int?
   created_at   DateTime     @default(now())
   updated_at   DateTime?    @updatedAt

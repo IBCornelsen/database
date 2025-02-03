@@ -15,7 +15,7 @@ enum Lueftungskonzept {
 model Aufnahme {
   id               Int             @id @default(autoincrement())
 	/// @zod.describe("UID der Gebäude Aufnahme")
-  uid              String          @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uid              String          @unique @default(dbgenerated("'auf-' || gen_random_uuid()"))
   benutzer_id      Int?
 	/// @zod.describe("Art des korrespondierenden Ausweises, wie z.B. VerbrauchsausweisWohnen")
   ausweisart Ausweisart?

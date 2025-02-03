@@ -2,7 +2,7 @@
 model VerbrauchsausweisWohnen {
   id                        Int            @id @default(autoincrement())
 	/// @zod.describe("UID des Ausweises")
-  uid                       String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uid                       String         @unique @default(dbgenerated("'vaw-' || gen_random_uuid()"))
 	/// @zod.describe("Die ID des Benutzers, welchem dieser Ausweis gehört")
   benutzer_id               Int?
 	/// @zod.describe("Ausstellgrund wie z.B. Vermietung oder Verkauf")

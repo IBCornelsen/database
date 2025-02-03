@@ -3,7 +3,7 @@ model Anteilshaber {
   benutzer_id         Int
   rolle               String?            @db.VarChar
   privilegien         BigInt?
-  uid                 String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uid                 String             @unique @default(dbgenerated("'ant-' || gen_random_uuid()"))
   benutzer            Benutzer           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   objekt_id Int

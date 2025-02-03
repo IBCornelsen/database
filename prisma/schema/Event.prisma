@@ -4,7 +4,7 @@
 // Diese Events werden dann in der Admin-Oberfläche angezeigt.
 model Event {
   id           Int       @id @default(autoincrement())
-	uid        String        @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+	uid        String        @unique @default(dbgenerated("'evt-' || gen_random_uuid()"))
   date         DateTime  @default(now()) @db.Timestamp(6)
 
   title String @db.VarChar(255)
