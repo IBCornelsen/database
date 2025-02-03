@@ -1,8 +1,6 @@
-
-
-model GebaeudeStammdaten {
+model Objekt {
   id          Int    @id @default(autoincrement())
-  uid         String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uid         String @unique @default(dbgenerated("'obj-' || gen_random_uuid()"))
   benutzer_id Int?
 
   latitude  Float?
@@ -18,10 +16,6 @@ model GebaeudeStammdaten {
   gebaeude_bilder             GebaeudeBilder[]
   gebaeude_plaene             GebaeudePlaene[]
   benutzer                    Benutzer?                    @relation(fields: [benutzer_id], references: [id])
-  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein[]
-
-  Anteilshaber Anteilshaber[]
+  aufnahmen Aufnahme[]
+  anteilshaber Anteilshaber[]
 }
-
-
-

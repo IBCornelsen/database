@@ -1,5 +1,4 @@
 import * as z from "zod"
-import * as imports from "../../../prisma/null"
 import { Ausstellgrund } from "@prisma/client"
 
 export const VerbrauchsausweisGewerbeSchema = z.object({
@@ -41,5 +40,5 @@ export const VerbrauchsausweisGewerbeSchema = z.object({
   warmwasser_enthalten: z.boolean().nullish(),
   anteil_warmwasser_1: z.number().nullish(),
   anteil_warmwasser_2: z.number().nullish(),
-  gebaeudeaufnahme_allgemein_id: z.number().int(),
+  aufnahme_id: z.number().int().describe("ID der korrespondierenden Gebäudeaufnahme"),
 })

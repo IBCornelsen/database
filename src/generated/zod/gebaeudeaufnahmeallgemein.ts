@@ -1,6 +1,6 @@
 import * as z from "zod"
 import * as imports from "../../../prisma/null"
-import { Ausweisart, Heizungsstatus, Heizungsstatus, Lueftungskonzept } from "@prisma/client"
+import { Ausweisart, Heizungsstatus, Lueftungskonzept } from "@prisma/client"
 
 export const GebaeudeAufnahmeAllgemeinSchema = z.object({
   id: z.number().int(),

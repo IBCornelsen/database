@@ -1,5 +1,4 @@
 import * as z from "zod"
-import * as imports from "../../../prisma/null"
 import { Ausstellgrund } from "@prisma/client"
 
 export const BedarfsausweisWohnenSchema = z.object({
@@ -60,5 +59,5 @@ export const BedarfsausweisWohnenSchema = z.object({
   waerme_erzeugung_heizung: z.string().nullish(),
   anteil_zusatzheizung: z.number().nullish(),
   kollektor_flaeche: z.number().nullish(),
-  gebaeudeaufnahme_allgemein_id: z.number().int(),
+  aufnahme_id: z.number().int().describe("ID der korrespondierenden Gebäudeaufnahme"),
 })

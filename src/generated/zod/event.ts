@@ -1,5 +1,4 @@
 import * as z from "zod"
-import * as imports from "../../../prisma/null"
 
 export const EventSchema = z.object({
   id: z.number().int(),
@@ -7,6 +6,6 @@ export const EventSchema = z.object({
   date: z.date(),
   title: z.string(),
   description: z.string().nullish(),
-  gebaeude_aufnahme_allgemein_id: z.number().int().nullish(),
+  aufnahme_id: z.number().int(),
   benutzer_id: z.number().int().nullish(),
 })

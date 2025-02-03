@@ -1,5 +1,4 @@
 import * as z from "zod"
-import * as imports from "../../../prisma/null"
 import { Ausstellgrund } from "@prisma/client"
 
 export const VerbrauchsausweisWohnenSchema = z.object({
@@ -29,5 +28,5 @@ export const VerbrauchsausweisWohnenSchema = z.object({
   alternative_kuehlung: z.boolean().describe("Falls die Kühlung alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen.").nullish(),
   anteil_warmwasser_1: z.number().describe("Anteil des Warmwassers am Gesamtverbrauch der primären Energiequelle in Prozent").nullish(),
   anteil_warmwasser_2: z.number().describe("Anteil des Warmwassers am Gesamtverbrauch der sekundären Energiequelle in Prozent").nullish(),
-  gebaeudeaufnahme_allgemein_id: z.number().int().describe("ID der korrespondierenden Gebäudeaufnahme"),
+  aufnahme_id: z.number().int().describe("ID der korrespondierenden Gebäudeaufnahme"),
 })

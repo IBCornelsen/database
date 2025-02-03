@@ -1,5 +1,4 @@
 import * as z from "zod"
-import * as imports from "../../../prisma/null"
 
 export const PostleitzahlenSchema = z.object({
   id: z.number().int(),

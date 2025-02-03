@@ -8,10 +8,11 @@ enum BilderKategorie {
 
 model GebaeudeBilder {
   id                     Int                @id @default(autoincrement())
-  gebaeude_stammdaten_id Int
   kategorie              BilderKategorie           
-  uid                    String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  gebaeude_stammdaten    GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  uid                    String             @unique @default(dbgenerated("'img-' || gen_random_uuid()"))
+	
+  objekt_id Int
+  objekt    Objekt @relation(fields: [objekt_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("gebaeude_bilder")
 }

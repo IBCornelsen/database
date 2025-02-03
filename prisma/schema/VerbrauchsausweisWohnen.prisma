@@ -2,7 +2,7 @@
 model VerbrauchsausweisWohnen {
   id                        Int            @id @default(autoincrement())
 	/// @zod.describe("UID des Ausweises")
-  uid                       String         @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uid                       String         @unique @default(dbgenerated("'vaw-' || gen_random_uuid()"))
 	/// @zod.describe("Die ID des Benutzers, welchem dieser Ausweis gehört")
   benutzer_id               Int?
 	/// @zod.describe("Ausstellgrund wie z.B. Vermietung oder Verkauf")
@@ -53,9 +53,10 @@ model VerbrauchsausweisWohnen {
 	/// @zod.describe("Anteil des Warmwassers am Gesamtverbrauch der sekundären Energiequelle in Prozent")
   anteil_warmwasser_2 Float?
 
-	/// @zod.describe("ID der korrespondierenden Gebäudeaufnahme")
-	gebaeudeaufnahme_allgemein_id Int @unique
 
   benutzer                    Benutzer?                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein @relation(fields: [gebaeudeaufnahme_allgemein_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+	
+	/// @zod.describe("ID der korrespondierenden Gebäudeaufnahme")
+	aufnahme_id        Int @unique
+  aufnahme           Aufnahme @relation(fields: [aufnahme_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

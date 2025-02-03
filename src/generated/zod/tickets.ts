@@ -1,5 +1,4 @@
 import * as z from "zod"
-import * as imports from "../../../prisma/null"
 import { TicketStatus } from "@prisma/client"
 
 // Helper schema for JSON fields

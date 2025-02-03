@@ -1,9 +1,8 @@
 
 model GebaeudePlaene {
   id                     Int                @id @default(autoincrement())
-  gebaeude_stammdaten_id Int
-  uid                    String             @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  gebaeude_stammdaten    GebaeudeStammdaten @relation(fields: [gebaeude_stammdaten_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  uid                    String             @unique @default(dbgenerated("'pln-' || gen_random_uuid()"))
 
-  @@map("gebaeude_plaene")
+  objekt_id Int
+  objekt    Objekt @relation(fields: [objekt_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

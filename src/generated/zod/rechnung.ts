@@ -1,12 +1,10 @@
 import * as z from "zod"
-import * as imports from "../../../prisma/null"
 import { Bezahlmethoden, Rechnungsstatus, Service } from "@prisma/client"
 
 export const RechnungSchema = z.object({
   id: z.number().int(),
   uid: z.string(),
   benutzer_id: z.number().int(),
-  gebaeude_aufnahme_allgemein_id: z.number().int(),
   empfaenger: z.string().nullish(),
   strasse: z.string().nullish(),
   plz: z.string().nullish(),
@@ -28,4 +26,5 @@ export const RechnungSchema = z.object({
   bezahlt_am: z.date().nullish(),
   storniert_am: z.date().nullish(),
   transaktions_referenz: z.string().nullish(),
+  aufnahme_id: z.number().int(),
 })

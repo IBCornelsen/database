@@ -1,5 +1,4 @@
 import * as z from "zod"
-import * as imports from "../../../prisma/null"
 import { BenutzerRolle } from "@prisma/client"
 
 export const BenutzerSchema = z.object({

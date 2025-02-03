@@ -132,7 +132,7 @@ for (let i = 0; i < 10; i++) {
 
 	for (let j = 0; j < Math.round(Math.random() * 5); j++) {
 		// Für jeden Nutzer erstellen wir auch noch bis zu 5 Ausweise.
-		await prisma.gebaeudeStammdaten.create({
+		await prisma.objekt.create({
 			data: {
 				adresse: faker.location.street(),
 				latitude: faker.location.latitude(),
@@ -144,9 +144,8 @@ for (let i = 0; i < 10; i++) {
 						id: benutzer.id,
 					},
 				},
-				gebaeude_aufnahme_allgemein: {
+				aufnahmen: {
 					create: {
-						adresse: faker.location.street(),
 						alternative_heizung: faker.datatype.boolean(),
 						alternative_kuehlung: faker.datatype.boolean(),
 						alternative_lueftung: faker.datatype.boolean(),
@@ -219,7 +218,7 @@ export async function verbrauchsausweisWohnenImportTranslate(
 	});
 
 	// TODO: Bilder Importieren
-	const gebaeudeStammdaten = await prisma.gebaeudeStammdaten.create({
+	const gebaeudeStammdaten = await prisma.objekt.create({
 		data: {
 			adresse: ausweis.objekt_strasse,
 			plz: ausweis.objekt_plz,
@@ -236,7 +235,7 @@ export async function verbrauchsausweisWohnenImportTranslate(
 	});
 
 	const gebaeudeAufnahmeAllgemein =
-		await prisma.gebaeudeAufnahmeAllgemein.create({
+		await prisma.aufnahme.create({
 			data: {
 				benutzer: {
 					connect: {
@@ -246,9 +245,6 @@ export async function verbrauchsausweisWohnenImportTranslate(
 				baujahr_gebaeude: [parseInt(ausweis.baujahr_gebaeude)],
 				baujahr_heizung: ausweis.baujahr_anlage ? [parseInt(ausweis.baujahr_anlage)] : [],
 				baujahr_klima: ausweis.baujahr_klimaanlage ? [parseInt(ausweis.baujahr_klimaanlage)] : [],
-				adresse: ausweis.objekt_strasse,
-				plz: ausweis.objekt_plz,
-				ort: ausweis.objekt_ort,
 				nutzflaeche: parseInt(ausweis.nutzflaeche),
 				einheiten: parseInt(ausweis.anzahl_einheiten),
 				saniert: ausweis.objekt_saniert ? true : false,
@@ -319,7 +315,7 @@ export async function verbrauchsausweisWohnenImportTranslate(
 				uid: faker.string.uuid(),
 				ausstellungsdatum: moment(ausweis.bestelldatum).toDate(),
 				erstellungsdatum: moment(ausweis.erstellungsdatum).toDate(),
-				gebaeude_stammdaten: {
+				objekt: {
 					connect: {
 						id: gebaeudeStammdaten.id,
 					},
@@ -338,7 +334,7 @@ export async function verbrauchsausweisWohnenImportTranslate(
 	const verbrauchsausweisWohnen = await prisma.verbrauchsausweisWohnen.create(
 		{
 			data: {
-				gebaeude_aufnahme_allgemein: {
+				aufnahme: {
 					connect: {
 						id: gebaeudeAufnahmeAllgemein.id,
 					},

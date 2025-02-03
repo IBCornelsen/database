@@ -6,7 +6,7 @@ enum BenutzerRolle {
 
 model Benutzer {
   id         Int           @id @default(autoincrement())
-  uid        String        @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  uid        String        @unique @default(dbgenerated("'usr-' || gen_random_uuid()"))
   name       String?       @db.VarChar(50)
   vorname    String?       @db.VarChar(50)
   email      String        @unique(map: "benutzer_email_idx") @db.VarChar(255)
@@ -22,14 +22,14 @@ model Benutzer {
   Anteilshaber             Anteilshaber[]             @ignore
   BedarfsausweisWohnen     BedarfsausweisWohnen[]
   documenttemplates        documenttemplates[]
-  gebaeude_stammdaten      GebaeudeStammdaten[]
+  objekte      Objekt[]
   rechnungen               Rechnung[]
   tokens                   tokens[]
   VerbrauchsausweisGewerbe VerbrauchsausweisGewerbe[]
   VerbrauchsausweisWohnen  VerbrauchsausweisWohnen[]
   ApiRequests              ApiRequests[]
   RefreshTokens            RefreshTokens[]
-	gebaeude_aufnahme_allgemein GebaeudeAufnahmeAllgemein[]
+	aufnahmen Aufnahme[]
   ErstellteTickets         Tickets[]                  @relation("ErstellteTickets")
   BearbeiteteTickets       Tickets[]                  @relation("BearbeiteteTickets")
 	events Event[]
