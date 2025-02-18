@@ -1,7 +1,15 @@
 
-model GebaeudePlaene {
+enum UnterlagenKategorie {
+	Grundriss
+	Sonstiges
+}
+
+model Unterlage {
   id                     Int                @id @default(autoincrement())
   uid                    String             @unique @default(dbgenerated("'pln-' || gen_random_uuid()"))
+	name									String?
+	kategorie 						String?
+	mime		String?
 
   objekt_id Int
   objekt    Objekt @relation(fields: [objekt_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

@@ -47,6 +47,9 @@ enum Ausweisart {
   VerbrauchsausweisGewerbe
   BedarfsausweisWohnen
 	BedarfsausweisGewerbe
+	GEGNachweisVerbrauchsausweisWohnen
+	GEGNachweisBedarfsausweisWohnen
+	GEGNachweisVerbrauchsausweisGewerbe
 }
 
 

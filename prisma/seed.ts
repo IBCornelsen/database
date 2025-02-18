@@ -87,7 +87,7 @@ await prisma.postleitzahlen.createMany({
 await prisma.benutzer.create({
 	data: {
 		email: "admin@ib-cornelsen.de",
-		passwort: hashPassword("0G4v2ij1OXTscIx"),
+		passwort: hashPassword("passwort"),
 		rolle: "ADMIN",
 		name: "Admin",
 		vorname: "Admin",

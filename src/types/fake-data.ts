@@ -1,4 +1,4 @@
-import { Heizungsstatus, Lueftungskonzept, BenutzerRolle, BilderKategorie, Bezahlmethoden, Rechnungsstatus, TicketStatus, Ausstellgrund, Ausweisart, Service } from '@prisma/client';
+import { Heizungsstatus, Lueftungskonzept, BenutzerRolle, BilderKategorie, Bezahlmethoden, Rechnungsstatus, TicketStatus, UnterlagenKategorie, Ausstellgrund, Ausweisart, Service } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import Decimal from 'decimal.js';
 
@@ -352,13 +352,6 @@ export function fakeGebaeudeBilderComplete() {
     objekt_id: faker.number.int(),
   };
 }
-export function fakeGebaeudePlaeneComplete() {
-  return {
-    id: faker.number.int({ max: 2147483647 }),
-    uid: '[object Object]',
-    objekt_id: faker.number.int(),
-  };
-}
 export function fakeKlimafaktoren() {
   return {
     plz: faker.lorem.words(5),
@@ -510,6 +503,23 @@ export function fakeTicketsComplete() {
     email: faker.internet.email(),
     bearbeiter_id: undefined,
     prioritaet: 0,
+  };
+}
+export function fakeUnterlage() {
+  return {
+    name: undefined,
+    kategorie: undefined,
+    mime: undefined,
+  };
+}
+export function fakeUnterlageComplete() {
+  return {
+    id: faker.number.int({ max: 2147483647 }),
+    uid: '[object Object]',
+    name: undefined,
+    kategorie: undefined,
+    mime: undefined,
+    objekt_id: faker.number.int(),
   };
 }
 export function fakeVerbrauchsausweisGewerbe() {

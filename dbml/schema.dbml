@@ -218,13 +218,6 @@ Table gebaeude_bilder {
   objekt Objekt [not null]
 }
 
-Table GebaeudePlaene {
-  id Int [pk, increment]
-  uid String [unique, not null]
-  objekt_id Int [not null]
-  objekt Objekt [not null]
-}
-
 Table Klimafaktoren {
   id Int [pk, increment]
   plz String [not null]
@@ -247,7 +240,7 @@ Table Objekt {
   ort String [note: '@zod.describe("Ort des Gebäudes")']
   adresse String [note: '@zod.describe("Adresse (Straße und Hausnummer) des Gebäudes")']
   gebaeude_bilder gebaeude_bilder [not null]
-  gebaeude_plaene GebaeudePlaene [not null]
+  unterlagen Unterlage [not null]
   benutzer benutzer
   aufnahmen Aufnahme [not null]
   anteilshaber Anteilshaber [not null]
@@ -318,6 +311,16 @@ Table Tickets {
   prioritaet Int [default: 0]
   benutzer benutzer
   bearbeiter benutzer
+}
+
+Table Unterlage {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  name String
+  kategorie String
+  mime String
+  objekt_id Int [not null]
+  objekt Objekt [not null]
 }
 
 Table VerbrauchsausweisGewerbe {
@@ -481,6 +484,11 @@ Enum TicketStatus {
   GELOEST
 }
 
+Enum UnterlagenKategorie {
+  Grundriss
+  Sonstiges
+}
+
 Enum Ausstellgrund {
   Neubau
   Vermietung
@@ -494,6 +502,9 @@ Enum Ausweisart {
   VerbrauchsausweisGewerbe
   BedarfsausweisWohnen
   BedarfsausweisGewerbe
+  GEGNachweisVerbrauchsausweisWohnen
+  GEGNachweisBedarfsausweisWohnen
+  GEGNachweisVerbrauchsausweisGewerbe
 }
 
 Enum Service {
@@ -523,8 +534,6 @@ Ref: Event.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: gebaeude_bilder.objekt_id > Objekt.id [delete: No Action]
 
-Ref: GebaeudePlaene.objekt_id > Objekt.id [delete: No Action]
-
 Ref: Objekt.benutzer_id > benutzer.id
 
 Ref: Rechnung.benutzer_id > benutzer.id [delete: No Action]
@@ -536,6 +545,8 @@ Ref: RefreshTokens.benutzer_id > benutzer.id [delete: Cascade]
 Ref: Tickets.benutzer_id > benutzer.id
 
 Ref: Tickets.bearbeiter_id > benutzer.id
+
+Ref: Unterlage.objekt_id > Objekt.id [delete: No Action]
 
 Ref: VerbrauchsausweisGewerbe.benutzer_id > benutzer.id [delete: No Action]
 

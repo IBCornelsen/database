@@ -14,7 +14,7 @@ model Objekt {
   adresse          String?   @db.VarChar(100)
 
   gebaeude_bilder             GebaeudeBilder[]
-  gebaeude_plaene             GebaeudePlaene[]
+	unterlagen	Unterlage[]
   benutzer                    Benutzer?                    @relation(fields: [benutzer_id], references: [id])
   aufnahmen Aufnahme[]
   anteilshaber Anteilshaber[]
