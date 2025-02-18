@@ -68,7 +68,6 @@ export function fakeAufnahme() {
     alternative_kuehlung: undefined,
     brennstoff_1: undefined,
     brennstoff_2: undefined,
-    prueftext: undefined,
     energieeffizienzklasse: undefined,
     ausstellungsdatum: undefined,
     zentralheizung: undefined,
@@ -129,11 +128,6 @@ export function fakeAufnahmeComplete() {
     alternative_kuehlung: undefined,
     brennstoff_1: undefined,
     brennstoff_2: undefined,
-    storniert: false,
-    erledigt: false,
-    bestellt: false,
-    zurueckgestellt: false,
-    prueftext: undefined,
     boxpruefung: false,
     energieeffizienzklasse: undefined,
     erstellungsdatum: new Date(),
@@ -227,6 +221,7 @@ export function fakeBedarfsausweisWohnen() {
     waerme_erzeugung_heizung: undefined,
     anteil_zusatzheizung: undefined,
     kollektor_flaeche: undefined,
+    prueftext: undefined,
   };
 }
 export function fakeBedarfsausweisWohnenComplete() {
@@ -288,6 +283,11 @@ export function fakeBedarfsausweisWohnenComplete() {
     waerme_erzeugung_heizung: undefined,
     anteil_zusatzheizung: undefined,
     kollektor_flaeche: undefined,
+    ausgestellt: false,
+    storniert: false,
+    bestellt: false,
+    zurueckgestellt: false,
+    prueftext: undefined,
     aufnahme_id: faker.number.int(),
   };
 }
@@ -559,6 +559,7 @@ export function fakeVerbrauchsausweisGewerbe() {
     warmwasser_enthalten: undefined,
     anteil_warmwasser_1: undefined,
     anteil_warmwasser_2: undefined,
+    prueftext: undefined,
   };
 }
 export function fakeVerbrauchsausweisGewerbeComplete() {
@@ -601,6 +602,11 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
     warmwasser_enthalten: undefined,
     anteil_warmwasser_1: undefined,
     anteil_warmwasser_2: undefined,
+    ausgestellt: false,
+    storniert: false,
+    bestellt: false,
+    zurueckgestellt: false,
+    prueftext: undefined,
     aufnahme_id: faker.number.int(),
   };
 }
@@ -629,6 +635,7 @@ export function fakeVerbrauchsausweisWohnen() {
     alternative_kuehlung: undefined,
     anteil_warmwasser_1: undefined,
     anteil_warmwasser_2: undefined,
+    prueftext: undefined,
   };
 }
 export function fakeVerbrauchsausweisWohnenComplete() {
@@ -659,6 +666,11 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     alternative_kuehlung: undefined,
     anteil_warmwasser_1: undefined,
     anteil_warmwasser_2: undefined,
+    ausgestellt: false,
+    storniert: false,
+    bestellt: false,
+    zurueckgestellt: false,
+    prueftext: undefined,
     aufnahme_id: faker.number.int(),
   };
 }

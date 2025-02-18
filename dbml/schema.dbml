@@ -57,11 +57,6 @@ Table Aufnahme {
   alternative_kuehlung Boolean [note: '@zod.describe("Falls die Kühlung alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen")']
   brennstoff_1 String [note: '@zod.describe("Genutzer Brennstoff der primären Energiequelle")']
   brennstoff_2 String [note: '@zod.describe("Genutzer Brennstoff der sekundären Energiequelle")']
-  storniert Boolean [default: false, note: '@zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")']
-  erledigt Boolean [default: false, note: '@zod.describe("Falls der Ausweis erledigt ist, sollte dieser Wert auf true stehen")']
-  bestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")']
-  zurueckgestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")']
-  prueftext String [note: '@zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")']
   boxpruefung Boolean [default: false]
   energieeffizienzklasse String [note: '@zod.describe("Die aus der Berechnung hervorgehende Energieeffizienzklasse des Gebäudes")']
   erstellungsdatum DateTime [default: `now()`, note: '@zod.describe("Datum an dem der Kunde den Ausweis erstellt hat")']
@@ -164,6 +159,11 @@ Table BedarfsausweisWohnen {
   waerme_erzeugung_heizung String
   anteil_zusatzheizung Float
   kollektor_flaeche Float
+  ausgestellt Boolean [not null, default: false]
+  storniert Boolean [default: false, note: '@zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")']
+  bestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")']
+  zurueckgestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")']
+  prueftext String [note: '@zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")']
   benutzer benutzer
   aufnahme_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
   aufnahme Aufnahme [not null]
@@ -362,6 +362,11 @@ Table VerbrauchsausweisGewerbe {
   warmwasser_enthalten Boolean
   anteil_warmwasser_1 Float
   anteil_warmwasser_2 Float
+  ausgestellt Boolean [not null, default: false]
+  storniert Boolean [default: false, note: '@zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")']
+  bestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")']
+  zurueckgestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")']
+  prueftext String [note: '@zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")']
   benutzer benutzer
   aufnahme_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
   aufnahme Aufnahme [not null]
@@ -394,6 +399,11 @@ Table VerbrauchsausweisWohnen {
   alternative_kuehlung Boolean [note: '@zod.describe("Falls die Kühlung alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen.")']
   anteil_warmwasser_1 Float [note: '@zod.describe("Anteil des Warmwassers am Gesamtverbrauch der primären Energiequelle in Prozent")']
   anteil_warmwasser_2 Float [note: '@zod.describe("Anteil des Warmwassers am Gesamtverbrauch der sekundären Energiequelle in Prozent")']
+  ausgestellt Boolean [not null, default: false]
+  storniert Boolean [default: false, note: '@zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")']
+  bestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")']
+  zurueckgestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")']
+  prueftext String [note: '@zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")']
   benutzer benutzer
   aufnahme_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
   aufnahme Aufnahme [not null]
