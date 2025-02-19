@@ -40,10 +40,12 @@ export const VerbrauchsausweisGewerbeSchema = z.object({
   warmwasser_enthalten: z.boolean().nullish(),
   anteil_warmwasser_1: z.number().nullish(),
   anteil_warmwasser_2: z.number().nullish(),
-  ausgestellt: z.boolean(),
+  ausgestellt: z.boolean().nullish(),
   storniert: z.boolean().describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen").nullish(),
   bestellt: z.boolean().describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen").nullish(),
   zurueckgestellt: z.boolean().describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen").nullish(),
   prueftext: z.string().describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung").nullish(),
+  beschreibung: z.string().nullish(),
+  geg_anfrage: z.boolean().describe("Gibt an, ob ein Ausweis eine GEG Nachweis Anfrage repräsentiert").nullish(),
   aufnahme_id: z.number().int().describe("ID der korrespondierenden Gebäudeaufnahme"),
 })

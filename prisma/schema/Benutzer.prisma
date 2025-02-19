@@ -18,6 +18,7 @@ model Benutzer {
   telefon    String?       @db.VarChar(50)
   anrede     String?       @db.VarChar(50)
   rolle      BenutzerRolle @default(USER)
+	lex_office_id String?
 
   Anteilshaber             Anteilshaber[]             @ignore
   BedarfsausweisWohnen     BedarfsausweisWohnen[]

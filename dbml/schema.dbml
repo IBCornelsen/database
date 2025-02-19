@@ -159,11 +159,13 @@ Table BedarfsausweisWohnen {
   waerme_erzeugung_heizung String
   anteil_zusatzheizung Float
   kollektor_flaeche Float
-  ausgestellt Boolean [not null, default: false]
+  ausgestellt Boolean [default: false]
   storniert Boolean [default: false, note: '@zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")']
   bestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")']
   zurueckgestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")']
   prueftext String [note: '@zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")']
+  beschreibung String
+  geg_anfrage Boolean [default: false, note: '@zod.describe("Gibt an, ob ein Ausweis eine GEG Nachweis Anfrage repräsentiert")']
   benutzer benutzer
   aufnahme_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
   aufnahme Aufnahme [not null]
@@ -183,6 +185,7 @@ Table benutzer {
   telefon String
   anrede String
   rolle BenutzerRolle [not null, default: 'USER']
+  lex_office_id String
   BedarfsausweisWohnen BedarfsausweisWohnen [not null]
   documenttemplates documenttemplates [not null]
   objekte Objekt [not null]
@@ -210,7 +213,7 @@ Table Event {
   benutzer benutzer
 }
 
-Table gebaeude_bilder {
+Table Bild {
   id Int [pk, increment]
   kategorie BilderKategorie [not null]
   uid String [unique, not null]
@@ -239,7 +242,8 @@ Table Objekt {
   plz String [note: '@zod.describe("Postleitzahl des Gebäudes")']
   ort String [note: '@zod.describe("Ort des Gebäudes")']
   adresse String [note: '@zod.describe("Adresse (Straße und Hausnummer) des Gebäudes")']
-  gebaeude_bilder gebaeude_bilder [not null]
+  erstellungsdatum DateTime [default: `now()`]
+  bilder Bild [not null]
   unterlagen Unterlage [not null]
   benutzer benutzer
   aufnahmen Aufnahme [not null]
@@ -362,11 +366,13 @@ Table VerbrauchsausweisGewerbe {
   warmwasser_enthalten Boolean
   anteil_warmwasser_1 Float
   anteil_warmwasser_2 Float
-  ausgestellt Boolean [not null, default: false]
+  ausgestellt Boolean [default: false]
   storniert Boolean [default: false, note: '@zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")']
   bestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")']
   zurueckgestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")']
   prueftext String [note: '@zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")']
+  beschreibung String
+  geg_anfrage Boolean [default: false, note: '@zod.describe("Gibt an, ob ein Ausweis eine GEG Nachweis Anfrage repräsentiert")']
   benutzer benutzer
   aufnahme_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
   aufnahme Aufnahme [not null]
@@ -399,11 +405,13 @@ Table VerbrauchsausweisWohnen {
   alternative_kuehlung Boolean [note: '@zod.describe("Falls die Kühlung alternative Energieversorgungssysteme beinhaltet sollte dieser Wert auf true stehen.")']
   anteil_warmwasser_1 Float [note: '@zod.describe("Anteil des Warmwassers am Gesamtverbrauch der primären Energiequelle in Prozent")']
   anteil_warmwasser_2 Float [note: '@zod.describe("Anteil des Warmwassers am Gesamtverbrauch der sekundären Energiequelle in Prozent")']
-  ausgestellt Boolean [not null, default: false]
+  ausgestellt Boolean [default: false]
   storniert Boolean [default: false, note: '@zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")']
   bestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")']
   zurueckgestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")']
   prueftext String [note: '@zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")']
+  beschreibung String
+  geg_anfrage Boolean [default: false, note: '@zod.describe("Gibt an, ob ein Ausweis eine GEG Nachweis Anfrage repräsentiert")']
   benutzer benutzer
   aufnahme_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
   aufnahme Aufnahme [not null]
@@ -542,7 +550,7 @@ Ref: Event.aufnahme_id > Aufnahme.id [delete: No Action]
 
 Ref: Event.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: gebaeude_bilder.objekt_id > Objekt.id [delete: No Action]
+Ref: Bild.objekt_id > Objekt.id [delete: No Action]
 
 Ref: Objekt.benutzer_id > benutzer.id
 

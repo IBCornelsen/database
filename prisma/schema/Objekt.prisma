@@ -13,7 +13,9 @@ model Objekt {
 	/// @zod.describe("Adresse (Straße und Hausnummer) des Gebäudes")
   adresse          String?   @db.VarChar(100)
 
-  gebaeude_bilder             GebaeudeBilder[]
+	erstellungsdatum DateTime? @default(now())
+
+  bilder             Bild[]
 	unterlagen	Unterlage[]
   benutzer                    Benutzer?                    @relation(fields: [benutzer_id], references: [id])
   aufnahmen Aufnahme[]

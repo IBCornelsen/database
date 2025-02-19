@@ -222,6 +222,7 @@ export function fakeBedarfsausweisWohnen() {
     anteil_zusatzheizung: undefined,
     kollektor_flaeche: undefined,
     prueftext: undefined,
+    beschreibung: undefined,
   };
 }
 export function fakeBedarfsausweisWohnenComplete() {
@@ -288,6 +289,8 @@ export function fakeBedarfsausweisWohnenComplete() {
     bestellt: false,
     zurueckgestellt: false,
     prueftext: undefined,
+    beschreibung: undefined,
+    geg_anfrage: false,
     aufnahme_id: faker.number.int(),
   };
 }
@@ -303,6 +306,7 @@ export function fakeBenutzer() {
     adresse: undefined,
     telefon: undefined,
     anrede: undefined,
+    lex_office_id: undefined,
   };
 }
 export function fakeBenutzerComplete() {
@@ -320,6 +324,7 @@ export function fakeBenutzerComplete() {
     telefon: undefined,
     anrede: undefined,
     rolle: BenutzerRolle.USER,
+    lex_office_id: undefined,
   };
 }
 export function fakeEvent() {
@@ -339,12 +344,12 @@ export function fakeEventComplete() {
     benutzer_id: undefined,
   };
 }
-export function fakeGebaeudeBilder() {
+export function fakeBild() {
   return {
     kategorie: faker.helpers.arrayElement([BilderKategorie.Heizung, BilderKategorie.Fenster, BilderKategorie.Gebaeude, BilderKategorie.Daemmung] as const),
   };
 }
-export function fakeGebaeudeBilderComplete() {
+export function fakeBildComplete() {
   return {
     id: faker.number.int({ max: 2147483647 }),
     kategorie: faker.helpers.arrayElement([BilderKategorie.Heizung, BilderKategorie.Fenster, BilderKategorie.Gebaeude, BilderKategorie.Daemmung] as const),
@@ -387,6 +392,7 @@ export function fakeObjektComplete() {
     plz: undefined,
     ort: undefined,
     adresse: undefined,
+    erstellungsdatum: new Date(),
   };
 }
 export function fakePostleitzahlen() {
@@ -560,6 +566,7 @@ export function fakeVerbrauchsausweisGewerbe() {
     anteil_warmwasser_1: undefined,
     anteil_warmwasser_2: undefined,
     prueftext: undefined,
+    beschreibung: undefined,
   };
 }
 export function fakeVerbrauchsausweisGewerbeComplete() {
@@ -607,6 +614,8 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
     bestellt: false,
     zurueckgestellt: false,
     prueftext: undefined,
+    beschreibung: undefined,
+    geg_anfrage: false,
     aufnahme_id: faker.number.int(),
   };
 }
@@ -636,6 +645,7 @@ export function fakeVerbrauchsausweisWohnen() {
     anteil_warmwasser_1: undefined,
     anteil_warmwasser_2: undefined,
     prueftext: undefined,
+    beschreibung: undefined,
   };
 }
 export function fakeVerbrauchsausweisWohnenComplete() {
@@ -671,6 +681,8 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     bestellt: false,
     zurueckgestellt: false,
     prueftext: undefined,
+    beschreibung: undefined,
+    geg_anfrage: false,
     aufnahme_id: faker.number.int(),
   };
 }

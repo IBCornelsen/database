@@ -53,7 +53,7 @@ model VerbrauchsausweisWohnen {
 	/// @zod.describe("Anteil des Warmwassers am Gesamtverbrauch der sekundären Energiequelle in Prozent")
   anteil_warmwasser_2 Float?
 
-	ausgestellt Boolean @default(false)
+	ausgestellt Boolean? @default(false)
 	/// @zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")
 	storniert Boolean? @default(false)
 	/// @zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")
@@ -63,6 +63,10 @@ model VerbrauchsausweisWohnen {
 	/// @zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")
 	prueftext String? @db.VarChar(1000)
 
+	beschreibung String? @db.Text
+
+	/// @zod.describe("Gibt an, ob ein Ausweis eine GEG Nachweis Anfrage repräsentiert")
+	geg_anfrage Boolean? @default(false)
 
   benutzer                    Benutzer?                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 	
