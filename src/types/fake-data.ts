@@ -290,7 +290,7 @@ export function fakeBedarfsausweisWohnenComplete() {
     zurueckgestellt: false,
     prueftext: undefined,
     beschreibung: undefined,
-    geg_anfrage: false,
+    kontrolldatei_angefragt: false,
     aufnahme_id: faker.number.int(),
   };
 }
@@ -344,6 +344,32 @@ export function fakeEventComplete() {
     benutzer_id: undefined,
   };
 }
+export function fakeGEGNachweisWohnen() {
+  return {
+    ausstellgrund: undefined,
+    registriernummer: undefined,
+    keller_beheizt: undefined,
+    prueftext: undefined,
+    beschreibung: undefined,
+  };
+}
+export function fakeGEGNachweisWohnenComplete() {
+  return {
+    id: faker.number.int({ max: 2147483647 }),
+    uid: '[object Object]',
+    ausstellgrund: undefined,
+    registriernummer: undefined,
+    keller_beheizt: undefined,
+    ausgestellt: false,
+    storniert: false,
+    bestellt: false,
+    zurueckgestellt: false,
+    prueftext: undefined,
+    beschreibung: undefined,
+    benutzer_id: undefined,
+    aufnahme_id: faker.number.int(),
+  };
+}
 export function fakeBild() {
   return {
     kategorie: faker.helpers.arrayElement([BilderKategorie.Heizung, BilderKategorie.Fenster, BilderKategorie.Gebaeude, BilderKategorie.Daemmung] as const),
@@ -354,7 +380,7 @@ export function fakeBildComplete() {
     id: faker.number.int({ max: 2147483647 }),
     kategorie: faker.helpers.arrayElement([BilderKategorie.Heizung, BilderKategorie.Fenster, BilderKategorie.Gebaeude, BilderKategorie.Daemmung] as const),
     uid: '[object Object]',
-    objekt_id: faker.number.int(),
+    aufnahme_id: faker.number.int(),
   };
 }
 export function fakeKlimafaktoren() {
@@ -525,7 +551,7 @@ export function fakeUnterlageComplete() {
     name: undefined,
     kategorie: undefined,
     mime: undefined,
-    objekt_id: faker.number.int(),
+    aufnahme_id: faker.number.int(),
   };
 }
 export function fakeVerbrauchsausweisGewerbe() {
@@ -556,7 +582,6 @@ export function fakeVerbrauchsausweisGewerbe() {
     kuehlung_enthalten: undefined,
     anteil_kuehlung_1: undefined,
     anteil_kuehlung_2: undefined,
-    wird_gekuehlt: undefined,
     keller_beheizt: undefined,
     alternative_heizung: undefined,
     alternative_warmwasser: undefined,
@@ -600,7 +625,6 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
     kuehlung_enthalten: undefined,
     anteil_kuehlung_1: undefined,
     anteil_kuehlung_2: undefined,
-    wird_gekuehlt: undefined,
     keller_beheizt: undefined,
     alternative_heizung: undefined,
     alternative_warmwasser: undefined,
@@ -615,7 +639,7 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
     zurueckgestellt: false,
     prueftext: undefined,
     beschreibung: undefined,
-    geg_anfrage: false,
+    kontrolldatei_angefragt: false,
     aufnahme_id: faker.number.int(),
   };
 }
@@ -635,7 +659,6 @@ export function fakeVerbrauchsausweisWohnen() {
     verbrauch_6: undefined,
     warmwasser_enthalten: undefined,
     warmwasser_anteil_bekannt: undefined,
-    wird_gekuehlt: undefined,
     keller_beheizt: undefined,
     faktorKeller: undefined,
     alternative_heizung: undefined,
@@ -667,7 +690,6 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     verbrauch_6: undefined,
     warmwasser_enthalten: undefined,
     warmwasser_anteil_bekannt: undefined,
-    wird_gekuehlt: undefined,
     keller_beheizt: undefined,
     faktorKeller: undefined,
     alternative_heizung: undefined,
@@ -682,7 +704,7 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     zurueckgestellt: false,
     prueftext: undefined,
     beschreibung: undefined,
-    geg_anfrage: false,
+    kontrolldatei_angefragt: false,
     aufnahme_id: faker.number.int(),
   };
 }

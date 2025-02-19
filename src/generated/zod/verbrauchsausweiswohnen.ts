@@ -19,7 +19,6 @@ export const VerbrauchsausweisWohnenSchema = z.object({
   verbrauch_6: z.number().int().describe("Energieverbrauch der sekund̈́ären Heizquelle im letzten der drei Verbrauchsjahre").nullish(),
   warmwasser_enthalten: z.boolean().describe("Falls Warmwasser im Verbrauchswert enthalten ist, sollte dieser Wert auf true stehen").nullish(),
   warmwasser_anteil_bekannt: z.boolean().describe("Falls der Warmwasser Anteil am Verbrauch bekannt ist, sollte dieser Wert auf true stehen").nullish(),
-  wird_gekuehlt: z.boolean().describe("Falls Kühlung im Verbrauch enthalten ist, sollte dieser Wert auf true stehen").nullish(),
   keller_beheizt: z.boolean().describe("Falls der Keller des Gebäudes beheizt wird, sollte dieser Wert auf true stehen").nullish(),
   faktorKeller: z.number().describe("Der Faktor mit dem die Wohnfläche erhöht wird wenn die beheizte Gesamtfläche (energetische Nutzfläche) unbekannt ist.").nullish(),
   alternative_heizung: z.boolean().describe("Falls der Heizungsverbrauch alternative Energieversorgungssysteme beinhaltet, sollte dieser Wert auf true stehen.").nullish(),
@@ -34,6 +33,6 @@ export const VerbrauchsausweisWohnenSchema = z.object({
   zurueckgestellt: z.boolean().describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen").nullish(),
   prueftext: z.string().describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung").nullish(),
   beschreibung: z.string().nullish(),
-  geg_anfrage: z.boolean().describe("Gibt an, ob ein Ausweis eine GEG Nachweis Anfrage repräsentiert").nullish(),
+  kontrolldatei_angefragt: z.boolean().describe("Ob bei der Anfrage der Registriernummer eine Kontrolldatei angefragt wurde").nullish(),
   aufnahme_id: z.number().int().describe("ID der korrespondierenden Gebäudeaufnahme"),
 })

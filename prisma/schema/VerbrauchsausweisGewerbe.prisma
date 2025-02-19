@@ -33,7 +33,6 @@ model VerbrauchsausweisGewerbe {
   anteil_kuehlung_1  Float?
   anteil_kuehlung_2  Float?
 
-  wird_gekuehlt Boolean?
 
   keller_beheizt Boolean?
 
@@ -58,8 +57,8 @@ model VerbrauchsausweisGewerbe {
 
 	beschreibung String? @db.Text
 
-	/// @zod.describe("Gibt an, ob ein Ausweis eine GEG Nachweis Anfrage repräsentiert")
-	geg_anfrage Boolean? @default(false)
+	/// @zod.describe("Ob bei der Anfrage der Registriernummer eine Kontrolldatei angefragt wurde")
+	kontrolldatei_angefragt Boolean? @default(false)
 
 
   benutzer            Benutzer?           @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

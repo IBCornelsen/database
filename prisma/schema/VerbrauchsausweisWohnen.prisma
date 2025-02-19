@@ -32,8 +32,6 @@ model VerbrauchsausweisWohnen {
   warmwasser_enthalten      Boolean?
   /// @zod.describe("Falls der Warmwasser Anteil am Verbrauch bekannt ist, sollte dieser Wert auf true stehen")
   warmwasser_anteil_bekannt Boolean?
-  /// @zod.describe("Falls Kühlung im Verbrauch enthalten ist, sollte dieser Wert auf true stehen")
-  wird_gekuehlt             Boolean?
   /// @zod.describe("Falls der Keller des Gebäudes beheizt wird, sollte dieser Wert auf true stehen")
   keller_beheizt            Boolean?
   /// @zod.describe("Der Faktor mit dem die Wohnfläche erhöht wird wenn die beheizte Gesamtfläche (energetische Nutzfläche) unbekannt ist.")
@@ -65,8 +63,8 @@ model VerbrauchsausweisWohnen {
 
 	beschreibung String? @db.Text
 
-	/// @zod.describe("Gibt an, ob ein Ausweis eine GEG Nachweis Anfrage repräsentiert")
-	geg_anfrage Boolean? @default(false)
+	/// @zod.describe("Ob bei der Anfrage der Registriernummer eine Kontrolldatei angefragt wurde")
+	kontrolldatei_angefragt Boolean? @default(false)
 
   benutzer                    Benutzer?                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 	

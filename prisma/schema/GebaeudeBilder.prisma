@@ -11,6 +11,6 @@ model Bild {
   kategorie              BilderKategorie           
   uid                    String             @unique @default(dbgenerated("'img-' || gen_random_uuid()"))
 	
-  objekt_id Int
-  objekt    Objekt @relation(fields: [objekt_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  aufnahme_id Int
+  aufnahme    Aufnahme @relation(fields: [aufnahme_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

@@ -31,7 +31,6 @@ export const VerbrauchsausweisGewerbeSchema = z.object({
   kuehlung_enthalten: z.boolean().nullish(),
   anteil_kuehlung_1: z.number().nullish(),
   anteil_kuehlung_2: z.number().nullish(),
-  wird_gekuehlt: z.boolean().nullish(),
   keller_beheizt: z.boolean().nullish(),
   alternative_heizung: z.boolean().nullish(),
   alternative_warmwasser: z.boolean().nullish(),
@@ -46,6 +45,6 @@ export const VerbrauchsausweisGewerbeSchema = z.object({
   zurueckgestellt: z.boolean().describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen").nullish(),
   prueftext: z.string().describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung").nullish(),
   beschreibung: z.string().nullish(),
-  geg_anfrage: z.boolean().describe("Gibt an, ob ein Ausweis eine GEG Nachweis Anfrage repräsentiert").nullish(),
+  kontrolldatei_angefragt: z.boolean().describe("Ob bei der Anfrage der Registriernummer eine Kontrolldatei angefragt wurde").nullish(),
   aufnahme_id: z.number().int().describe("ID der korrespondierenden Gebäudeaufnahme"),
 })

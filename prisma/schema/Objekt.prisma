@@ -15,8 +15,6 @@ model Objekt {
 
 	erstellungsdatum DateTime? @default(now())
 
-  bilder             Bild[]
-	unterlagen	Unterlage[]
   benutzer                    Benutzer?                    @relation(fields: [benutzer_id], references: [id])
   aufnahmen Aufnahme[]
   anteilshaber Anteilshaber[]

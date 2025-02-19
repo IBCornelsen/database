@@ -132,10 +132,13 @@ model Aufnahme {
   oberste_geschossdecke_min_12cm_gedaemmt Boolean?
 	
 	events Event[]
+	bilder             Bild[]
+	unterlagen	Unterlage[]
   bedarfsausweis_wohnen     BedarfsausweisWohnen?			
   benutzer                 Benutzer?                @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe? 
-  verbrauchsausweis_wohnen  VerbrauchsausweisWohnen?	
+  verbrauchsausweis_wohnen  VerbrauchsausweisWohnen?
+	GEGNachweiseWohnen GEGNachweisWohnen?
   objekt_id Int
   objekt    Objekt @relation(fields: [objekt_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 	rechnungen 									Rechnung[]

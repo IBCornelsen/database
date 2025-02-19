@@ -65,6 +65,6 @@ export const BedarfsausweisWohnenSchema = z.object({
   zurueckgestellt: z.boolean().describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen").nullish(),
   prueftext: z.string().describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung").nullish(),
   beschreibung: z.string().nullish(),
-  geg_anfrage: z.boolean().describe("Gibt an, ob ein Ausweis eine GEG Nachweis Anfrage repräsentiert").nullish(),
+  kontrolldatei_angefragt: z.boolean().describe("Ob bei der Anfrage der Registriernummer eine Kontrolldatei angefragt wurde").nullish(),
   aufnahme_id: z.number().int().describe("ID der korrespondierenden Gebäudeaufnahme"),
 })
