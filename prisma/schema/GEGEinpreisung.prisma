@@ -1,0 +1,12 @@
+model GEGEinpreisung {
+	id Int @id @default(autoincrement())
+  uid String @unique @default(dbgenerated("'gge-' || gen_random_uuid()"))
+
+	geg_nachweis_wohnen GEGNachweisWohnen?
+	geg_nachweis_gewerbe GEGNachweisGewerbe?
+	bedarfsausweis_gewerbe BedarfsausweisGewerbe?
+
+	/// @zod.describe("Die ID des Benutzers, der diese Einpreisung bekommt.")
+  benutzer_id Int?
+  benutzer    Benutzer? @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}

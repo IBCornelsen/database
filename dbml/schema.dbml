@@ -36,6 +36,7 @@ Table Aufnahme {
   id Int [pk, increment]
   uid String [unique, not null, note: '@zod.describe("UID der Gebäude Aufnahme")']
   benutzer_id Int
+  benutzer benutzer
   ausweisart Ausweisart [note: '@zod.describe("Art des korrespondierenden Ausweises, wie z.B. VerbrauchsausweisWohnen")']
   gebaeudetyp String [note: '@zod.describe("Art des Gebäudes und seiner primären Nutzungsart")']
   gebaeudeteil String [note: '@zod.describe("Betrachteter Teil des Gebäudes, z.B. Gesamtgebäude, Wohnteil, Gewerbeteil")']
@@ -95,13 +96,25 @@ Table Aufnahme {
   bilder Bild [not null]
   unterlagen Unterlage [not null]
   bedarfsausweis_wohnen BedarfsausweisWohnen
-  benutzer benutzer
   verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe
   verbrauchsausweis_wohnen VerbrauchsausweisWohnen
-  GEGNachweiseWohnen GEGNachweisWohnen
+  geg_nachweis_wohnen GEGNachweisWohnen
+  geg_nachweis_gewerbe GEGNachweisGewerbe
+  bedarfsausweis_gewerbe BedarfsausweisGewerbe
+  rechnungen Rechnung [not null]
   objekt_id Int [not null]
   objekt Objekt [not null]
-  rechnungen Rechnung [not null]
+}
+
+Table BedarfsausweisGewerbe {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  benutzer_id Int [note: '@zod.describe("Die ID des Benutzers, welchem dieser Ausweis gehört")']
+  benutzer benutzer
+  aufnahme_id Int [unique, not null]
+  aufnahme Aufnahme [not null]
+  geg_einpreisung_id Int [unique]
+  geg_einpreisung GEGEinpreisung
 }
 
 Table BedarfsausweisWohnen {
@@ -188,6 +201,7 @@ Table benutzer {
   telefon String
   anrede String
   rolle BenutzerRolle [not null, default: 'USER']
+  firma String
   lex_office_id String
   BedarfsausweisWohnen BedarfsausweisWohnen [not null]
   documenttemplates documenttemplates [not null]
@@ -199,10 +213,21 @@ Table benutzer {
   ApiRequests ApiRequests [not null]
   RefreshTokens RefreshTokens [not null]
   aufnahmen Aufnahme [not null]
-  gegNachweiseWohnen GEGNachweisWohnen [not null]
+  geg_einpreisungen GEGEinpreisung [not null]
+  geg_nachweise_gewerbe GEGNachweisGewerbe [not null]
+  geg_nachweise_wohnen GEGNachweisWohnen [not null]
+  bedarfsausweise_gewerbe BedarfsausweisGewerbe [not null]
   ErstellteTickets Tickets [not null]
   BearbeiteteTickets Tickets [not null]
   events Event [not null]
+}
+
+Table Bild {
+  id Int [pk, increment]
+  kategorie BilderKategorie [not null]
+  uid String [unique, not null]
+  aufnahme_id Int
+  aufnahme Aufnahme
 }
 
 Table Event {
@@ -215,6 +240,27 @@ Table Event {
   aufnahme Aufnahme [not null]
   benutzer_id Int
   benutzer benutzer
+}
+
+Table GEGEinpreisung {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  geg_nachweis_wohnen GEGNachweisWohnen
+  geg_nachweis_gewerbe GEGNachweisGewerbe
+  bedarfsausweis_gewerbe BedarfsausweisGewerbe
+  benutzer_id Int [note: '@zod.describe("Die ID des Benutzers, der diese Einpreisung bekommt.")']
+  benutzer benutzer
+}
+
+Table GEGNachweisGewerbe {
+  id Int [pk, increment]
+  uid String [unique, not null]
+  benutzer_id Int [note: '@zod.describe("Die ID des Benutzers, welchem dieser Ausweis gehört")']
+  benutzer benutzer
+  aufnahme_id Int [unique, not null]
+  aufnahme Aufnahme [not null]
+  geg_einpreisung_id Int [unique]
+  geg_einpreisung GEGEinpreisung
 }
 
 Table GEGNachweisWohnen {
@@ -233,14 +279,8 @@ Table GEGNachweisWohnen {
   benutzer benutzer
   aufnahme_id Int [unique, not null]
   aufnahme Aufnahme [not null]
-}
-
-Table Bild {
-  id Int [pk, increment]
-  kategorie BilderKategorie [not null]
-  uid String [unique, not null]
-  aufnahme_id Int [not null]
-  aufnahme Aufnahme [not null]
+  geg_einpreisung_id Int [unique]
+  geg_einpreisung GEGEinpreisung
 }
 
 Table Klimafaktoren {
@@ -300,6 +340,7 @@ Table Rechnung {
   bezahlmethode Bezahlmethoden [not null]
   status Rechnungsstatus [not null]
   services Service[] [not null]
+  ausweistyp AusweisTyp [not null, default: 'Standard']
   betrag Float [not null]
   erstellt_am DateTime [default: `now()`, not null]
   bezahlt_am DateTime
@@ -512,6 +553,12 @@ Enum Rechnungsstatus {
   paid
 }
 
+Enum AusweisTyp {
+  Standard
+  Beratung
+  Offline
+}
+
 Enum TicketStatus {
   OFFEN
   IN_BEARBEITUNG
@@ -560,19 +607,35 @@ Ref: Aufnahme.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: Aufnahme.objekt_id > Objekt.id [delete: No Action]
 
+Ref: BedarfsausweisGewerbe.benutzer_id > benutzer.id [delete: No Action]
+
+Ref: BedarfsausweisGewerbe.aufnahme_id - Aufnahme.id [delete: No Action]
+
+Ref: BedarfsausweisGewerbe.geg_einpreisung_id - GEGEinpreisung.id [delete: No Action]
+
 Ref: BedarfsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: BedarfsausweisWohnen.aufnahme_id - Aufnahme.id [delete: No Action]
+
+Ref: Bild.aufnahme_id > Aufnahme.id [delete: No Action]
 
 Ref: Event.aufnahme_id > Aufnahme.id [delete: No Action]
 
 Ref: Event.benutzer_id > benutzer.id [delete: No Action]
 
+Ref: GEGEinpreisung.benutzer_id > benutzer.id [delete: No Action]
+
+Ref: GEGNachweisGewerbe.benutzer_id > benutzer.id [delete: No Action]
+
+Ref: GEGNachweisGewerbe.aufnahme_id - Aufnahme.id [delete: No Action]
+
+Ref: GEGNachweisGewerbe.geg_einpreisung_id - GEGEinpreisung.id [delete: No Action]
+
 Ref: GEGNachweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: GEGNachweisWohnen.aufnahme_id - Aufnahme.id [delete: No Action]
 
-Ref: Bild.aufnahme_id > Aufnahme.id [delete: No Action]
+Ref: GEGNachweisWohnen.geg_einpreisung_id - GEGEinpreisung.id [delete: No Action]
 
 Ref: Objekt.benutzer_id > benutzer.id
 

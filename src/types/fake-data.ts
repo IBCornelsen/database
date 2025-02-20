@@ -1,4 +1,4 @@
-import { Heizungsstatus, Lueftungskonzept, BenutzerRolle, BilderKategorie, Bezahlmethoden, Rechnungsstatus, TicketStatus, UnterlagenKategorie, Ausstellgrund, Ausweisart, Service } from '@prisma/client';
+import { Heizungsstatus, Lueftungskonzept, BenutzerRolle, BilderKategorie, Bezahlmethoden, Rechnungsstatus, AusweisTyp, TicketStatus, UnterlagenKategorie, Ausstellgrund, Ausweisart, Service } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import Decimal from 'decimal.js';
 
@@ -165,6 +165,15 @@ export function fakeAufnahmeComplete() {
     objekt_id: faker.number.int(),
   };
 }
+export function fakeBedarfsausweisGewerbeComplete() {
+  return {
+    id: faker.number.int({ max: 2147483647 }),
+    uid: '[object Object]',
+    benutzer_id: undefined,
+    aufnahme_id: faker.number.int(),
+    geg_einpreisung_id: undefined,
+  };
+}
 export function fakeBedarfsausweisWohnen() {
   return {
     ausstellgrund: undefined,
@@ -306,6 +315,7 @@ export function fakeBenutzer() {
     adresse: undefined,
     telefon: undefined,
     anrede: undefined,
+    firma: undefined,
     lex_office_id: undefined,
   };
 }
@@ -324,7 +334,21 @@ export function fakeBenutzerComplete() {
     telefon: undefined,
     anrede: undefined,
     rolle: BenutzerRolle.USER,
+    firma: undefined,
     lex_office_id: undefined,
+  };
+}
+export function fakeBild() {
+  return {
+    kategorie: faker.helpers.arrayElement([BilderKategorie.Heizung, BilderKategorie.Fenster, BilderKategorie.Gebaeude, BilderKategorie.Daemmung] as const),
+  };
+}
+export function fakeBildComplete() {
+  return {
+    id: faker.number.int({ max: 2147483647 }),
+    kategorie: faker.helpers.arrayElement([BilderKategorie.Heizung, BilderKategorie.Fenster, BilderKategorie.Gebaeude, BilderKategorie.Daemmung] as const),
+    uid: '[object Object]',
+    aufnahme_id: undefined,
   };
 }
 export function fakeEvent() {
@@ -342,6 +366,22 @@ export function fakeEventComplete() {
     description: undefined,
     aufnahme_id: faker.number.int(),
     benutzer_id: undefined,
+  };
+}
+export function fakeGEGEinpreisungComplete() {
+  return {
+    id: faker.number.int({ max: 2147483647 }),
+    uid: '[object Object]',
+    benutzer_id: undefined,
+  };
+}
+export function fakeGEGNachweisGewerbeComplete() {
+  return {
+    id: faker.number.int({ max: 2147483647 }),
+    uid: '[object Object]',
+    benutzer_id: undefined,
+    aufnahme_id: faker.number.int(),
+    geg_einpreisung_id: undefined,
   };
 }
 export function fakeGEGNachweisWohnen() {
@@ -368,19 +408,7 @@ export function fakeGEGNachweisWohnenComplete() {
     beschreibung: undefined,
     benutzer_id: undefined,
     aufnahme_id: faker.number.int(),
-  };
-}
-export function fakeBild() {
-  return {
-    kategorie: faker.helpers.arrayElement([BilderKategorie.Heizung, BilderKategorie.Fenster, BilderKategorie.Gebaeude, BilderKategorie.Daemmung] as const),
-  };
-}
-export function fakeBildComplete() {
-  return {
-    id: faker.number.int({ max: 2147483647 }),
-    kategorie: faker.helpers.arrayElement([BilderKategorie.Heizung, BilderKategorie.Fenster, BilderKategorie.Gebaeude, BilderKategorie.Daemmung] as const),
-    uid: '[object Object]',
-    aufnahme_id: faker.number.int(),
+    geg_einpreisung_id: undefined,
   };
 }
 export function fakeKlimafaktoren() {
@@ -486,6 +514,7 @@ export function fakeRechnungComplete() {
     bezahlmethode: faker.helpers.arrayElement([Bezahlmethoden.paypal, Bezahlmethoden.giropay, Bezahlmethoden.sofort, Bezahlmethoden.creditcard, Bezahlmethoden.rechnung] as const),
     status: faker.helpers.arrayElement([Rechnungsstatus.open, Rechnungsstatus.canceled, Rechnungsstatus.pending, Rechnungsstatus.authorized, Rechnungsstatus.expired, Rechnungsstatus.failed, Rechnungsstatus.paid] as const),
     services: faker.helpers.arrayElement([Service.Telefonberatung, Service.Aushang, Service.Qualitaetsdruck, Service.SameDay] as const),
+    ausweistyp: AusweisTyp.Standard,
     betrag: faker.number.float(),
     erstellt_am: new Date(),
     bezahlt_am: undefined,

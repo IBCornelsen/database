@@ -17,6 +17,12 @@ enum Rechnungsstatus {
 	paid
 }
 
+enum AusweisTyp {
+	Standard
+	Beratung
+	Offline
+}
+
 model Rechnung {
   id  Int    @id @default(autoincrement())
   uid String @unique @default(dbgenerated("'inv-' || gen_random_uuid()"))
@@ -40,6 +46,7 @@ model Rechnung {
   bezahlmethode         Bezahlmethoden
   status                Rechnungsstatus
   services              Service[]
+	ausweistyp	AusweisTyp @default(Standard)
   betrag                Float
   erstellt_am           DateTime        @default(now())
   bezahlt_am            DateTime?

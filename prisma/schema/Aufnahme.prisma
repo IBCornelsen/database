@@ -17,6 +17,7 @@ model Aufnahme {
 	/// @zod.describe("UID der Gebäude Aufnahme")
   uid              String          @unique @default(dbgenerated("'auf-' || gen_random_uuid()"))
   benutzer_id      Int?
+  benutzer                 Benutzer?                @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 	/// @zod.describe("Art des korrespondierenden Ausweises, wie z.B. VerbrauchsausweisWohnen")
   ausweisart Ausweisart?
 	/// @zod.describe("Art des Gebäudes und seiner primären Nutzungsart")
@@ -135,13 +136,15 @@ model Aufnahme {
 	bilder             Bild[]
 	unterlagen	Unterlage[]
   bedarfsausweis_wohnen     BedarfsausweisWohnen?			
-  benutzer                 Benutzer?                @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe? 
   verbrauchsausweis_wohnen  VerbrauchsausweisWohnen?
-	GEGNachweiseWohnen GEGNachweisWohnen?
+	geg_nachweis_wohnen GEGNachweisWohnen?
+	geg_nachweis_gewerbe GEGNachweisGewerbe?
+	bedarfsausweis_gewerbe BedarfsausweisGewerbe?
+	rechnungen 									Rechnung[]
+
   objekt_id Int
   objekt    Objekt @relation(fields: [objekt_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-	rechnungen 									Rechnung[]
 }
 
 

@@ -15,5 +15,6 @@ export const BenutzerSchema = z.object({
   telefon: z.string().nullish(),
   anrede: z.string().nullish(),
   rolle: z.nativeEnum(BenutzerRolle),
+  firma: z.string().nullish(),
   lex_office_id: z.string().nullish(),
 })

@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { Bezahlmethoden, Rechnungsstatus, Service } from "@prisma/client"
+import { Bezahlmethoden, Rechnungsstatus, Service, AusweisTyp } from "@prisma/client"
 
 export const RechnungSchema = z.object({
   id: z.number().int(),
@@ -21,6 +21,7 @@ export const RechnungSchema = z.object({
   bezahlmethode: z.nativeEnum(Bezahlmethoden),
   status: z.nativeEnum(Rechnungsstatus),
   services: z.nativeEnum(Service).array(),
+  ausweistyp: z.nativeEnum(AusweisTyp),
   betrag: z.number(),
   erstellt_am: z.date(),
   bezahlt_am: z.date().nullish(),
