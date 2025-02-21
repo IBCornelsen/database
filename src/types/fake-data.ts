@@ -406,10 +406,23 @@ export function fakeGEGEinpreisungComplete() {
     benutzer_id: undefined,
   };
 }
+export function fakeGEGNachweisGewerbe() {
+  return {
+    ausstellgrund: undefined,
+    keller_beheizt: undefined,
+    beschreibung: undefined,
+  };
+}
 export function fakeGEGNachweisGewerbeComplete() {
   return {
     id: faker.number.int({ max: 2147483647 }),
     uid: '[object Object]',
+    ausstellgrund: undefined,
+    keller_beheizt: undefined,
+    storniert: false,
+    bestellt: false,
+    zurueckgestellt: false,
+    beschreibung: undefined,
     benutzer_id: undefined,
     aufnahme_id: faker.number.int(),
     geg_einpreisung_id: undefined,
@@ -418,9 +431,7 @@ export function fakeGEGNachweisGewerbeComplete() {
 export function fakeGEGNachweisWohnen() {
   return {
     ausstellgrund: undefined,
-    registriernummer: undefined,
     keller_beheizt: undefined,
-    prueftext: undefined,
     beschreibung: undefined,
   };
 }
@@ -429,13 +440,10 @@ export function fakeGEGNachweisWohnenComplete() {
     id: faker.number.int({ max: 2147483647 }),
     uid: '[object Object]',
     ausstellgrund: undefined,
-    registriernummer: undefined,
     keller_beheizt: undefined,
-    ausgestellt: false,
     storniert: false,
     bestellt: false,
     zurueckgestellt: false,
-    prueftext: undefined,
     beschreibung: undefined,
     benutzer_id: undefined,
     aufnahme_id: faker.number.int(),

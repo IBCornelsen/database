@@ -4,21 +4,17 @@ model GEGNachweisWohnen {
 
   /// @zod.describe("Ausstellgrund wie z.B. Vermietung oder Verkauf")
   ausstellgrund    Ausstellgrund?
-  /// @zod.describe("Die Registriernummer des Ausweises")
-  registriernummer String?        @db.VarChar
   /// @zod.describe("Falls der Keller des Gebäudes beheizt wird, sollte dieser Wert auf true stehen")
   keller_beheizt   Boolean?
 
-  ausgestellt     Boolean? @default(false)
-  /// @zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")
+  /// @zod.describe("Falls die Nachweisanfrage storniert wurde, sollte dieser Wert auf true stehen")
   storniert       Boolean? @default(false)
-  /// @zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")
+  /// @zod.describe("Falls der Nachweis bestellt wurde, sollte dieser Wert auf true stehen")
   bestellt        Boolean? @default(false)
-  /// @zod.describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")
+  /// @zod.describe("Falls der Nachweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")
   zurueckgestellt Boolean? @default(false)
-  /// @zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")
-  prueftext       String?  @db.VarChar(1000)
 
+	/// @zod.describe("Beschreibung des Bauvorhabens")
   beschreibung String? @db.Text
 
   /// @zod.describe("Die ID des Benutzers, welchem dieser Ausweis gehört")

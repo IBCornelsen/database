@@ -269,6 +269,12 @@ Table GEGEinpreisung {
 Table GEGNachweisGewerbe {
   id Int [pk, increment]
   uid String [unique, not null]
+  ausstellgrund Ausstellgrund [note: '@zod.describe("Ausstellgrund wie z.B. Vermietung oder Verkauf")']
+  keller_beheizt Boolean [note: '@zod.describe("Falls der Keller des Gebäudes beheizt wird, sollte dieser Wert auf true stehen")']
+  storniert Boolean [default: false, note: '@zod.describe("Falls die Nachweisanfrage storniert wurde, sollte dieser Wert auf true stehen")']
+  bestellt Boolean [default: false, note: '@zod.describe("Falls der Nachweis bestellt wurde, sollte dieser Wert auf true stehen")']
+  zurueckgestellt Boolean [default: false, note: '@zod.describe("Falls der Nachweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")']
+  beschreibung String [note: '@zod.describe("Beschreibung des Bauvorhabens")']
   benutzer_id Int [note: '@zod.describe("Die ID des Benutzers, welchem dieser Ausweis gehört")']
   benutzer benutzer
   aufnahme_id Int [unique, not null]
@@ -281,14 +287,11 @@ Table GEGNachweisWohnen {
   id Int [pk, increment]
   uid String [unique, not null]
   ausstellgrund Ausstellgrund [note: '@zod.describe("Ausstellgrund wie z.B. Vermietung oder Verkauf")']
-  registriernummer String [note: '@zod.describe("Die Registriernummer des Ausweises")']
   keller_beheizt Boolean [note: '@zod.describe("Falls der Keller des Gebäudes beheizt wird, sollte dieser Wert auf true stehen")']
-  ausgestellt Boolean [default: false]
-  storniert Boolean [default: false, note: '@zod.describe("Falls der Ausweis storniert wurde, sollte dieser Wert auf true stehen")']
-  bestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis bestellt wurde, sollte dieser Wert auf true stehen")']
-  zurueckgestellt Boolean [default: false, note: '@zod.describe("Falls der Ausweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")']
-  prueftext String [note: '@zod.describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung")']
-  beschreibung String
+  storniert Boolean [default: false, note: '@zod.describe("Falls die Nachweisanfrage storniert wurde, sollte dieser Wert auf true stehen")']
+  bestellt Boolean [default: false, note: '@zod.describe("Falls der Nachweis bestellt wurde, sollte dieser Wert auf true stehen")']
+  zurueckgestellt Boolean [default: false, note: '@zod.describe("Falls der Nachweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")']
+  beschreibung String [note: '@zod.describe("Beschreibung des Bauvorhabens")']
   benutzer_id Int [note: '@zod.describe("Die ID des Benutzers, welchem dieser Ausweis gehört")']
   benutzer benutzer
   aufnahme_id Int [unique, not null]

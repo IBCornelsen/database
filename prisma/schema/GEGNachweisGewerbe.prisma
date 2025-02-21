@@ -1,13 +1,27 @@
 model GEGNachweisGewerbe {
-	id Int @id @default(autoincrement())
-  uid String @unique @default(dbgenerated("'gng-' || gen_random_uuid()"))
+  id  Int    @id @default(autoincrement())
+  uid String @unique @default(dbgenerated("'gnw-' || gen_random_uuid()"))
 
-	  /// @zod.describe("Die ID des Benutzers, welchem dieser Ausweis gehört")
+  /// @zod.describe("Ausstellgrund wie z.B. Vermietung oder Verkauf")
+  ausstellgrund    Ausstellgrund?
+  /// @zod.describe("Falls der Keller des Gebäudes beheizt wird, sollte dieser Wert auf true stehen")
+  keller_beheizt   Boolean?
+
+  /// @zod.describe("Falls die Nachweisanfrage storniert wurde, sollte dieser Wert auf true stehen")
+  storniert       Boolean? @default(false)
+  /// @zod.describe("Falls der Nachweis bestellt wurde, sollte dieser Wert auf true stehen")
+  bestellt        Boolean? @default(false)
+  /// @zod.describe("Falls der Nachweis vom Aussteller zurückgestellt wurde, sollte dieser Wert auf true stehen")
+  zurueckgestellt Boolean? @default(false)
+
+	/// @zod.describe("Beschreibung des Bauvorhabens")
+  beschreibung String? @db.Text
+
+  /// @zod.describe("Die ID des Benutzers, welchem dieser Ausweis gehört")
   benutzer_id Int?
   benutzer    Benutzer? @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-	aufnahme_id Int       @unique	
+  aufnahme_id Int       @unique
   aufnahme    Aufnahme  @relation(fields: [aufnahme_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
 	geg_einpreisung_id Int? @unique
   geg_einpreisung GEGEinpreisung? @relation(fields: [geg_einpreisung_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
