@@ -1,6 +1,30 @@
+enum Einpreisungsstatus {
+	open
+	canceled
+	pending
+	expired
+}
+
 model GEGEinpreisung {
 	id Int @id @default(autoincrement())
   uid String @unique @default(dbgenerated("'gge-' || gen_random_uuid()"))
+
+	empfaenger  String? @db.VarChar
+  strasse     String? @db.VarChar
+  plz         String? @db.VarChar
+  ort         String? @db.VarChar
+  zusatzzeile String? @db.VarChar
+  telefon     String? @db.VarChar
+  email       String? @db.VarChar
+
+  abweichende_versand_adresse Boolean? @default(false)
+  versand_empfaenger          String?  @db.VarChar
+  versand_strasse             String?  @db.VarChar
+  versand_plz                 String?  @db.VarChar
+  versand_ort                 String?  @db.VarChar
+  versand_zusatzzeile         String?  @db.VarChar
+
+  status                Einpreisungsstatus
 
 	geg_nachweis_wohnen GEGNachweisWohnen?
 	geg_nachweis_gewerbe GEGNachweisGewerbe?

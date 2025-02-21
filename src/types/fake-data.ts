@@ -1,4 +1,4 @@
-import { Heizungsstatus, Lueftungskonzept, BenutzerRolle, BilderKategorie, Bezahlmethoden, Rechnungsstatus, AusweisTyp, TicketStatus, UnterlagenKategorie, Ausstellgrund, Ausweisart, Service } from '@prisma/client';
+import { Heizungsstatus, Lueftungskonzept, BenutzerRolle, BilderKategorie, Einpreisungsstatus, Bezahlmethoden, Rechnungsstatus, AusweisTyp, TicketStatus, UnterlagenKategorie, Ausstellgrund, Ausweisart, Service } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 import Decimal from 'decimal.js';
 
@@ -368,10 +368,41 @@ export function fakeEventComplete() {
     benutzer_id: undefined,
   };
 }
+export function fakeGEGEinpreisung() {
+  return {
+    empfaenger: undefined,
+    strasse: undefined,
+    plz: undefined,
+    ort: undefined,
+    zusatzzeile: undefined,
+    telefon: undefined,
+    email: undefined,
+    versand_empfaenger: undefined,
+    versand_strasse: undefined,
+    versand_plz: undefined,
+    versand_ort: undefined,
+    versand_zusatzzeile: undefined,
+    status: faker.helpers.arrayElement([Einpreisungsstatus.open, Einpreisungsstatus.canceled, Einpreisungsstatus.pending, Einpreisungsstatus.expired] as const),
+  };
+}
 export function fakeGEGEinpreisungComplete() {
   return {
     id: faker.number.int({ max: 2147483647 }),
     uid: '[object Object]',
+    empfaenger: undefined,
+    strasse: undefined,
+    plz: undefined,
+    ort: undefined,
+    zusatzzeile: undefined,
+    telefon: undefined,
+    email: undefined,
+    abweichende_versand_adresse: false,
+    versand_empfaenger: undefined,
+    versand_strasse: undefined,
+    versand_plz: undefined,
+    versand_ort: undefined,
+    versand_zusatzzeile: undefined,
+    status: faker.helpers.arrayElement([Einpreisungsstatus.open, Einpreisungsstatus.canceled, Einpreisungsstatus.pending, Einpreisungsstatus.expired] as const),
     benutzer_id: undefined,
   };
 }
@@ -580,7 +611,7 @@ export function fakeUnterlageComplete() {
     name: undefined,
     kategorie: undefined,
     mime: undefined,
-    aufnahme_id: faker.number.int(),
+    aufnahme_id: undefined,
   };
 }
 export function fakeVerbrauchsausweisGewerbe() {

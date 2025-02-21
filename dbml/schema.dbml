@@ -245,6 +245,20 @@ Table Event {
 Table GEGEinpreisung {
   id Int [pk, increment]
   uid String [unique, not null]
+  empfaenger String
+  strasse String
+  plz String
+  ort String
+  zusatzzeile String
+  telefon String
+  email String
+  abweichende_versand_adresse Boolean [default: false]
+  versand_empfaenger String
+  versand_strasse String
+  versand_plz String
+  versand_ort String
+  versand_zusatzzeile String
+  status Einpreisungsstatus [not null]
   geg_nachweis_wohnen GEGNachweisWohnen
   geg_nachweis_gewerbe GEGNachweisGewerbe
   bedarfsausweis_gewerbe BedarfsausweisGewerbe
@@ -384,8 +398,8 @@ Table Unterlage {
   name String
   kategorie String
   mime String
-  aufnahme_id Int [not null]
-  aufnahme Aufnahme [not null]
+  aufnahme_id Int
+  aufnahme Aufnahme
 }
 
 Table VerbrauchsausweisGewerbe {
@@ -533,6 +547,13 @@ Enum BilderKategorie {
   Fenster
   Gebaeude
   Daemmung
+}
+
+Enum Einpreisungsstatus {
+  open
+  canceled
+  pending
+  expired
 }
 
 Enum Bezahlmethoden {
