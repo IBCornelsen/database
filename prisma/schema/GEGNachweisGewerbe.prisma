@@ -22,6 +22,9 @@ model GEGNachweisGewerbe {
   benutzer    Benutzer? @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   aufnahme_id Int       @unique
   aufnahme    Aufnahme  @relation(fields: [aufnahme_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+		rechnung_id Int? @unique
+	rechnung Rechnung? @relation(fields: [rechnung_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 	geg_einpreisung_id Int? @unique
   geg_einpreisung GEGEinpreisung? @relation(fields: [geg_einpreisung_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

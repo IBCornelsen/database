@@ -27,5 +27,4 @@ export const RechnungSchema = z.object({
   bezahlt_am: z.date().nullish(),
   storniert_am: z.date().nullish(),
   transaktions_referenz: z.string().nullish(),
-  aufnahme_id: z.number().int(),
 })

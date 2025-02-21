@@ -171,6 +171,7 @@ export function fakeBedarfsausweisGewerbeComplete() {
     uid: '[object Object]',
     benutzer_id: undefined,
     aufnahme_id: faker.number.int(),
+    rechnung_id: undefined,
     geg_einpreisung_id: undefined,
   };
 }
@@ -300,6 +301,7 @@ export function fakeBedarfsausweisWohnenComplete() {
     prueftext: undefined,
     beschreibung: undefined,
     kontrolldatei_angefragt: false,
+    rechnung_id: undefined,
     aufnahme_id: faker.number.int(),
   };
 }
@@ -425,6 +427,7 @@ export function fakeGEGNachweisGewerbeComplete() {
     beschreibung: undefined,
     benutzer_id: undefined,
     aufnahme_id: faker.number.int(),
+    rechnung_id: undefined,
     geg_einpreisung_id: undefined,
   };
 }
@@ -447,6 +450,7 @@ export function fakeGEGNachweisWohnenComplete() {
     beschreibung: undefined,
     benutzer_id: undefined,
     aufnahme_id: faker.number.int(),
+    rechnung_id: undefined,
     geg_einpreisung_id: undefined,
   };
 }
@@ -559,7 +563,6 @@ export function fakeRechnungComplete() {
     bezahlt_am: undefined,
     storniert_am: undefined,
     transaktions_referenz: undefined,
-    aufnahme_id: faker.number.int(),
   };
 }
 export function fakeRefreshTokens() {
@@ -708,6 +711,7 @@ export function fakeVerbrauchsausweisGewerbeComplete() {
     prueftext: undefined,
     beschreibung: undefined,
     kontrolldatei_angefragt: false,
+    rechnung_id: undefined,
     aufnahme_id: faker.number.int(),
   };
 }
@@ -773,6 +777,7 @@ export function fakeVerbrauchsausweisWohnenComplete() {
     prueftext: undefined,
     beschreibung: undefined,
     kontrolldatei_angefragt: false,
+    rechnung_id: undefined,
     aufnahme_id: faker.number.int(),
   };
 }

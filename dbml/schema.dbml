@@ -95,13 +95,12 @@ Table Aufnahme {
   events Event [not null]
   bilder Bild [not null]
   unterlagen Unterlage [not null]
-  bedarfsausweis_wohnen BedarfsausweisWohnen
-  verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe
-  verbrauchsausweis_wohnen VerbrauchsausweisWohnen
-  geg_nachweis_wohnen GEGNachweisWohnen
-  geg_nachweis_gewerbe GEGNachweisGewerbe
-  bedarfsausweis_gewerbe BedarfsausweisGewerbe
-  rechnungen Rechnung [not null]
+  bedarfsausweise_wohnen BedarfsausweisWohnen [not null]
+  verbrauchsausweise_gewerbe VerbrauchsausweisGewerbe [not null]
+  verbrauchsausweise_wohnen VerbrauchsausweisWohnen [not null]
+  geg_nachweise_wohnen GEGNachweisWohnen [not null]
+  geg_nachweise_gewerbe GEGNachweisGewerbe [not null]
+  bedarfsausweise_gewerbe BedarfsausweisGewerbe [not null]
   objekt_id Int [not null]
   objekt Objekt [not null]
 }
@@ -113,6 +112,8 @@ Table BedarfsausweisGewerbe {
   benutzer benutzer
   aufnahme_id Int [unique, not null]
   aufnahme Aufnahme [not null]
+  rechnung_id Int [unique]
+  rechnung Rechnung
   geg_einpreisung_id Int [unique]
   geg_einpreisung GEGEinpreisung
 }
@@ -183,6 +184,8 @@ Table BedarfsausweisWohnen {
   beschreibung String
   kontrolldatei_angefragt Boolean [default: false, note: '@zod.describe("Ob bei der Anfrage der Registriernummer eine Kontrolldatei angefragt wurde")']
   benutzer benutzer
+  rechnung_id Int [unique]
+  rechnung Rechnung
   aufnahme_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
   aufnahme Aufnahme [not null]
 }
@@ -279,6 +282,8 @@ Table GEGNachweisGewerbe {
   benutzer benutzer
   aufnahme_id Int [unique, not null]
   aufnahme Aufnahme [not null]
+  rechnung_id Int [unique]
+  rechnung Rechnung
   geg_einpreisung_id Int [unique]
   geg_einpreisung GEGEinpreisung
 }
@@ -296,6 +301,8 @@ Table GEGNachweisWohnen {
   benutzer benutzer
   aufnahme_id Int [unique, not null]
   aufnahme Aufnahme [not null]
+  rechnung_id Int [unique]
+  rechnung Rechnung
   geg_einpreisung_id Int [unique]
   geg_einpreisung GEGEinpreisung
 }
@@ -364,8 +371,12 @@ Table Rechnung {
   storniert_am DateTime
   transaktions_referenz String [unique]
   benutzer benutzer [not null]
-  aufnahme_id Int [not null]
-  aufnahme Aufnahme [not null]
+  verbrauchsausweis_wohnen VerbrauchsausweisWohnen
+  verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe
+  bedarfsausweis_wohnen BedarfsausweisWohnen
+  bedarfsausweis_gewerbe BedarfsausweisGewerbe
+  geg_nachweis_gewerbe GEGNachweisGewerbe
+  geg_nachweis_wohnen GEGNachweisWohnen
 }
 
 Table RefreshTokens {
@@ -451,6 +462,8 @@ Table VerbrauchsausweisGewerbe {
   beschreibung String
   kontrolldatei_angefragt Boolean [default: false, note: '@zod.describe("Ob bei der Anfrage der Registriernummer eine Kontrolldatei angefragt wurde")']
   benutzer benutzer
+  rechnung_id Int [unique]
+  rechnung Rechnung
   aufnahme_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
   aufnahme Aufnahme [not null]
 }
@@ -489,6 +502,8 @@ Table VerbrauchsausweisWohnen {
   beschreibung String
   kontrolldatei_angefragt Boolean [default: false, note: '@zod.describe("Ob bei der Anfrage der Registriernummer eine Kontrolldatei angefragt wurde")']
   benutzer benutzer
+  rechnung_id Int [unique]
+  rechnung Rechnung
   aufnahme_id Int [unique, not null, note: '@zod.describe("ID der korrespondierenden Gebäudeaufnahme")']
   aufnahme Aufnahme [not null]
 }
@@ -633,13 +648,17 @@ Ref: Aufnahme.objekt_id > Objekt.id [delete: No Action]
 
 Ref: BedarfsausweisGewerbe.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: BedarfsausweisGewerbe.aufnahme_id - Aufnahme.id [delete: No Action]
+Ref: BedarfsausweisGewerbe.aufnahme_id > Aufnahme.id [delete: No Action]
+
+Ref: BedarfsausweisGewerbe.rechnung_id - Rechnung.id [delete: No Action]
 
 Ref: BedarfsausweisGewerbe.geg_einpreisung_id - GEGEinpreisung.id [delete: No Action]
 
 Ref: BedarfsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: BedarfsausweisWohnen.aufnahme_id - Aufnahme.id [delete: No Action]
+Ref: BedarfsausweisWohnen.rechnung_id - Rechnung.id [delete: No Action]
+
+Ref: BedarfsausweisWohnen.aufnahme_id > Aufnahme.id [delete: No Action]
 
 Ref: Bild.aufnahme_id > Aufnahme.id [delete: No Action]
 
@@ -651,21 +670,23 @@ Ref: GEGEinpreisung.benutzer_id > benutzer.id [delete: No Action]
 
 Ref: GEGNachweisGewerbe.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: GEGNachweisGewerbe.aufnahme_id - Aufnahme.id [delete: No Action]
+Ref: GEGNachweisGewerbe.aufnahme_id > Aufnahme.id [delete: No Action]
+
+Ref: GEGNachweisGewerbe.rechnung_id - Rechnung.id [delete: No Action]
 
 Ref: GEGNachweisGewerbe.geg_einpreisung_id - GEGEinpreisung.id [delete: No Action]
 
 Ref: GEGNachweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: GEGNachweisWohnen.aufnahme_id - Aufnahme.id [delete: No Action]
+Ref: GEGNachweisWohnen.aufnahme_id > Aufnahme.id [delete: No Action]
+
+Ref: GEGNachweisWohnen.rechnung_id - Rechnung.id [delete: No Action]
 
 Ref: GEGNachweisWohnen.geg_einpreisung_id - GEGEinpreisung.id [delete: No Action]
 
 Ref: Objekt.benutzer_id > benutzer.id
 
 Ref: Rechnung.benutzer_id > benutzer.id [delete: No Action]
-
-Ref: Rechnung.aufnahme_id > Aufnahme.id [delete: No Action]
 
 Ref: RefreshTokens.benutzer_id > benutzer.id [delete: Cascade]
 
@@ -677,11 +698,15 @@ Ref: Unterlage.aufnahme_id > Aufnahme.id [delete: No Action]
 
 Ref: VerbrauchsausweisGewerbe.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: VerbrauchsausweisGewerbe.aufnahme_id - Aufnahme.id [delete: No Action]
+Ref: VerbrauchsausweisGewerbe.rechnung_id - Rechnung.id [delete: No Action]
+
+Ref: VerbrauchsausweisGewerbe.aufnahme_id > Aufnahme.id [delete: No Action]
 
 Ref: VerbrauchsausweisWohnen.benutzer_id > benutzer.id [delete: No Action]
 
-Ref: VerbrauchsausweisWohnen.aufnahme_id - Aufnahme.id [delete: No Action]
+Ref: VerbrauchsausweisWohnen.rechnung_id - Rechnung.id [delete: No Action]
+
+Ref: VerbrauchsausweisWohnen.aufnahme_id > Aufnahme.id [delete: No Action]
 
 Ref: documenttemplates.user_id > benutzer.id [delete: Cascade]
 

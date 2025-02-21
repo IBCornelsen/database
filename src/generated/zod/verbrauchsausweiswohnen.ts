@@ -34,5 +34,6 @@ export const VerbrauchsausweisWohnenSchema = z.object({
   prueftext: z.string().describe("Durch den Kunden hinzugefügte Anmerkung zur Vorabprüfung").nullish(),
   beschreibung: z.string().nullish(),
   kontrolldatei_angefragt: z.boolean().describe("Ob bei der Anfrage der Registriernummer eine Kontrolldatei angefragt wurde").nullish(),
+  rechnung_id: z.number().int().nullish(),
   aufnahme_id: z.number().int().describe("ID der korrespondierenden Gebäudeaufnahme"),
 })

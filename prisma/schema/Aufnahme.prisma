@@ -135,13 +135,12 @@ model Aufnahme {
 	events Event[]
 	bilder             Bild[]
 	unterlagen	Unterlage[]
-  bedarfsausweis_wohnen     BedarfsausweisWohnen?			
-  verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe? 
-  verbrauchsausweis_wohnen  VerbrauchsausweisWohnen?
-	geg_nachweis_wohnen GEGNachweisWohnen?
-	geg_nachweis_gewerbe GEGNachweisGewerbe?
-	bedarfsausweis_gewerbe BedarfsausweisGewerbe?
-	rechnungen 									Rechnung[]
+  bedarfsausweise_wohnen     BedarfsausweisWohnen[]
+  verbrauchsausweise_gewerbe VerbrauchsausweisGewerbe[]
+  verbrauchsausweise_wohnen  VerbrauchsausweisWohnen[]
+	geg_nachweise_wohnen GEGNachweisWohnen[]
+	geg_nachweise_gewerbe GEGNachweisGewerbe[]
+	bedarfsausweise_gewerbe BedarfsausweisGewerbe[]
 
   objekt_id Int
   objekt    Objekt @relation(fields: [objekt_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

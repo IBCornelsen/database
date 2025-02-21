@@ -67,6 +67,9 @@ model VerbrauchsausweisWohnen {
 	kontrolldatei_angefragt Boolean? @default(false)
 
   benutzer                    Benutzer?                  @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+	rechnung_id Int? @unique
+	rechnung Rechnung? @relation(fields: [rechnung_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 	
 	/// @zod.describe("ID der korrespondierenden Gebäudeaufnahme")
 	aufnahme_id        Int @unique

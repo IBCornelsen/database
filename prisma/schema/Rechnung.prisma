@@ -55,8 +55,12 @@ model Rechnung {
 
   benutzer                 Benutzer                   @relation(fields: [benutzer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-	aufnahme_id        Int
-  aufnahme           Aufnahme @relation(fields: [aufnahme_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+	verbrauchsausweis_wohnen VerbrauchsausweisWohnen?
+	verbrauchsausweis_gewerbe VerbrauchsausweisGewerbe?
+	bedarfsausweis_wohnen BedarfsausweisWohnen?
+	bedarfsausweis_gewerbe BedarfsausweisGewerbe?
+	geg_nachweis_gewerbe GEGNachweisGewerbe?
+	geg_nachweis_wohnen GEGNachweisWohnen?
 }
 
 
